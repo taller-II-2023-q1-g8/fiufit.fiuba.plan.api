@@ -1,8 +1,8 @@
 version: '3.8'
 
 services:
-  postgres_trainer:
-    container_name: postgres_trainer
+  postgres:
+    container_name: postgres
     image: postgres:13
     volumes:
       - postgres_volume:/var/lib/postgresql/data
@@ -16,7 +16,7 @@ services:
     container_name: trainer_app
     restart: always
     depends_on:
-      - postgres_trainer
+      - postgres
     build:
       context: .
       target: dependencies
@@ -28,7 +28,7 @@ services:
       - PG_HOST=${PG_HOST}
     volumes:
       - ./:/home/node/app
-    command: dumb-init node ace serve --watch --node-args="--inspect=127.0.0.1"
+    command: dumb-init node ace serve --watch --node-args="--inspect=0.0.0.0"
 
 volumes:
   postgres_volume:

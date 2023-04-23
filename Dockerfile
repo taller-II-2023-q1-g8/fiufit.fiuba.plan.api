@@ -18,14 +18,9 @@ RUN node ace build --production
 FROM base AS production
 ENV NODE_ENV=production
 ENV PORT=$PORT
-ENV HOST=127.0.0.1
+ENV HOST=0.0.0.0
 COPY --chown=node:node ./package*.json ./
 RUN npm ci --production
 COPY --chown=node:node --from=build /home/node/app/build .
 EXPOSE $PORT
-RUN npm i @adonisjs/lucid@latest
-RUN node ace configure @adonisjs/lucid
-RUN npm i @types/luxon
-RUN npm i adonis5-swagger
-RUN node ace migration:run
 CMD [ "dumb-init", "node", "server.js" ]
