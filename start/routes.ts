@@ -27,5 +27,7 @@ Route.get('/', async () => {
 Route.group(() => {
   Route.group(() => {
     Route.resource('users', 'UsersController') // /api/v1/users
+    Route.resource('plans', 'PlansController') // /api/v1/plans
+    Route.resource('exercises', 'ExercisesController') // /api/v1/Exercises
   }).prefix('/v1')
 }).prefix('/api')

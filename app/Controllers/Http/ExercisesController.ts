@@ -1,12 +1,12 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import User from 'App/Models/User'
+import Exercise from 'App/Models/Exercise'
 
-export default class UsersController {
+export default class ExercisesController {
   public async index({ response }: HttpContextContract) {
     try {
-      const users = await User.all()
+      const exercises = await Exercise.all()
       response.status(200)
-      response.send(users)
+      response.send(exercises)
     } catch (error) {
       response.status(400)
       response.send({
@@ -19,10 +19,10 @@ export default class UsersController {
 
   public async store({ request, response }: HttpContextContract) {
     try {
-      const data = request.only(['email', 'password'])
-      const user = await User.create({ email: data.email, password: data.password })
+      const data = request.only(['name'])
+      const exercise = await Exercise.create({ name: data.name })
       response.status(200)
-      response.send(user)
+      response.send(exercise)
     } catch (error) {
       response.status(400)
       response.send({
@@ -33,9 +33,9 @@ export default class UsersController {
 
   public async show({ request, response }: HttpContextContract) {
     try {
-      const user = await User.findOrFail(request.param('id'))
+      const exercise = await Exercise.findOrFail(request.param('id'))
       response.status(200)
-      response.send(user)
+      response.send(exercise)
     } catch (error) {
       response.status(400)
       response.send({
@@ -50,8 +50,8 @@ export default class UsersController {
 
   public async destroy({ request, response }: HttpContextContract) {
     try {
-      const user = await User.findOrFail(request.param('id'))
-      await user.delete()
+      const exercise = await Exercise.findOrFail(request.param('id'))
+      await exercise.delete()
       response.status(200)
       response.send('DELETED')
     } catch (error) {
