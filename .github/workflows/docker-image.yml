@@ -34,6 +34,9 @@ jobs:
       - name: Start containers
         run: docker compose -f "docker-compose.yml" --env-file .env up -d --build
 
+      - name: Run Migrations
+        run: node ace migration:run
+        
       - name: Run tests
         run: node ace test
 
