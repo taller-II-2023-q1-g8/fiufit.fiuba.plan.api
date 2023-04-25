@@ -26,20 +26,16 @@ test.group('Plans crud', (group) => {
     planRes.assertBodyContains(planData)
   })
 
-  /*test('Register plan with exercise', async ({ client }) => {
+  test('Register plan with exercise', async ({ client }) => {
     const planData = {
       title: '1',
     }
     const planRes = await client.post('/api/v1/plans').form(planData)
     const plan = await Plan.findOrFail(planRes.body().id)
-    console.log(plan.serialize())
-    const exercise = await Exercise.create({ name: 'exercise 1' })
-    await plan.related('exercises').save(exercise)
-    //await plan.related('exercises').create({ name: 'exercise 1' })
-    console.log(plan.serialize())
+    await plan.related('exercises').create({ name: 'exercise 1' })
     planRes.assertStatus(200)
     planRes.assertBodyContains(planData)
-  })*/
+  })
 
   test('Register plan fails', async ({ client }) => {
     const planData = {
