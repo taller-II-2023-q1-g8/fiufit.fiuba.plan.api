@@ -1,20 +1,14 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
-import Plan from 'App/Models/Plan'
 import Goal from 'App/Models/Goal'
 
-export default class Atlete extends BaseModel {
+export default class Metric extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
-  public email: string
+  public name: string
 
-  @column()
-  public password: string
-
-  @manyToMany(() => Plan)
-  public plans: ManyToMany<typeof Plan>
+  public value: number
 
   @manyToMany(() => Goal)
   public goals: ManyToMany<typeof Goal>

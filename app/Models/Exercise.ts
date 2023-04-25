@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, hasOne, HasOne, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
 import Plan from 'App/Models/Plan'
+import Multimedia from 'App/Models/Multimedia'
 //import ExerciseType from 'App/Models/ExerciseType'
 
 export default class Exercise extends BaseModel {
@@ -13,7 +14,10 @@ export default class Exercise extends BaseModel {
   @manyToMany(() => Plan)
   public plans: ManyToMany<typeof Plan>
 
-  /*@hasOne(() => ExerciseType)
+  @hasOne(() => Multimedia)
+  public multimedia: HasOne<typeof Multimedia>
+
+  /*@hasOne(() => ExerciseType)               //Axel:no me termina de convencer todavia
   public type: HasOne<typeof ExerciseType>*/
 
   @column.dateTime({ autoCreate: true })

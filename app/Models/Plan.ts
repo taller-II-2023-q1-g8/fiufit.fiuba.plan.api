@@ -1,17 +1,9 @@
 import { DateTime } from 'luxon'
-import {
-  BaseModel,
-  column,
-  hasOne,
-  HasOne,
-  hasMany,
-  HasMany,
-  manyToMany,
-  ManyToMany,
-} from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
 import Exercise from 'App/Models/Exercise'
-//import Resource from 'App/Models/Resource'
-//import Goals from 'App/Models/Goal'
+import Goal from 'App/Models/Goal'
+import Atlete from 'App/Models/Atlete'
+//import Trainer from 'App/Models/Trainer'
 
 export default class Plan extends BaseModel {
   @column({ isPrimary: true })
@@ -23,17 +15,20 @@ export default class Plan extends BaseModel {
   @column()
   public description: string
 
-  @manyToMany(() => Exercise)
-  public exercises: ManyToMany<typeof Exercise>
-
   @column()
   public dificulty: string
 
-  /*@hasMany(() => Resource)
-  public resources: HasMany<typeof Resource>*/
+  @manyToMany(() => Exercise)
+  public exercises: ManyToMany<typeof Exercise>
 
-  /*@hasMany(() => Goal)
-  public goals: HasMany<typeof Goal>*/
+  @manyToMany(() => Goal)
+  public goals: ManyToMany<typeof Goal>
+
+  @manyToMany(() => Atlete)
+  public atletes: ManyToMany<typeof Atlete>
+
+  /*@hasMany(() => Trainer)
+  public trainers: HasMany<typeof Trainer>*/
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

@@ -1,6 +1,5 @@
 import { test } from '@japa/runner'
 import Plan from 'App/Models/Plan'
-import Exercise from 'App/Models/Exercise'
 import Database from '@ioc:Adonis/Lucid/Database'
 
 test.group('Plans crud', (group) => {
