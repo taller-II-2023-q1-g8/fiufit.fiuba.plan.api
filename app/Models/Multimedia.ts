@@ -8,8 +8,6 @@ export default class Metric extends BaseModel {
 
   public name: string
 
-  public value: number
-
   @belongsTo(() => Exercise)
   public goals: BelongsTo<typeof Exercise>
 
