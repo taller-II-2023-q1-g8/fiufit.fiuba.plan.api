@@ -6,8 +6,6 @@ export default class Metric extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  public name: string
-
   @belongsTo(() => Exercise)
   public goals: BelongsTo<typeof Exercise>
 

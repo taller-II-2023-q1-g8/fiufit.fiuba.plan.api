@@ -8,7 +8,6 @@ export default class Exercise extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
   public name: string
 
   @manyToMany(() => Plan)
@@ -16,9 +15,6 @@ export default class Exercise extends BaseModel {
 
   @hasOne(() => Multimedia)
   public multimedia: HasOne<typeof Multimedia>
-
-  /*@hasOne(() => ExerciseType)               //Axel:no me termina de convencer todavia
-  public type: HasOne<typeof ExerciseType>*/
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
