@@ -1,70 +1,70 @@
 import { test } from '@japa/runner'
-import Atlete from 'App/Models/Atlete'
+import Athlete from 'App/Models/Athlete'
 import Database from '@ioc:Adonis/Lucid/Database'
 
-test.group('Atletes crud', (group) => {
+test.group('Athletes crud', (group) => {
   group.each.setup(async () => {
     await Database.beginGlobalTransaction()
     return () => Database.rollbackGlobalTransaction()
   })
-  test('List empty atletes', async ({ client }) => {
-    const atletes = await client.get('/api/v1/atletes')
+  test('List empty athletes', async ({ client }) => {
+    const athletes = await client.get('/api/v1/athletes')
 
-    atletes.assertStatus(200)
-    atletes.assertBodyContains([])
+    athletes.assertStatus(200)
+    athletes.assertBodyContains([])
   })
 
-  test('Register atlete', async ({ client }) => {
-    const atleteData = {
+  test('Register athlete', async ({ client }) => {
+    const athleteData = {
       email: 'virk@adonisjs.com',
       password: 'secret',
     }
 
-    const atlete = await client.post('/api/v1/atletes').form(atleteData)
+    const athlete = await client.post('/api/v1/athletes').form(athleteData)
 
-    atlete.assertStatus(200)
-    atlete.assertBodyContains(atleteData)
+    athlete.assertStatus(200)
+    athlete.assertBodyContains(athleteData)
   })
 
-  test('List atletes after seeding', async ({ client }) => {
-    const atletesData = addAtletes()
-    const atletes = await client.get('/api/v1/atletes')
+  test('List athletes after seeding', async ({ client }) => {
+    const athletesData = addAthletes()
+    const athletes = await client.get('/api/v1/athletes')
 
-    atletes.assertStatus(200)
-    atletes.assertBodyContains(atletesData)
+    athletes.assertStatus(200)
+    athletes.assertBodyContains(athletesData)
   })
 
-  test('Get registered atlete', async ({ client }) => {
-    const atleteData = {
+  test('Get registered athlete', async ({ client }) => {
+    const athleteData = {
       email: 'virk@adonisjs.com',
       password: 'secret',
     }
 
-    const registeredAtlete = (await client.post('/api/v1/atletes').form(atleteData)).body()
+    const registeredAthlete = (await client.post('/api/v1/athletes').form(athleteData)).body()
 
-    const atlete = await client.get('/api/v1/atletes/' + registeredAtlete.id)
+    const athlete = await client.get('/api/v1/athletes/' + registeredAthlete.id)
 
-    atlete.assertStatus(200)
-    atlete.assertBodyContains(registeredAtlete)
+    athlete.assertStatus(200)
+    athlete.assertBodyContains(registeredAthlete)
   })
 
-  test('Delete registered atlete', async ({ client }) => {
-    const atleteData = {
+  test('Delete registered athlete', async ({ client }) => {
+    const athleteData = {
       email: 'virk@adonisjs.com',
       password: 'secret',
     }
 
-    const registeredAtlete = (await client.post('/api/v1/atletes').form(atleteData)).body()
+    const registeredAthlete = (await client.post('/api/v1/athletes').form(athleteData)).body()
 
-    const atlete = await client.delete('/api/v1/atletes/' + registeredAtlete.id)
+    const athlete = await client.delete('/api/v1/athletes/' + registeredAthlete.id)
 
-    atlete.assertStatus(200)
-    atlete.assertTextIncludes('DELETED')
+    athlete.assertStatus(200)
+    athlete.assertTextIncludes('DELETED')
   })
 })
 
-async function addAtletes() {
-  const atletesData = [
+async function addAthletes() {
+  const athletesData = [
     {
       email: 'virk@adonisjs.com',
       password: 'secret',
@@ -75,6 +75,6 @@ async function addAtletes() {
     },
   ]
 
-  await Atlete.createMany(atletesData)
-  return atletesData
+  await Athlete.createMany(athletesData)
+  return athletesData
 }

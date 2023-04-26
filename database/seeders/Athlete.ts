@@ -1,9 +1,9 @@
 import BaseSeeder from '@ioc:Adonis/Lucid/Seeder'
-import User from 'App/Models/Atlete'
+import Athlete from 'App/Models/Athlete'
 
-export default class UserSeeder extends BaseSeeder {
+export default class AthleteSeeder extends BaseSeeder {
   public async run() {
-    await User.createMany([
+    await Athlete.createMany([
       {
         email: 'virk@adonisjs.com',
         password: 'secret',

@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 import { BaseModel, column, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
 import Exercise from 'App/Models/Exercise'
 import Goal from 'App/Models/Goal'
-import Atlete from 'App/Models/Atlete'
+import Athlete from 'App/Models/Athlete'
 //import Trainer from 'App/Models/Trainer'
 
 export default class Plan extends BaseModel {
@@ -24,8 +24,8 @@ export default class Plan extends BaseModel {
   @manyToMany(() => Goal)
   public goals: ManyToMany<typeof Goal>
 
-  @manyToMany(() => Atlete)
-  public atletes: ManyToMany<typeof Atlete>
+  @manyToMany(() => Athlete)
+  public athletes: ManyToMany<typeof Athlete>
 
   /*@hasMany(() => Trainer)
   public trainers: HasMany<typeof Trainer>*/
