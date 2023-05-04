@@ -1,7 +1,8 @@
 import { test } from '@japa/runner'
-import Plan from 'App/Models/Plan'
+import Plan, { PLAN_TAGS } from 'App/Models/Plan'
 import Database from '@ioc:Adonis/Lucid/Database'
 import { crudTests, crudTestsWithWrongFormat } from 'App/Utils/crudTests'
+import { DIFFICULTY_LEVELS } from 'App/Models/Plan'
 
 test.group('Plans crud', (group) => {
   group.each.setup(async () => {
@@ -16,7 +17,7 @@ test.group('Plans crud', (group) => {
   const sampleData = {
     title: 'title0',
     description: 'description0',
-    difficulty: 'NORMAL',
+    difficulty: DIFFICULTY_LEVELS[0],
   }
 
   async function seed() {
@@ -24,17 +25,17 @@ test.group('Plans crud', (group) => {
       {
         title: 'title1',
         description: 'description1',
-        difficulty: 'EASY',
+        difficulty: DIFFICULTY_LEVELS[0],
       },
       {
         title: 'title2',
         description: 'description2',
-        difficulty: 'NORMAL',
+        difficulty: DIFFICULTY_LEVELS[1],
       },
       {
         title: 'title3',
         description: 'description3',
-        difficulty: 'HARD',
+        difficulty: DIFFICULTY_LEVELS[2],
       },
     ]
   
@@ -49,10 +50,18 @@ test.group('Plans crud', (group) => {
   const wrongSampleData2 = {
     title: 'title1',
     description: 'description1',
-    difficulty: 'none',
+    difficulty: 'kinda hard',
+  }
+
+  const wrongSampleData3 = {
+    title: 'title1',
+    description: 'description1',
+    difficulty: DIFFICULTY_LEVELS[0],
+    tags: [PLAN_TAGS[0]]
   }
 
   crudTests(test, route, sampleData, seed, imposibleId)
   crudTestsWithWrongFormat(test, route, wrongSampleData1)
   crudTestsWithWrongFormat(test, route, wrongSampleData2)
+  crudTestsWithWrongFormat(test, route, wrongSampleData3)
 })
