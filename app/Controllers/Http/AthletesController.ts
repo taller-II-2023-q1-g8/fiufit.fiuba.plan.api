@@ -19,8 +19,8 @@ export default class AthletesController {
 
   public async store({ request, response }: HttpContextContract) {
     try {
-      const data = request.only(['email', 'password'])
-      const athlete = await Athlete.create({ email: data.email, password: data.password })
+      const data = request.only([])
+      const athlete = await Athlete.create({})
       response.status(200)
       response.send(athlete)
     } catch (error) {
@@ -37,7 +37,7 @@ export default class AthletesController {
       response.status(200)
       response.send(athlete)
     } catch (error) {
-      response.status(400)
+      response.status(404)
       response.send({
         error: error.message,
       })
@@ -55,7 +55,7 @@ export default class AthletesController {
       response.status(200)
       response.send('DELETED')
     } catch (error) {
-      response.status(400)
+      response.status(404)
       response.send({
         error: error.message,
       })

@@ -7,12 +7,6 @@ export default class Athlete extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
-  public email: string
-
-  @column()
-  public password: string
-
   @manyToMany(() => Plan)
   public plans: ManyToMany<typeof Plan>
 
