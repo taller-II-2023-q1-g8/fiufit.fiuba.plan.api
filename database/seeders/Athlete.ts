@@ -5,12 +5,10 @@ export default class AthleteSeeder extends BaseSeeder {
   public async run() {
     await Athlete.createMany([
       {
-        email: 'virk@adonisjs.com',
-        password: 'secret',
+        external_id: 'external_1',
       },
       {
-        email: 'romain@adonisjs.com',
-        password: 'supersecret',
+        external_id: 'external_2',
       },
     ])
   }

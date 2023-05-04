@@ -19,15 +19,26 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
+import AutoSwagger from 'adonis-autoswagger'
+import Swagger from 'Config/swagger'
 
-Route.get('/', async () => {
+// returns swagger in YAML
+Route.get('/swagger', async () => {
+  return AutoSwagger.docs(Route.toJSON(), Swagger)
+})
+// Renders Swagger-UI and passes YAML-output of /swagger
+Route.get('/docs', async () => {
+  return AutoSwagger.ui('/swagger')
+})
+
+Route.get('/health', async () => {
   return { status: 'OK' }
 })
 
 Route.group(() => {
   Route.group(() => {
-    Route.resource('athletes', 'AthletesController') // /api/v1/athletes
-    Route.resource('plans', 'PlansController') // /api/v1/plans
-    Route.resource('exercises', 'ExercisesController') // /api/v1/exercises
+    Route.resource('athletes', 'AthletesController').except(['create', 'edit']) // /api/v1/athletes
+    Route.resource('plans', 'PlansController').except(['create', 'edit']) // /api/v1/plans
+    Route.resource('exercises', 'ExercisesController').except(['create', 'edit']) // /api/v1/exercises
   }).prefix('/v1')
 }).prefix('/api')

@@ -16,8 +16,6 @@ export default class PlansController {
     }
   }
 
-  public async create({}: HttpContextContract) {} // For the frontend
-
   public async store({ request, response }: HttpContextContract) {
     const newExerciseSchema = schema.create({
       title: schema.string(),
@@ -26,7 +24,7 @@ export default class PlansController {
     })
 
     try {
-      const payload = await request.validate({schema: newExerciseSchema})
+      const payload = await request.validate({ schema: newExerciseSchema })
       const plan = await Plan.create({
         title: payload.title,
         description: payload.description,
@@ -54,8 +52,6 @@ export default class PlansController {
       })
     }
   }
-
-  public async edit({}: HttpContextContract) {} // ???
 
   public async update({}: HttpContextContract) {} // ???
 

@@ -16,16 +16,13 @@ export default class ExercisesController {
     }
   }
 
-  public async create({}: HttpContextContract) {} // For the frontend
-
   public async store({ request, response }: HttpContextContract) {
-
     const newExerciseSchema = schema.create({
       name: schema.string(),
-    })  
+    })
 
     try {
-      const payload = await request.validate({schema: newExerciseSchema})
+      const payload = await request.validate({ schema: newExerciseSchema })
       const exercise = await Exercise.create({ name: payload.name })
       response.status(200)
       response.send(exercise)
@@ -50,8 +47,6 @@ export default class ExercisesController {
       })
     }
   }
-
-  public async edit({}: HttpContextContract) {} // ???
 
   public async update({}: HttpContextContract) {} // ???
 

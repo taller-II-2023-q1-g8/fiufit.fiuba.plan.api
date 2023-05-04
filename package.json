@@ -63,6 +63,7 @@
     "@adonisjs/lucid": "^18.3.0",
     "@adonisjs/repl": "^3.1.11",
     "@types/luxon": "^3.2.2",
+    "adonis-autoswagger": "^1.8.1",
     "luxon": "^3.3.0",
     "nyc": "^15.1.0",
     "pg": "^8.10.0",

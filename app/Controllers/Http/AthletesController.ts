@@ -15,8 +15,6 @@ export default class AthletesController {
     }
   }
 
-  public async create({}: HttpContextContract) {} // For the frontend
-
   public async store({ request, response }: HttpContextContract) {
     try {
       const payload = request.only([])
@@ -43,8 +41,6 @@ export default class AthletesController {
       })
     }
   }
-
-  public async edit({}: HttpContextContract) {} // ???
 
   public async update({}: HttpContextContract) {} // ???
 
