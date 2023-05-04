@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Plan from 'App/Models/Plan'
+import { DIFFICULTY_LEVELS } from 'App/Models/Plan'
 import { schema } from '@ioc:Adonis/Core/Validator'
 
 export default class PlansController {
@@ -20,7 +21,7 @@ export default class PlansController {
     const newExerciseSchema = schema.create({
       title: schema.string(),
       description: schema.string(),
-      difficulty: schema.enum(['EASY', 'NORMAL', 'HARD'] as const),
+      difficulty: schema.enum(DIFFICULTY_LEVELS),
     })
 
     try {
