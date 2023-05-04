@@ -34,7 +34,7 @@ export default class Plan extends BaseModel {
   public tags: string[]
 
   @belongsTo(() => Trainer)
-  public trainers: BelongsTo<typeof Trainer>
+  public trainer: BelongsTo<typeof Trainer>
 
   @manyToMany(() => Exercise)
   public exercises: ManyToMany<typeof Exercise>
