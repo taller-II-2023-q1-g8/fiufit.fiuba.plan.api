@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import Exercise from './Exercise'
 
-export default class Metric extends BaseModel {
+export default class Multimedia extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 

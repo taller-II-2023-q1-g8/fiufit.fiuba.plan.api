@@ -1,6 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Exercise from 'App/Models/Exercise'
-import { schema } from '@ioc:Adonis/Core/Validator'
+import { schema, rules } from '@ioc:Adonis/Core/Validator'
 
 export default class ExercisesController {
   public async index({ response }: HttpContextContract) {
@@ -18,12 +18,18 @@ export default class ExercisesController {
 
   public async store({ request, response }: HttpContextContract) {
     const newExerciseSchema = schema.create({
-      name: schema.string(),
+      title: schema.string(),
+      reps: schema.number([rules.unsigned()]),
+      weight: schema.number([rules.unsigned()]),
     })
 
     try {
       const payload = await request.validate({ schema: newExerciseSchema })
-      const exercise = await Exercise.create({ name: payload.name })
+      const exercise = await Exercise.create({
+        title: payload.title,
+        reps: payload.reps,
+        weight: payload.weight,
+      })
       response.status(200)
       response.send(exercise)
     } catch (error) {

@@ -1,12 +1,12 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Athlete from 'App/Models/Athlete'
+import Trainer from 'App/Models/Trainer'
 
-export default class AthletesController {
+export default class TrainersController {
   public async index({ response }: HttpContextContract) {
     try {
-      const athletes = await Athlete.all()
+      const trainers = await Trainer.all()
       response.status(200)
-      response.send(athletes)
+      response.send(trainers)
     } catch (error) {
       response.status(400)
       response.send({
@@ -15,12 +15,14 @@ export default class AthletesController {
     }
   }
 
+  public async create({}: HttpContextContract) {} // For the frontend
+
   public async store({ request, response }: HttpContextContract) {
     try {
       const payload = request.only(['external_id'])
-      const athlete = await Athlete.create({external_id: payload.external_id})
+      const trainer = await Trainer.create({external_id: payload.external_id})
       response.status(200)
-      response.send(athlete)
+      response.send(trainer)
     } catch (error) {
       response.status(400)
       response.send({
@@ -31,9 +33,9 @@ export default class AthletesController {
 
   public async show({ request, response }: HttpContextContract) {
     try {
-      const athlete = await Athlete.findOrFail(request.param('id'))
+      const trainer = await Trainer.findOrFail(request.param('id'))
       response.status(200)
-      response.send(athlete)
+      response.send(trainer)
     } catch (error) {
       response.status(404)
       response.send({
@@ -42,12 +44,14 @@ export default class AthletesController {
     }
   }
 
+  public async edit({}: HttpContextContract) {} // ???
+
   public async update({}: HttpContextContract) {} // ???
 
   public async destroy({ request, response }: HttpContextContract) {
     try {
-      const athlete = await Athlete.findOrFail(request.param('id'))
-      await athlete.delete()
+      const trainer = await Trainer.findOrFail(request.param('id'))
+      await trainer.delete()
       response.status(200)
       response.send('DELETED')
     } catch (error) {

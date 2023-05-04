@@ -1,13 +1,14 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Athlete from 'App/Models/Athlete'
+import Multimedia from 'App/Models/Multimedia'
 
-export default class AthletesController {
+export default class MultimediasController {
   public async index({ response }: HttpContextContract) {
     try {
-      const athletes = await Athlete.all()
+      const multimedias = await Multimedia.all()
       response.status(200)
-      response.send(athletes)
+      response.send(multimedias)
     } catch (error) {
+      console.log(error)
       response.status(400)
       response.send({
         error: error.message,
@@ -15,12 +16,14 @@ export default class AthletesController {
     }
   }
 
+  public async create({}: HttpContextContract) {} // For the frontend
+
   public async store({ request, response }: HttpContextContract) {
     try {
       const payload = request.only(['external_id'])
-      const athlete = await Athlete.create({external_id: payload.external_id})
+      const multimedia = await Multimedia.create({external_id: payload.external_id})
       response.status(200)
-      response.send(athlete)
+      response.send(multimedia)
     } catch (error) {
       response.status(400)
       response.send({
@@ -31,9 +34,9 @@ export default class AthletesController {
 
   public async show({ request, response }: HttpContextContract) {
     try {
-      const athlete = await Athlete.findOrFail(request.param('id'))
+      const multimedia = await Multimedia.findOrFail(request.param('id'))
       response.status(200)
-      response.send(athlete)
+      response.send(multimedia)
     } catch (error) {
       response.status(404)
       response.send({
@@ -42,12 +45,14 @@ export default class AthletesController {
     }
   }
 
+  public async edit({}: HttpContextContract) {} // ???
+
   public async update({}: HttpContextContract) {} // ???
 
   public async destroy({ request, response }: HttpContextContract) {
     try {
-      const athlete = await Athlete.findOrFail(request.param('id'))
-      await athlete.delete()
+      const multimedia = await Multimedia.findOrFail(request.param('id'))
+      await multimedia.delete()
       response.status(200)
       response.send('DELETED')
     } catch (error) {

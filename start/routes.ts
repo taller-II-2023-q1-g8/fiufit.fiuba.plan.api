@@ -40,5 +40,7 @@ Route.group(() => {
     Route.resource('athletes', 'AthletesController').except(['create', 'edit']) // /api/v1/athletes
     Route.resource('plans', 'PlansController').except(['create', 'edit']) // /api/v1/plans
     Route.resource('exercises', 'ExercisesController').except(['create', 'edit']) // /api/v1/exercises
+    Route.resource('multimedias', 'MultimediasController').except(['create', 'edit']) // /api/v1/multimedias
+    Route.resource('trainers', 'TrainersController').except(['create', 'edit']) // /api/v1/trainers
   }).prefix('/v1')
 }).prefix('/api')

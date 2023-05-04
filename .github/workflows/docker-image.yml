@@ -35,7 +35,7 @@ jobs:
         run: docker compose -f "docker-compose.yml" --env-file .env up -d --build
 
       - name: Run Migrations
-        run: node ace migration:run
+        run: node ace migration:refresh
         
       - name: Run tests
         run: node ace test
