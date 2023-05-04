@@ -3,7 +3,7 @@ import Plan from 'App/Models/Plan'
 import Database from '@ioc:Adonis/Lucid/Database'
 import { crudTests, crudTestsWithWrongFormat } from 'App/Utils/crudTests'
 
-test.group('Athletes crud', (group) => {
+test.group('Plans crud', (group) => {
   group.each.setup(async () => {
     await Database.beginGlobalTransaction()
     return () => Database.rollbackGlobalTransaction()
@@ -17,16 +17,6 @@ test.group('Athletes crud', (group) => {
     title: 'title0',
     description: 'description0',
     difficulty: 'NORMAL',
-  }
-
-  const wrongSampleData1 = {
-    title: 'title0',
-  }
-
-  const wrongSampleData2 = {
-    title: 'title1',
-    description: 'description1',
-    difficulty: 'none',
   }
 
   async function seed() {
@@ -50,6 +40,16 @@ test.group('Athletes crud', (group) => {
   
     await Plan.createMany(data)
     return data
+  }
+
+  const wrongSampleData1 = {
+    title: 'title0',
+  }
+
+  const wrongSampleData2 = {
+    title: 'title1',
+    description: 'description1',
+    difficulty: 'none',
   }
 
   crudTests(test, route, sampleData, seed, imposibleId)

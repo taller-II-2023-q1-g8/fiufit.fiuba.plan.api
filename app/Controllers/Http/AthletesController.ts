@@ -19,8 +19,8 @@ export default class AthletesController {
 
   public async store({ request, response }: HttpContextContract) {
     try {
-      const payload = request.only([])
-      const athlete = await Athlete.create({})
+      const payload = request.only(['external_id'])
+      const athlete = await Athlete.create({external_id: payload.external_id})
       response.status(200)
       response.send(athlete)
     } catch (error) {

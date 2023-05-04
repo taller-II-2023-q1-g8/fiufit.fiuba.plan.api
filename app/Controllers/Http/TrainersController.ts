@@ -1,13 +1,12 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Exercise from 'App/Models/Exercise'
-import { schema, rules } from '@ioc:Adonis/Core/Validator'
+import Trainer from 'App/Models/Trainer'
 
-export default class ExercisesController {
+export default class TrainersController {
   public async index({ response }: HttpContextContract) {
     try {
-      const exercises = await Exercise.all()
+      const trainers = await Trainer.all()
       response.status(200)
-      response.send(exercises)
+      response.send(trainers)
     } catch (error) {
       response.status(400)
       response.send({
@@ -19,24 +18,12 @@ export default class ExercisesController {
   public async create({}: HttpContextContract) {} // For the frontend
 
   public async store({ request, response }: HttpContextContract) {
-
-    const newExerciseSchema = schema.create({
-      title: schema.string(),
-      reps: schema.number([rules.unsigned()]),
-      weight: schema.number([rules.unsigned()]),
-    })  
-
     try {
-      const payload = await request.validate({schema: newExerciseSchema})
-      const exercise = await Exercise.create({
-        title: payload.title,
-        reps: payload.reps,
-        weight: payload.weight,
-      })
+      const payload = request.only(['external_id'])
+      const trainer = await Trainer.create({external_id: payload.external_id})
       response.status(200)
-      response.send(exercise)
+      response.send(trainer)
     } catch (error) {
-      console.log(error)
       response.status(400)
       response.send({
         error: error.message,
@@ -46,9 +33,9 @@ export default class ExercisesController {
 
   public async show({ request, response }: HttpContextContract) {
     try {
-      const exercise = await Exercise.findOrFail(request.param('id'))
+      const trainer = await Trainer.findOrFail(request.param('id'))
       response.status(200)
-      response.send(exercise)
+      response.send(trainer)
     } catch (error) {
       response.status(404)
       response.send({
@@ -63,8 +50,8 @@ export default class ExercisesController {
 
   public async destroy({ request, response }: HttpContextContract) {
     try {
-      const exercise = await Exercise.findOrFail(request.param('id'))
-      await exercise.delete()
+      const trainer = await Trainer.findOrFail(request.param('id'))
+      await trainer.delete()
       response.status(200)
       response.send('DELETED')
     } catch (error) {

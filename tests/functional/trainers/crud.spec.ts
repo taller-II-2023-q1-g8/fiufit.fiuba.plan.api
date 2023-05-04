@@ -1,16 +1,16 @@
 import { test } from '@japa/runner'
-import Athlete from 'App/Models/Athlete'
+import Trainer from 'App/Models/Trainer'
 import Database from '@ioc:Adonis/Lucid/Database'
 import { crudTests, crudTestsWithWrongFormat } from 'App/Utils/crudTests'
 
-test.group('Athletes crud', (group) => {
+test.group('Trainers crud', (group) => {
   group.each.setup(async () => {
     await Database.beginGlobalTransaction()
     return () => Database.rollbackGlobalTransaction()
   })
 
   const prefix = '/api/v1'
-  const route = `${prefix}/athletes`
+  const route = `${prefix}/trainers`
   const imposibleId = '1000'
 
   const sampleData = {external_id: '0'}
@@ -22,7 +22,7 @@ test.group('Athletes crud', (group) => {
       {external_id: '3'},
     ]
   
-    await Athlete.createMany(data)
+    await Trainer.createMany(data)
     return data
   }
 
