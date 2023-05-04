@@ -24,6 +24,7 @@ export default class ExercisesController {
       response.status(200)
       response.send(exercise)
     } catch (error) {
+      console.log(error)
       response.status(400)
       response.send({
         error: error.message,
@@ -37,7 +38,7 @@ export default class ExercisesController {
       response.status(200)
       response.send(exercise)
     } catch (error) {
-      response.status(400)
+      response.status(404)
       response.send({
         error: error.message,
       })
@@ -55,7 +56,7 @@ export default class ExercisesController {
       response.status(200)
       response.send('DELETED')
     } catch (error) {
-      response.status(400)
+      response.status(404)
       response.send({
         error: error.message,
       })

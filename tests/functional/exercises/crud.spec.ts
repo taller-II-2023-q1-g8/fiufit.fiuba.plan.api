@@ -13,13 +13,13 @@ test.group('Athletes crud', (group) => {
   const route = `${prefix}/exercises`
   const imposibleId = '1000'
 
-  const sampleData = {}
+  const sampleData = {name: 'name0'}
 
   async function seed() {
     const data = [
-      {},
-      {},
-      {},
+      {name: 'name1'},
+      {name: 'name2'},
+      {name: 'name3'},
     ]
   
     await Exercise.createMany(data)
