@@ -1,7 +1,7 @@
 import { test } from '@japa/runner'
 import Athlete from 'App/Models/Athlete'
 import Database from '@ioc:Adonis/Lucid/Database'
-import { crud_tests } from 'App/Utils/crud_tests'
+import { crudTests } from 'App/Utils/crudTests'
 
 test.group('Athletes crud', (group) => {
   group.each.setup(async () => {
@@ -26,5 +26,5 @@ test.group('Athletes crud', (group) => {
     return data
   }
 
-  crud_tests(test, route, sampleData, seed, imposibleId)
+  crudTests(test, route, sampleData, seed, imposibleId)
 })

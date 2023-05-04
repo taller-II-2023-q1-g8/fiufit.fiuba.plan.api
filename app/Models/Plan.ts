@@ -16,7 +16,7 @@ export default class Plan extends BaseModel {
   public description: string
 
   @column()
-  public dificulty: string
+  public difficulty: string
 
   @manyToMany(() => Exercise)
   public exercises: ManyToMany<typeof Exercise>

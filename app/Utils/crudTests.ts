@@ -1,4 +1,4 @@
-export async function crud_tests(test, route, sampleData, seed, imposibleId) {
+export async function crudTests(test, route, sampleData, seed, imposibleId) {
   test('[GET ALL] empty database', async ({ client }) => {
       const response = await client.get(route)
   
@@ -52,5 +52,14 @@ export async function crud_tests(test, route, sampleData, seed, imposibleId) {
   
       response.assertStatus(200)
       response.assertTextIncludes('DELETED')
+    })
+}
+
+export async function crudTestsWithWrongFormat(test, route, wrongSampleData) {
+    test('[POST] wrong format', async ({ client }) => {
+  
+      const response = (await client.post(route).form(wrongSampleData))
+  
+      response.assertStatus(400)
     })
 }

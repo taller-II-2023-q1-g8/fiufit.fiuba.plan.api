@@ -19,7 +19,7 @@ export default class AthletesController {
 
   public async store({ request, response }: HttpContextContract) {
     try {
-      const data = request.only([])
+      const payload = request.only([])
       const athlete = await Athlete.create({})
       response.status(200)
       response.send(athlete)

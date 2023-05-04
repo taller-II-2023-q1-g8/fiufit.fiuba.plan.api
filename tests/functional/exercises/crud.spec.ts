@@ -1,7 +1,7 @@
 import { test } from '@japa/runner'
 import Exercise from 'App/Models/Exercise'
 import Database from '@ioc:Adonis/Lucid/Database'
-import { crud_tests } from 'App/Utils/crud_tests'
+import { crudTests, crudTestsWithWrongFormat } from 'App/Utils/crudTests'
 
 test.group('Athletes crud', (group) => {
   group.each.setup(async () => {
@@ -14,6 +14,7 @@ test.group('Athletes crud', (group) => {
   const imposibleId = '1000'
 
   const sampleData = {name: 'name0'}
+  const wrongSampleData = {}
 
   async function seed() {
     const data = [
@@ -26,5 +27,6 @@ test.group('Athletes crud', (group) => {
     return data
   }
 
-  crud_tests(test, route, sampleData, seed, imposibleId)
+  crudTests(test, route, sampleData, seed, imposibleId)
+  crudTestsWithWrongFormat(test, route, wrongSampleData)
 })

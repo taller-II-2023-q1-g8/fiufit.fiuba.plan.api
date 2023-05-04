@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Plan from 'App/Models/Plan'
+import { schema } from '@ioc:Adonis/Core/Validator'
 
 export default class PlansController {
   public async index({ response }: HttpContextContract) {
@@ -18,9 +19,19 @@ export default class PlansController {
   public async create({}: HttpContextContract) {} // For the frontend
 
   public async store({ request, response }: HttpContextContract) {
+    const newExerciseSchema = schema.create({
+      title: schema.string(),
+      description: schema.string(),
+      difficulty: schema.enum(['EASY', 'NORMAL', 'HARD'] as const),
+    })
+
     try {
-      const data = request.only(['title'])
-      const plan = await Plan.create({ title: data.title })
+      const payload = await request.validate({schema: newExerciseSchema})
+      const plan = await Plan.create({
+        title: payload.title,
+        description: payload.description,
+        difficulty: payload.difficulty,
+      })
       response.status(200)
       response.send(plan)
     } catch (error) {
@@ -37,7 +48,7 @@ export default class PlansController {
       response.status(200)
       response.send(plan)
     } catch (error) {
-      response.status(400)
+      response.status(404)
       response.send({
         error: error.message,
       })
@@ -55,7 +66,7 @@ export default class PlansController {
       response.status(200)
       response.send('DELETED')
     } catch (error) {
-      response.status(400)
+      response.status(404)
       response.send({
         error: error.message,
       })

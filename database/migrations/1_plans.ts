@@ -8,7 +8,7 @@ export default class extends BaseSchema {
       table.increments('id').primary()
       table.string('title').notNullable()
       table.string('description')
-      table.enum('dificulty', ['EASY', 'NORMAL', 'HARD']).defaultTo('NORMAL')
+      table.enum('difficulty', ['EASY', 'NORMAL', 'HARD']).defaultTo('NORMAL')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
