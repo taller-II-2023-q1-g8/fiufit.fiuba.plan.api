@@ -7,7 +7,7 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
       table.string('title').notNullable()
-      table.string('description')
+      table.string('description').defaultTo('')
       table.enum('difficulty', ['EASY', 'NORMAL', 'HARD']).defaultTo('NORMAL')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })

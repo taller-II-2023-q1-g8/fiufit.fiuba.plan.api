@@ -6,6 +6,9 @@ export default class Trainer extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
+  @column()
+  public external_id: string
+
   @manyToMany(() => Plan)
   public plans: ManyToMany<typeof Plan>
 
