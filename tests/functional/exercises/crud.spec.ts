@@ -1,5 +1,5 @@
 import { test } from '@japa/runner'
-import Athlete from 'App/Models/Athlete'
+import Exercise from 'App/Models/Exercise'
 import Database from '@ioc:Adonis/Lucid/Database'
 import { crud_tests } from 'App/Utils/crud_tests'
 
@@ -10,7 +10,7 @@ test.group('Athletes crud', (group) => {
   })
 
   const prefix = '/api/v1'
-  const route = `${prefix}/athletes`
+  const route = `${prefix}/exercises`
   const imposibleId = '1000'
 
   const sampleData = {}
@@ -22,7 +22,7 @@ test.group('Athletes crud', (group) => {
       {},
     ]
   
-    await Athlete.createMany(data)
+    await Exercise.createMany(data)
     return data
   }
 
