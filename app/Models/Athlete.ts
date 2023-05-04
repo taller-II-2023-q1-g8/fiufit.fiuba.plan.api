@@ -10,6 +10,7 @@ export default class Athlete extends BaseModel {
   public external_id: string
 
   @manyToMany(() => Plan)
+  // @no-swagger
   public plans: ManyToMany<typeof Plan>
 
   @column.dateTime({ autoCreate: true })
