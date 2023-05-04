@@ -4,6 +4,11 @@ import { DIFFICULTY_LEVELS, PLAN_TAGS } from 'App/Models/Plan'
 import { schema } from '@ioc:Adonis/Core/Validator'
 
 export default class PlansController {
+  /**
+   * @index
+   * @description Return array of Plans
+   * @responseBody 200 - <Plan[]>
+   */
   public async index({ response }: HttpContextContract) {
     try {
       const plans = await Plan.all()
@@ -17,12 +22,19 @@ export default class PlansController {
     }
   }
 
+  /**
+   * @store
+   * @description Create Plan
+   * @responseBody 200 - <Plan>
+   * @responseBody 400 - Plan could not be created
+   * @requestBody <Plan>
+   */
   public async store({ request, response }: HttpContextContract) {
     const newExerciseSchema = schema.create({
       title: schema.string(),
       description: schema.string(),
       difficulty: schema.enum(DIFFICULTY_LEVELS),
-      tags: schema.array().members(schema.enum(PLAN_TAGS))
+      tags: schema.array().members(schema.enum(PLAN_TAGS)),
     })
 
     try {
@@ -31,7 +43,7 @@ export default class PlansController {
         title: payload.title,
         description: payload.description,
         difficulty: payload.difficulty,
-        tags: payload.tags
+        tags: payload.tags,
       })
       response.status(200)
       response.send(plan)
@@ -43,6 +55,12 @@ export default class PlansController {
     }
   }
 
+  /**
+   * @show
+   * @description Return Plan
+   * @responseBody 200 - <Plan>
+   * @responseBody 404 - Plan could not be found
+   */
   public async show({ request, response }: HttpContextContract) {
     try {
       const plan = await Plan.findOrFail(request.param('id'))
@@ -58,6 +76,12 @@ export default class PlansController {
 
   public async update({}: HttpContextContract) {} // ???
 
+  /**
+   * @show
+   * @description Delete Plan
+   * @responseBody 200 - DELETED
+   * @responseBody 404 - Plan could not be deleted
+   */
   public async destroy({ request, response }: HttpContextContract) {
     try {
       const plan = await Plan.findOrFail(request.param('id'))

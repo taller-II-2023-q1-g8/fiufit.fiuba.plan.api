@@ -3,6 +3,11 @@ import Exercise from 'App/Models/Exercise'
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
 
 export default class ExercisesController {
+  /**
+   * @index
+   * @description Return array of Exercises
+   * @responseBody 200 - <Exercise[]>
+   */
   public async index({ response }: HttpContextContract) {
     try {
       const exercises = await Exercise.all()
@@ -16,6 +21,13 @@ export default class ExercisesController {
     }
   }
 
+  /**
+   * @store
+   * @description Create Exercise
+   * @responseBody 200 - <Exercise>
+   * @responseBody 400 - Exercise could not be created
+   * @requestBody <Exercise>
+   */
   public async store({ request, response }: HttpContextContract) {
     const newExerciseSchema = schema.create({
       title: schema.string(),
@@ -41,6 +53,12 @@ export default class ExercisesController {
     }
   }
 
+  /**
+   * @show
+   * @description Return Exercise
+   * @responseBody 200 - <Exercise>
+   * @responseBody 404 - Exercise could not be found
+   */
   public async show({ request, response }: HttpContextContract) {
     try {
       const exercise = await Exercise.findOrFail(request.param('id'))
@@ -56,6 +74,12 @@ export default class ExercisesController {
 
   public async update({}: HttpContextContract) {} // ???
 
+  /**
+   * @show
+   * @description Delete Exercise
+   * @responseBody 200 - DELETED
+   * @responseBody 404 - Exercise could not be deleted
+   */
   public async destroy({ request, response }: HttpContextContract) {
     try {
       const exercise = await Exercise.findOrFail(request.param('id'))

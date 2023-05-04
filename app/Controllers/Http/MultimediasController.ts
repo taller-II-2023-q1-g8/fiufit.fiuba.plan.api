@@ -21,7 +21,7 @@ export default class MultimediasController {
   public async store({ request, response }: HttpContextContract) {
     try {
       const payload = request.only(['external_id'])
-      const multimedia = await Multimedia.create({external_id: payload.external_id})
+      const multimedia = await Multimedia.create({ external_id: payload.external_id })
       response.status(200)
       response.send(multimedia)
     } catch (error) {
