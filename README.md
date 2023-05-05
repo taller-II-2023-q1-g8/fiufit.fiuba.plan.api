@@ -3,7 +3,7 @@
   <p>This a microservice made with Adonis.js (https://adonisjs.com/)</p>
 </div>
 
-<p align="center">The tempalte uses:</p>
+<p>The tempalte uses:</p>
 <ul>
   <li>ESlint / code syntax</li>
   <li>Prettier / code format</li>
