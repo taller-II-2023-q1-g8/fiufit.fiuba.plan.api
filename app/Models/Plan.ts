@@ -1,21 +1,19 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
+import {
+  BaseModel,
+  BelongsTo,
+  belongsTo,
+  column,
+  manyToMany,
+  ManyToMany,
+} from '@ioc:Adonis/Lucid/Orm'
 import Exercise from 'App/Models/Exercise'
 import Athlete from 'App/Models/Athlete'
 import Trainer from 'App/Models/Trainer'
 
-export const DIFFICULTY_LEVELS = [
-  'EASY',
-  'NORMAL',
-  'HARD'
-]
+export const DIFFICULTY_LEVELS = ['EASY', 'NORMAL', 'HARD']
 
-export const PLAN_TAGS = [
-  'LEGS',
-  'ARMS',
-  'FULL BODY',
-]
-
+export const PLAN_TAGS = ['LEGS', 'ARMS', 'FULL BODY']
 
 export default class Plan extends BaseModel {
   @column({ isPrimary: true })
@@ -31,7 +29,7 @@ export default class Plan extends BaseModel {
   public difficulty: string
 
   @column()
-  public tags: string[]
+  public tags: string
 
   @belongsTo(() => Trainer)
   public trainer: BelongsTo<typeof Trainer>
