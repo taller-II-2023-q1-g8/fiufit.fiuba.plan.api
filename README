@@ -1,48 +1,61 @@
-Trainer
+<a name="readme-top"></a>
 
-This a microservice made with Adonis.js (https://adonisjs.com/)
-The tempalte uses:
-- ESlint / code syntax
-- Prettier / code format
-- nyc / code coverage
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <h3 align="center">Trainer</h3>
+  <p>This a microservice made with Adonis.js (https://adonisjs.com/)</p>
+</div>
 
-Project structure (important directories):
-- app
- - Controllers
- - Exceptions
- - Models
-- config
-- database
- - factories
- - migrations
- - seeders
-- start
- - routes.ts 
-- tests
- - functional
- - unit
+<p align="center">The tempalte uses:</p>
+<ul>
+  <li>ESlint / code syntax</li>
+  <li>Prettier / code format</li>
+  <li>nyc / code coverage</li>
+</ul>
+
+## Getting Started
 
 Start the preoject:
-docker compose up
+   ```sh
+   docker compose up
+   ```
 
-if doesn't work try first:
-npm install
+   ```sh
+   npm install
+   ```
 
-Useful commands
-Ace:
-node ace
+## Ace commands
 
-Migrations:
-node ace migration:run
+   Migrations:
+   ```sh
+   node ace migration:run
+   ```
+   
+   Seeder:
+   ```sh
+   node ace db:seed
+   ```
 
-Seeder:
-node ace db:seed
+## Tests
 
-Test:
-Run all test: npm run test
-Run unit test: node ace test unit
-Run functional test: node ace test functional
+  Run all test:
+   ```sh
+   npm run test
+   ```
+
+Run unit test:
+   ```sh
+   node ace test unit
+   ```
+
+Run functional test:
+   ```sh
+   node ace test functional
+   ```   
 
 Code coverage:
-npm run coverage
+   ```sh
+   npm run coverage
+   ```
 
