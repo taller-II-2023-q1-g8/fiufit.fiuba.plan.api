@@ -1,6 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Plan from 'App/Models/Plan'
-import { DIFFICULTY_LEVELS, PLAN_TAGS } from 'App/Models/Plan'
+import { DIFFICULTY_LEVELS } from 'App/Models/Plan'
 import { schema } from '@ioc:Adonis/Core/Validator'
 
 export default class PlansController {
@@ -34,7 +34,7 @@ export default class PlansController {
       title: schema.string(),
       description: schema.string(),
       difficulty: schema.enum(DIFFICULTY_LEVELS),
-      tags: schema.array().members(schema.enum(PLAN_TAGS)),
+      //tags: schema.enumSet(PLAN_TAGS),
     })
 
     try {
@@ -43,11 +43,12 @@ export default class PlansController {
         title: payload.title,
         description: payload.description,
         difficulty: payload.difficulty,
-        tags: payload.tags,
+        //tags: payload.//tags,
       })
       response.status(200)
       response.send(plan)
     } catch (error) {
+      //console.log(error)
       response.status(400)
       response.send({
         error: error.message,

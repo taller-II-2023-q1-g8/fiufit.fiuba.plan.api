@@ -29,9 +29,9 @@ export default class Plan extends BaseModel {
   // @enum(EASY, NORMAL, HARD)
   public difficulty: string
 
-  @column()
+  //@column()
   // @enum(LEGS, ARMS, FULL BODY)
-  public tags: string
+  //public tags: string[]
 
   @belongsTo(() => Trainer)
   public trainer: BelongsTo<typeof Trainer>

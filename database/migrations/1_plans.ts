@@ -1,5 +1,5 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
-import { DIFFICULTY_LEVELS, PLAN_TAGS } from 'App/Models/Plan'
+import { DIFFICULTY_LEVELS } from 'App/Models/Plan'
 
 export default class extends BaseSchema {
   protected tableName = 'plans'
@@ -10,7 +10,7 @@ export default class extends BaseSchema {
       table.string('title').notNullable()
       table.string('description').defaultTo('')
       table.enum('difficulty', DIFFICULTY_LEVELS).defaultTo('NORMAL')
-      table.enum('tags', PLAN_TAGS)
+      //table.enum('tags', PLAN_TAGS)
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

@@ -30,9 +30,9 @@ export default class ExercisesController {
    */
   public async store({ request, response }: HttpContextContract) {
     const newExerciseSchema = schema.create({
-      title: schema.string(),
-      reps: schema.number([rules.unsigned()]),
-      weight: schema.number([rules.unsigned()]),
+      title: schema.string([rules.minLength(1)]),
+      reps: schema.number([rules.range(1, 500)]),
+      weight: schema.number([rules.range(1, 1000)]),
     })
 
     try {

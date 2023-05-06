@@ -1,66 +1,72 @@
 import { test } from '@japa/runner'
-import Exercise from 'App/Models/Exercise'
 import Database from '@ioc:Adonis/Lucid/Database'
-import { crudTests, crudTestsWithWrongFormat } from 'App/Utils/crudTests'
+import { crudTests } from 'App/Utils/crudTests'
+import Exercise from 'App/Models/Exercise'
+const name = 'exercise'
 
-test.group('Exercises crud', (group) => {
+test.group(`${name} tests`, (group) => {
   group.each.setup(async () => {
     await Database.beginGlobalTransaction()
     return () => Database.rollbackGlobalTransaction()
   })
 
+  const model = Exercise
   const prefix = '/api/v1'
-  const route = `${prefix}/exercises`
+  const route = `${prefix}/${name}s`
   const imposibleId = '1000'
 
-  const sampleData = {
-    title: 'title0',
-    reps: 2,
-    weight: 3
-  }
+  const correctSampleDataCases = [
+    {
+      title: 'title1',
+      reps: 2,
+      weight: 3,
+    },
+    {
+      title: 'title2',
+      reps: 10,
+      weight: 3,
+    },
+  ]
 
-  async function seed() {
-    const data = [
-      {
-        title: 'title1',
-        reps: 1,
-        weight: 1
-      },
-      {
-        title: 'title2',
-        reps: 2,
-        weight: 3
-      },
-      {
-        title: 'title3',
-        reps: 1,
-        weight: 2
-      },
-    ]
-  
-    await Exercise.createMany(data)
-    return data
-  }
+  const wrongSampleDataCases = [
+    {
+      title: '',
+      reps: 2,
+      weight: 3,
+    },
+    {
+      title: 'title2',
+      reps: -10,
+      weight: 3,
+    },
+    {
+      title: 'title2',
+      reps: 10,
+      weight: -3,
+    },
+    {
+      title: 'title2',
+      reps: 10,
+      weight: 0,
+    },
+    {
+      title: 'title2',
+      reps: 0,
+      weight: 3,
+    },
+    {
+      title: 'title2',
+      reps: 0,
+    },
+    {
+      title: 'title2',
+      weight: 3,
+    },
+    {
+      reps: 0,
+      weight: 3,
+    },
+  ]
 
-  const wrongSampleData1 = {
-    reps: 2,
-    weight: 3
-  }
-
-  const wrongSampleData2 = {
-    title: 'title0',
-    reps: -1,
-    weight: 3
-  }
-
-  const wrongSampleData3 = {
-    title: 'title0',
-    reps: 2,
-    weight: -3
-  }
-
-  crudTests(test, route, sampleData, seed, imposibleId)
-  crudTestsWithWrongFormat(test, route, wrongSampleData1)
-  crudTestsWithWrongFormat(test, route, wrongSampleData2)
-  crudTestsWithWrongFormat(test, route, wrongSampleData3)
+  crudTests(test, model, route, wrongSampleDataCases, correctSampleDataCases, imposibleId)
 })
