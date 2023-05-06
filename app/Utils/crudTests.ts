@@ -7,7 +7,7 @@ export async function basicGetPostDeleteTests(test, route, sampleData, seed, imp
   })
 
   test('[GET ALL] after seeding', async ({ client }) => {
-    const data = seed()
+    const data = await seed()
     const response = await client.get(route)
 
     response.assertStatus(200)
@@ -62,17 +62,12 @@ export async function postWithWrongFormatTest(test, route, index, wrongSampleDat
 
 export async function crudTests(
   test,
-  model,
   route,
+  seed,
   wrongSampleDataCases,
   correctSampleDataCases,
   imposibleId
 ) {
-  async function seed() {
-    await model.createMany(correctSampleDataCases)
-    return correctSampleDataCases
-  }
-
   basicGetPostDeleteTests(test, route, correctSampleDataCases[0], seed, imposibleId)
 
   correctSampleDataCases.forEach((correctSampleData, index) =>

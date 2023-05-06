@@ -3,15 +3,22 @@ import Plan from 'App/Models/Plan'
 import { DIFFICULTY_LEVELS } from 'App/Models/Plan'
 import { schema } from '@ioc:Adonis/Core/Validator'
 
+const planSchema = schema.create({
+  title: schema.string(),
+  description: schema.string(),
+  difficulty: schema.enum(DIFFICULTY_LEVELS),
+  //tags: schema.enumSet(PLAN_TAGS),
+})
+
 export default class PlansController {
   /**
    * @index
    * @description Return array of Plans
    * @responseBody 200 - <Plan[]>
    */
-  public async index({ response }: HttpContextContract) {
+  public async index({ request, response }: HttpContextContract) {
     try {
-      const plans = await Plan.all()
+      const plans = await Plan.query().where(request.all())
       response.status(200)
       response.send(plans)
     } catch (error) {
@@ -30,15 +37,8 @@ export default class PlansController {
    * @requestBody <Plan>
    */
   public async store({ request, response }: HttpContextContract) {
-    const newExerciseSchema = schema.create({
-      title: schema.string(),
-      description: schema.string(),
-      difficulty: schema.enum(DIFFICULTY_LEVELS),
-      //tags: schema.enumSet(PLAN_TAGS),
-    })
-
     try {
-      const payload = await request.validate({ schema: newExerciseSchema })
+      const payload = await request.validate({ schema: planSchema })
       const plan = await Plan.create({
         title: payload.title,
         description: payload.description,

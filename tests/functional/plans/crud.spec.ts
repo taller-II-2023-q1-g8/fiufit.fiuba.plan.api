@@ -38,7 +38,7 @@ test.group(`${name} tests`, (group) => {
     {
       title: 'title3',
       description: 'description3',
-      difficulty: DIFFICULTY_LEVELS[2],
+      difficulty: DIFFICULTY_LEVELS[0],
       //tags: [PLAN_TAGS[0]],
     },
   ]
@@ -54,5 +54,84 @@ test.group(`${name} tests`, (group) => {
     },
   ]
 
-  crudTests(test, model, route, wrongSampleDataCases, correctSampleDataCases, imposibleId)
+  async function seed() {
+    await model.createMany(correctSampleDataCases)
+    return correctSampleDataCases
+  }
+
+  crudTests(test, route, seed, wrongSampleDataCases, correctSampleDataCases, imposibleId)
+
+  test('[GET] by difficulty, non matching, empty', async ({ client }) => {
+    const query = {
+      difficulty: DIFFICULTY_LEVELS[0],
+    }
+    const response = await client.get(route).form(query)
+
+    response.assertStatus(200)
+    response.assertBodyContains([])
+  })
+
+  test('[GET] by difficulty, non matching, pre seeded', async ({ client }) => {
+    await seed()
+
+    const query = {
+      difficulty: DIFFICULTY_LEVELS[0],
+    }
+    const response = await client.get(route).form(query)
+
+    response.assertStatus(200)
+    response.assertBodyContains([])
+  })
+
+  test('[GET] by difficulty, matching, pre seeded', async ({ assert, client }) => {
+    await seed()
+
+    const query = {
+      difficulty: DIFFICULTY_LEVELS[0],
+    }
+    const correctResponse = [correctSampleDataCases[0], correctSampleDataCases[3]]
+
+    const response = await client.get(route).qs(query)
+
+    response.assertStatus(200)
+    assert.lengthOf(response.body(), correctResponse.length)
+    response.assertBodyContains(correctResponse)
+  })
+
+  test('[GET] by title, non matching, empty', async ({ client }) => {
+    const query = {
+      title: 'title non existing',
+    }
+    const response = await client.get(route).form(query)
+
+    response.assertStatus(200)
+    response.assertBodyContains([])
+  })
+
+  test('[GET] by title, non matching, pre seeded', async ({ client }) => {
+    await seed()
+
+    const query = {
+      title: 'title non existing',
+    }
+    const response = await client.get(route).form(query)
+
+    response.assertStatus(200)
+    response.assertBodyContains([])
+  })
+
+  test('[GET] by title, matching, pre seeded', async ({ assert, client }) => {
+    await seed()
+
+    const query = {
+      title: correctSampleDataCases[2].title,
+    }
+    const correctResponse = [correctSampleDataCases[2], correctSampleDataCases[3]]
+
+    const response = await client.get(route).qs(query)
+
+    response.assertStatus(200)
+    assert.lengthOf(response.body(), correctResponse.length)
+    response.assertBodyContains(correctResponse)
+  })
 })

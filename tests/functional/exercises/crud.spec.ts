@@ -68,5 +68,10 @@ test.group(`${name} tests`, (group) => {
     },
   ]
 
-  crudTests(test, model, route, wrongSampleDataCases, correctSampleDataCases, imposibleId)
+  async function seed() {
+    await model.createMany(correctSampleDataCases)
+    return correctSampleDataCases
+  }
+
+  crudTests(test, route, seed, wrongSampleDataCases, correctSampleDataCases, imposibleId)
 })
