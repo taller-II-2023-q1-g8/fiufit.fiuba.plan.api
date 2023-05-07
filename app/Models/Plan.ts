@@ -15,6 +15,13 @@ export const DIFFICULTY_LEVELS = ['EASY', 'NORMAL', 'HARD']
 
 export const PLAN_TAGS = ['LEGS', 'ARMS', 'FULL BODY']
 
+export async function createPlan(args, trainerId) {
+  const trainer = await Trainer.firstOrCreate({ external_id: trainerId })
+  const plan = await Plan.create(args)
+  await plan.related('trainer').associate(trainer)
+  return plan
+}
+
 export default class Plan extends BaseModel {
   @column({ isPrimary: true })
   public id: number

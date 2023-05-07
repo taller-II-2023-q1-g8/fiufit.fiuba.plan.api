@@ -1,13 +1,15 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Plan from 'App/Models/Plan'
+import { createPlan } from 'App/Models/Plan'
 import { DIFFICULTY_LEVELS } from 'App/Models/Plan'
-import { schema } from '@ioc:Adonis/Core/Validator'
+import { schema, rules } from '@ioc:Adonis/Core/Validator'
 
 const planSchema = schema.create({
   title: schema.string(),
-  description: schema.string(),
+  description: schema.string([rules.minLength(1)]),
   difficulty: schema.enum(DIFFICULTY_LEVELS),
   //tags: schema.enumSet(PLAN_TAGS),
+  trainer: schema.string([rules.minLength(1)]),
 })
 
 export default class PlansController {
@@ -39,12 +41,15 @@ export default class PlansController {
   public async store({ request, response }: HttpContextContract) {
     try {
       const payload = await request.validate({ schema: planSchema })
-      const plan = await Plan.create({
-        title: payload.title,
-        description: payload.description,
-        difficulty: payload.difficulty,
-        //tags: payload.//tags,
-      })
+      const plan = await createPlan(
+        {
+          title: payload.title,
+          description: payload.description,
+          difficulty: payload.difficulty,
+          //tags: payload.//tags,
+        },
+        payload.trainer
+      )
       response.status(200)
       response.send(plan)
     } catch (error) {

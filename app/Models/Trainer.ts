@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
 import Plan from 'App/Models/Plan'
 
 export default class Trainer extends BaseModel {
@@ -9,8 +9,8 @@ export default class Trainer extends BaseModel {
   @column()
   public external_id: string
 
-  @manyToMany(() => Plan)
-  public plans: ManyToMany<typeof Plan>
+  @hasMany(() => Plan)
+  public plans: HasMany<typeof Plan>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

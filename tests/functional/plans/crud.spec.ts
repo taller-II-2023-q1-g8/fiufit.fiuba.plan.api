@@ -1,8 +1,7 @@
 import { test } from '@japa/runner'
 import Database from '@ioc:Adonis/Lucid/Database'
 import { crudTests } from 'App/Utils/crudTests'
-import { DIFFICULTY_LEVELS } from 'App/Models/Plan'
-import Plan from 'App/Models/Plan'
+import { DIFFICULTY_LEVELS, createPlan } from 'App/Models/Plan'
 const name = 'plan'
 
 test.group(`${name} tests`, (group) => {
@@ -11,7 +10,6 @@ test.group(`${name} tests`, (group) => {
     return () => Database.rollbackGlobalTransaction()
   })
 
-  const model = Plan
   const prefix = '/api/v1'
   const route = `${prefix}/${name}s`
   const imposibleId = '1000'
@@ -22,40 +20,59 @@ test.group(`${name} tests`, (group) => {
       description: 'description1',
       difficulty: DIFFICULTY_LEVELS[0],
       //tags: [PLAN_TAGS[1], PLAN_TAGS[2]],
+      trainer: '1',
     },
     {
       title: 'title2',
       description: 'description2',
       difficulty: DIFFICULTY_LEVELS[1],
       //tags: PLAN_TAGS,
+      trainer: '1',
     },
     {
       title: 'title3',
       description: 'description3',
       difficulty: DIFFICULTY_LEVELS[2],
       //tags: [PLAN_TAGS[2]],
+      trainer: '2',
     },
     {
       title: 'title3',
       description: 'description3',
       difficulty: DIFFICULTY_LEVELS[0],
       //tags: [PLAN_TAGS[0]],
+      trainer: '3',
     },
   ]
 
   const wrongSampleDataCases = [
     {
       title: 'title0',
+      trainer: '1',
+    },
+    {
+      title: 'title1',
+      difficulty: DIFFICULTY_LEVELS[0],
+      trainer: 1,
     },
     {
       title: 'title1',
       description: 'description1',
       difficulty: 'kinda hard',
+      trainer: 2,
+    },
+    {
+      title: 'title1',
+      description: 'description1',
+      difficulty: DIFFICULTY_LEVELS[0],
     },
   ]
 
   async function seed() {
-    await model.createMany(correctSampleDataCases)
+    await correctSampleDataCases.forEach(async (correctSampleData) => {
+      let { trainer, ...rest } = correctSampleData
+      await createPlan(rest, correctSampleData.trainer)
+    })
     return correctSampleDataCases
   }
 
