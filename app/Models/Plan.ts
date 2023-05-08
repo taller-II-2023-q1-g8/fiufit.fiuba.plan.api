@@ -55,13 +55,10 @@ export default class Plan extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  public static async createPlan(args: PlanArgs, trainer_id) {
-    try {
-      await Trainer.findOrFail(trainer_id)
-    } catch (error) {
-      throw new Error('Trainer not found')
-    }
-    const trainer = await Trainer.findOrFail(trainer_id)
+  public static async createPlan(args: PlanArgs, trainer_id: string) {
+    console.log('args', args)
+    console.log('trainer_id', trainer_id)
+    const trainer = await Trainer.firstOrCreate({ external_id: trainer_id })
     const plan = await Plan.create(args)
     await plan.related('trainer').associate(trainer)
     return plan

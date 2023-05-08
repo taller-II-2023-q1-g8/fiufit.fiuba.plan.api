@@ -8,7 +8,7 @@ const planSchema = schema.create({
   description: schema.string([rules.minLength(1)]),
   difficulty: schema.enum(DIFFICULTY_LEVELS),
   //tags: schema.enumSet(PLAN_TAGS),
-  trainer_id: schema.number(),
+  trainer_id: schema.string([rules.minLength(1)]),
 })
 
 export default class PlansController {
@@ -35,7 +35,7 @@ export default class PlansController {
    * @description Create Plan
    * @responseBody 200 - <Plan>.with(trainer.id)
    * @responseBody 400 - Plan could not be created
-   * @requestBody <Plan>.with(trainer.id)
+   * @requestBody <Plan>.only(title, description,difficulty).append("trainer_id":"A123")
    */
   public async store({ request, response }: HttpContextContract) {
     try {
