@@ -31,6 +31,9 @@ Route.get('/docs', async () => {
   return AutoSwagger.ui('/swagger')
 })
 
+Route.get('/', async () => {
+  return 'Trainer API'
+})
 Route.get('/health', async () => {
   return { status: 'OK' }
 })

@@ -37,7 +37,10 @@ export default class Plan extends BaseModel {
   // @enum(LEGS, ARMS, FULL BODY)
   //public tags: string[]
 
-  @belongsTo(() => Trainer)
+  @column()
+  public trainer_id: string
+
+  @belongsTo(() => Trainer, { localKey: 'id', foreignKey: 'trainer_id' })
   public trainer: BelongsTo<typeof Trainer>
 
   @manyToMany(() => Exercise)
@@ -52,10 +55,12 @@ export default class Plan extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  public static async createPlan(args: PlanArgs, trainerId) {
-    const trainer = await Trainer.firstOrCreate({ external_id: trainerId })
+  public static async createPlan(args: PlanArgs, trainer_id) {
+    const trainer = await Trainer.firstOrCreate({ external_id: trainer_id })
     const plan = await Plan.create(args)
+    //await plan.related('trainer').save(trainer)
     await plan.related('trainer').associate(trainer)
+    console.log('plan2')
     return plan
   }
 }

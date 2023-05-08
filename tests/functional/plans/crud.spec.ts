@@ -1,7 +1,8 @@
 import { test } from '@japa/runner'
 import Database from '@ioc:Adonis/Lucid/Database'
 import { crudTests } from 'App/Utils/crudTests'
-import { DIFFICULTY_LEVELS, createPlan } from 'App/Models/Plan'
+import { DIFFICULTY_LEVELS } from 'App/Models/Plan'
+import Plan from 'App/Models/Plan'
 const name = 'plan'
 
 test.group(`${name} tests`, (group) => {
@@ -71,7 +72,7 @@ test.group(`${name} tests`, (group) => {
   async function seed() {
     await correctSampleDataCases.forEach(async (correctSampleData) => {
       let { trainer, ...rest } = correctSampleData
-      await createPlan(rest, correctSampleData.trainer)
+      await Plan.createPlan(rest, correctSampleData.trainer)
     })
     return correctSampleDataCases
   }
