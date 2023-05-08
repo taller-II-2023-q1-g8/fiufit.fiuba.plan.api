@@ -12,14 +12,11 @@ import Athlete from 'App/Models/Athlete'
 import Trainer from 'App/Models/Trainer'
 
 export const DIFFICULTY_LEVELS = ['EASY', 'NORMAL', 'HARD']
-
 export const PLAN_TAGS = ['LEGS', 'ARMS', 'FULL BODY']
-
-export async function createPlan(args, trainerId) {
-  const trainer = await Trainer.firstOrCreate({ external_id: trainerId })
-  const plan = await Plan.create(args)
-  await plan.related('trainer').associate(trainer)
-  return plan
+export type PlanArgs = {
+  title: string
+  description?: string
+  difficulty: string
 }
 
 export default class Plan extends BaseModel {
@@ -54,4 +51,11 @@ export default class Plan extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  public static async createPlan(args: PlanArgs, trainerId) {
+    const trainer = await Trainer.firstOrCreate({ external_id: trainerId })
+    const plan = await Plan.create(args)
+    await plan.related('trainer').associate(trainer)
+    return plan
+  }
 }

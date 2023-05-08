@@ -1,6 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Plan from 'App/Models/Plan'
-import { createPlan } from 'App/Models/Plan'
 import { DIFFICULTY_LEVELS } from 'App/Models/Plan'
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
 
@@ -41,7 +40,7 @@ export default class PlansController {
   public async store({ request, response }: HttpContextContract) {
     try {
       const payload = await request.validate({ schema: planSchema })
-      const plan = await createPlan(
+      const plan = await Plan.createPlan(
         {
           title: payload.title,
           description: payload.description,
@@ -51,6 +50,7 @@ export default class PlansController {
         payload.trainer
       )
       response.status(200)
+      //response.send(await plan.load('trainer'))
       response.send(plan)
     } catch (error) {
       //console.log(error)
