@@ -8,7 +8,7 @@ const planSchema = schema.create({
   description: schema.string([rules.minLength(1)]),
   difficulty: schema.enum(DIFFICULTY_LEVELS),
   //tags: schema.enumSet(PLAN_TAGS),
-  trainer: schema.string([rules.minLength(1)]),
+  trainer_id: schema.number(),
 })
 
 export default class PlansController {
@@ -33,9 +33,9 @@ export default class PlansController {
   /**
    * @store
    * @description Create Plan
-   * @responseBody 200 - <Plan>
+   * @responseBody 200 - <Plan>.with(trainer.id)
    * @responseBody 400 - Plan could not be created
-   * @requestBody <Plan>
+   * @requestBody <Plan>.with(trainer.id)
    */
   public async store({ request, response }: HttpContextContract) {
     try {
@@ -47,13 +47,11 @@ export default class PlansController {
           difficulty: payload.difficulty,
           //tags: payload.//tags,
         },
-        payload.trainer
+        payload.trainer_id
       )
       response.status(200)
-      //response.send(await plan.load('trainer'))
       response.send(plan)
     } catch (error) {
-      //console.log(error)
       response.status(400)
       response.send({
         error: error.message,

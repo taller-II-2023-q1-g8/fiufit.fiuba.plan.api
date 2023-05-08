@@ -38,7 +38,7 @@ export default class Plan extends BaseModel {
   //public tags: string[]
 
   @column()
-  public trainer_id: string
+  public trainer_id: number
 
   @belongsTo(() => Trainer, { localKey: 'id', foreignKey: 'trainer_id' })
   public trainer: BelongsTo<typeof Trainer>
@@ -56,11 +56,14 @@ export default class Plan extends BaseModel {
   public updatedAt: DateTime
 
   public static async createPlan(args: PlanArgs, trainer_id) {
-    const trainer = await Trainer.firstOrCreate({ external_id: trainer_id })
+    try {
+      await Trainer.findOrFail(trainer_id)
+    } catch (error) {
+      throw new Error('Trainer not found')
+    }
+    const trainer = await Trainer.findOrFail(trainer_id)
     const plan = await Plan.create(args)
-    //await plan.related('trainer').save(trainer)
     await plan.related('trainer').associate(trainer)
-    console.log('plan2')
     return plan
   }
 }
