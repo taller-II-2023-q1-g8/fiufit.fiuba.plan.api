@@ -26,7 +26,7 @@ export default class MultimediasController {
    * @description Create Multimedia
    * @responseBody 200 - <Multimedia>
    * @responseBody 400 - Multimedia could not be created
-   * @requestBody <Multimedia>
+   * @requestBody <Multimedia>.only(external_id)
    */
   public async store({ request, response }: HttpContextContract) {
     try {
@@ -61,7 +61,27 @@ export default class MultimediasController {
     }
   }
 
-  public async update({}: HttpContextContract) {} // ???
+  /**
+   * @update
+   * @description Upadate Multimedia
+   * @responseBody 200 - <Multimedia>
+   * @responseBody 404 - Multimedia could not be found
+   * @requestBody <Multimedia>.only(external_id)
+   */
+  public async update({ request, response }: HttpContextContract) {
+    try {
+      const multimedia = await Multimedia.findOrFail(request.param('id'))
+      multimedia.external_id = request.input('external_id')
+      await multimedia.save()
+      response.status(200)
+      response.send(multimedia)
+    } catch (error) {
+      response.status(404)
+      response.send({
+        error: error.message,
+      })
+    }
+  }
 
   /**
    * @show

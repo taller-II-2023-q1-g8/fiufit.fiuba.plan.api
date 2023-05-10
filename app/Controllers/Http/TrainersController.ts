@@ -25,7 +25,7 @@ export default class TrainersController {
    * @description Create Trainer
    * @responseBody 200 - <Trainer>
    * @responseBody 400 - Trainer could not be created
-   * @requestBody <Trainer>
+   * @requestBody <Trainer>.only(external_id)
    */
   public async store({ request, response }: HttpContextContract) {
     try {
@@ -60,7 +60,27 @@ export default class TrainersController {
     }
   }
 
-  public async update({}: HttpContextContract) {} // ???
+  /**
+   * @update
+   * @description Upadate Trainer
+   * @responseBody 200 - <Trainer>
+   * @responseBody 404 - Trainer could not be found
+   * @requestBody <Trainer>.only(external_id)
+   */
+  public async update({ request, response }: HttpContextContract) {
+    try {
+      const trainer = await Trainer.findOrFail(request.param('id'))
+      trainer.external_id = request.input('external_id')
+      await trainer.save()
+      response.status(200)
+      response.send(trainer)
+    } catch (error) {
+      response.status(404)
+      response.send({
+        error: error.message,
+      })
+    }
+  }
 
   /**
    * @show

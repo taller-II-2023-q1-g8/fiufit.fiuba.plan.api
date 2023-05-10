@@ -32,7 +32,7 @@ export default class ExercisesController {
    * @description Create Exercise
    * @responseBody 200 - <Exercise>
    * @responseBody 400 - Exercise could not be created
-   * @requestBody <Exercise>
+   * @requestBody <Exercise>.only(title, reps, weight)
    */
   public async store({ request, response }: HttpContextContract) {
     try {
@@ -72,7 +72,32 @@ export default class ExercisesController {
     }
   }
 
-  public async update({}: HttpContextContract) {} // ???
+  /**
+   * @update
+   * @description Upadate Exercise
+   * @responseBody 200 - <Exercise>
+   * @responseBody 404 - Exercise could not be found
+   * @requestBody <Exercise>.only(title, reps, weight)
+   */
+  public async update({ request, response }: HttpContextContract) {
+    try {
+      const payload = await request.validate({ schema: exerciseSchema })
+      const exercise = await Exercise.findOrFail(request.param('id'))
+      await exercise.merge({
+        title: payload.title,
+        reps: payload.reps,
+        weight: payload.weight,
+      })
+      await exercise.save()
+      response.status(200)
+      response.send(exercise)
+    } catch (error) {
+      response.status(404)
+      response.send({
+        error: error.message,
+      })
+    }
+  }
 
   /**
    * @show

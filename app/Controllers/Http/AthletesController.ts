@@ -25,7 +25,7 @@ export default class AthletesController {
    * @description Create Athlete
    * @responseBody 200 - <Athlete>
    * @responseBody 400 - Athlete could not be created
-   * @requestBody <Athlete>
+   * @requestBody <Athlete>.only(external_id)
    */
   public async store({ request, response }: HttpContextContract) {
     try {
@@ -60,7 +60,27 @@ export default class AthletesController {
     }
   }
 
-  public async update({}: HttpContextContract) {} // ???
+  /**
+   * @update
+   * @description Upadate Athlete
+   * @responseBody 200 - <Athlete>
+   * @responseBody 404 - Athlete could not be found
+   * @requestBody <Athlete>.only(external_id)
+   */
+  public async update({ request, response }: HttpContextContract) {
+    try {
+      const athlete = await Athlete.findOrFail(request.param('id'))
+      athlete.external_id = request.input('external_id')
+      await athlete.save()
+      response.status(200)
+      response.send(athlete)
+    } catch (error) {
+      response.status(404)
+      response.send({
+        error: error.message,
+      })
+    }
+  }
 
   /**
    * @show

@@ -37,7 +37,7 @@ export default class Plan extends BaseModel {
   // @enum(LEGS, ARMS, FULL BODY)
   //public tags: string[]
 
-  @column()
+  @column({ serializeAs: null })
   public trainer_id: number
 
   @belongsTo(() => Trainer, { localKey: 'id', foreignKey: 'trainer_id' })
@@ -54,11 +54,4 @@ export default class Plan extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
-
-  public static async createPlan(args: PlanArgs, trainer_id: string) {
-    const trainer = await Trainer.firstOrCreate({ external_id: trainer_id })
-    const plan = await Plan.create(args)
-    await plan.related('trainer').associate(trainer)
-    return plan
-  }
 }
