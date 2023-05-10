@@ -42,6 +42,7 @@ Route.group(() => {
   Route.group(() => {
     Route.resource('athletes', 'AthletesController').except(['create', 'edit']) // /api/v1/athletes
     Route.resource('plans', 'PlansController').except(['create', 'edit']) // /api/v1/plans
+    Route.post('/plans/search', 'PlansController.search') // /api/v1/plans/search
     Route.post('/plans/:id/exercises/:exercise_id', 'PlansController.addExercise') // /api/v1/plans/:id/:exercise_id
     Route.delete('/plans/:id/exercises/:exercise_id', 'PlansController.removeExercise') // /api/v1/plans/exercises/:id/:exercise_id
     Route.post('/plans/:id/athletes/:athlete_id', 'PlansController.addAthlete') // /api/v1/plans/exercises/athlete/:id/:athlete_id

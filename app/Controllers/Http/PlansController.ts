@@ -5,6 +5,7 @@ import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import Exercise from 'App/Models/Exercise'
 import Trainer from 'App/Models/Trainer'
 import Athlete from 'App/Models/Athlete'
+import Database from '@ioc:Adonis/Lucid/Database'
 
 const createPlanSchema = schema.create({
   title: schema.string(),
@@ -113,11 +114,6 @@ export default class PlansController {
         difficulty: payload.difficulty,
       })
       await plan.save()
-
-      await plan.load((loader) => {
-        loader.load('exercises').load('trainer').load('athletes')
-      })
-
       response.status(200)
       response.send(plan)
     } catch (error) {
@@ -246,6 +242,47 @@ export default class PlansController {
       response.send(plan)
     } catch (error) {
       response.status(404)
+      response.send({
+        error: error.message,
+      })
+    }
+  }
+
+  /**
+   * @search
+   * @description Get Plan by query
+   * @responseBody 200 - <Plan[]>
+   * @responseBody 400 - Query error
+   * @requestBody <Plan>.only(title, description,difficulty)
+   */
+  public async search({ request, response }: HttpContextContract) {
+    try {
+      const inputs = {
+        title: request.input('title') ?? null,
+        difficulty: request.input('difficulty') ?? null,
+        athlete_id: request.input('athlete_id') ?? null,
+        is_liked: request.input('is_liked') ?? null,
+      }
+
+      const plans = await Database.from('plans')
+        .if(inputs.title, (query) => {
+          query.where('title', 'like', '%' + inputs.title + '%')
+        })
+        .if(inputs.difficulty, (query) => {
+          query.where('difficulty', '=', inputs.difficulty)
+        })
+        .if(inputs.athlete_id && inputs.is_liked, (query) => {
+          query
+            .join('athlete_plan', 'plans.id', '=', 'athlete_plan.plan_id')
+            .where('athlete_plan.athlete_id', '=', inputs.athlete_id)
+            .where('athlete_plan.is_liked', '=', inputs.is_liked)
+            .select('plans.*')
+        })
+
+      response.status(200)
+      response.send(plans)
+    } catch (error) {
+      response.status(400)
       response.send({
         error: error.message,
       })
