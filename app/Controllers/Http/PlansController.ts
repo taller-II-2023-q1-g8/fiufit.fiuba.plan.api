@@ -253,7 +253,7 @@ export default class PlansController {
    * @description Get Plan by query
    * @responseBody 200 - <Plan[]>
    * @responseBody 400 - Query error
-   * @requestBody <Plan>.only(title, description,difficulty)
+   * @requestBody <Plan>.only(title, description, difficulty)
    */
   public async search({ request, response }: HttpContextContract) {
     try {
@@ -261,7 +261,9 @@ export default class PlansController {
         title: request.input('title') ?? null,
         difficulty: request.input('difficulty') ?? null,
         athlete_id: request.input('athlete_id') ?? null,
+        trainer_id: request.input('trainer_id') ?? null,
         is_liked: request.input('is_liked') ?? null,
+        is_completed: request.input('is_completed') ?? null,
       }
 
       const plans = await Database.from('plans')
@@ -271,13 +273,21 @@ export default class PlansController {
         .if(inputs.difficulty, (query) => {
           query.where('difficulty', '=', inputs.difficulty)
         })
-        .if(inputs.athlete_id && inputs.is_liked, (query) => {
+        .if(inputs.athlete_id, (query) => {
           query
-            .join('athlete_plan', 'plans.id', '=', 'athlete_plan.plan_id')
-            .where('athlete_plan.athlete_id', '=', inputs.athlete_id)
-            .where('athlete_plan.is_liked', '=', inputs.is_liked)
-            .select('plans.*')
+          .join('athlete_plan', 'plans.id', '=', 'athlete_plan.plan_id')
+          .where('athlete_plan.athlete_id', '=', inputs.athlete_id)
         })
+        .if(inputs.is_liked, (query) => {
+          query.where('athlete_plan.is_liked', '=', inputs.is_liked)
+        })
+        .if(inputs.is_completed, (query) => {
+          query.where('athlete_plan.is_completed', '=', inputs.is_completed)
+        })
+        .if(inputs.trainer_id, (query) => {
+          query.where('plan.trainer_id', '=', inputs.trainer_id)
+        })
+        .select('plans.*')
 
       response.status(200)
       response.send(plans)
