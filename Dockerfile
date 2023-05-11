@@ -14,7 +14,6 @@ COPY --chown=node:node . .
 
 FROM dependencies AS build
 RUN node ace build --production --ignore-ts-errors
-RUN node ace migration:run
 
 FROM base AS production
 ENV NODE_ENV=production
