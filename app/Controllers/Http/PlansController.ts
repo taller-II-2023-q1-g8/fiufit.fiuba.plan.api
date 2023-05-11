@@ -259,11 +259,11 @@ export default class PlansController {
       const plan = await Plan.findOrFail(request.param('id'))
       const athlete = await Athlete.findOrFail(request.param('athlete_id'))
 
-      await plan.related('athletes').attach({
+      await plan.related('athletes').sync({
         [athlete.id]: {
           is_liked: true
         }
-      })
+      }, false)
 
       /*const registered_like = await plan.related('athletes')
         .pivotQuery()
@@ -292,11 +292,11 @@ export default class PlansController {
       const plan = await Plan.findOrFail(request.param('id'))
       const athlete = await Athlete.findOrFail(request.param('athlete_id'))
 
-      await plan.related('athletes').attach({
+      await plan.related('athletes').sync({
         [athlete.id]: {
           is_completed: true
         }
-      })
+      }, false)
 
       /*const registered_completion = await plan.related('athletes')
         .pivotQuery()
@@ -326,11 +326,11 @@ export default class PlansController {
       const plan = await Plan.findOrFail(request.param('id'))
       const athlete = await Athlete.findOrFail(request.param('athlete_id'))
 
-      await plan.related('athletes').attach({
+      await plan.related('athletes').sync({
         [athlete.id]: {
           calification: request.input('calification')
         }
-      })
+      }, false)
 
       /*const registered_calification = await plan.related('athletes')
         .pivotQuery()
@@ -371,6 +371,38 @@ export default class PlansController {
       
       response.status(200)
       response.send(califications)
+    } catch (error) {
+      response.status(404)
+      response.send({
+        error: error.message,
+      })
+    }
+  }
+
+  /**
+   * @getLikes
+   * @description Get likes amount of Plan
+   * @responseBody 200 - likes amount
+   * @responseBody 400 - could not be retrieved
+   */
+  public async getLikes({ request, response }: HttpContextContract) {
+    try {
+
+      const inputs = {
+        id: request.param('id'),
+      }
+
+      const likes_amount = await Database.from('plans')
+        .if(inputs.id, (query) => {
+          query
+            .join('athlete_plan', 'plans.id', '=', 'athlete_plan.plan_id')
+            .where('athlete_plan.plan_id', '=', inputs.id)
+            .where('athlete_plan.is_liked', '=', true)
+        })
+        .count('*')
+      
+      response.status(200)
+      response.send(likes_amount)
     } catch (error) {
       response.status(404)
       response.send({
