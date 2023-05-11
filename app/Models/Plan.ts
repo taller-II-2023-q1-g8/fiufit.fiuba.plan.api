@@ -13,6 +13,7 @@ import Trainer from 'App/Models/Trainer'
 
 export const DIFFICULTY_LEVELS = ['EASY', 'NORMAL', 'HARD']
 export const PLAN_TAGS = ['LEGS', 'ARMS', 'FULL BODY']
+
 export type PlanArgs = {
   title: string
   description?: string

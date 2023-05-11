@@ -9,7 +9,7 @@ export default class extends BaseSchema {
       table.increments('id').primary()
       table.string('title').notNullable()
       table.string('description').defaultTo('')
-      table.enum('difficulty', DIFFICULTY_LEVELS).defaultTo('NORMAL')
+      table.enum('difficulty', DIFFICULTY_LEVELS).defaultTo(DIFFICULTY_LEVELS[1])
       table.integer('trainer_id').unsigned().references('trainers.id')
       //table.enum('tags', PLAN_TAGS)
       table.timestamp('created_at', { useTz: true })

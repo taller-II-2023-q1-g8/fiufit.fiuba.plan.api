@@ -28,9 +28,9 @@ export default class PlansController {
    * @description Return array of Plans
    * @responseBody 200 - <Plan[]>
    */
-  public async index({ request, response }: HttpContextContract) {
+  public async index({ response }: HttpContextContract) {
     try {
-      const plans = await Plan.query().where(request.all())
+      const plans = await Plan.all()
       response.status(200)
       response.send(plans)
     } catch (error) {
