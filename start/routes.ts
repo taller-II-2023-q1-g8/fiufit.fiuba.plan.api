@@ -43,13 +43,15 @@ Route.group(() => {
     Route.resource('athletes', 'AthletesController').except(['create', 'edit']) // /api/v1/athletes
     Route.resource('plans', 'PlansController').except(['create', 'edit']) // /api/v1/plans
     Route.post('/plans/search', 'PlansController.search') // /api/v1/plans/search
+    Route.get('/plans/:id/califications', 'PlansController.getCalifications') // /api/v1/plans/:id/califications
+    Route.get('/plans/:id/likes', 'PlansController.getLikes') // /api/v1/plans/:id/likes
     Route.post('/plans/:id/exercises/:exercise_id', 'PlansController.addExercise') // /api/v1/plans/:id/:exercise_id
     Route.delete('/plans/:id/exercises/:exercise_id', 'PlansController.removeExercise') // /api/v1/plans/exercises/:id/:exercise_id
     Route.post('/plans/:id/athletes/:athlete_id', 'PlansController.addAthlete') // /api/v1/plans/exercises/athlete/:id/:athlete_id
     Route.delete('/plans/:id/athlete/:athlete_id', 'PlansController.removeAthlete') // /api/v1/plans/athlete/:id/:athlete_id
-    Route.patch('/plans/:id/athletes/:athlete_id/like', 'PlansController.addLike') // /api/v1/plans/exercises/athlete/:id/:athlete_id/like
-    Route.patch('/plans/:id/athletes/:athlete_id/completion', 'PlansController.addCompleted') // /api/v1/plans/exercises/athlete/:id/:athlete_id/completion
-    Route.post('/plans/:id/athletes/:athlete_id/calification', 'PlansController.addCalification') // /api/v1/plans/exercises/athlete/:id/:athlete_id/calification
+    Route.patch('/plans/:id/athletes/:athlete_id/likes', 'PlansController.addLike') // /api/v1/plans/exercises/athlete/:id/:athlete_id/likes
+    Route.patch('/plans/:id/athletes/:athlete_id/completions', 'PlansController.addCompleted') // /api/v1/plans/exercises/athlete/:id/:athlete_id/completions
+    Route.post('/plans/:id/athletes/:athlete_id/califications', 'PlansController.addCalification') // /api/v1/plans/exercises/athlete/:id/:athlete_id/califications
     Route.resource('exercises', 'ExercisesController').except(['create', 'edit']) // /api/v1/exercises
     Route.resource('multimedias', 'MultimediasController').except(['create', 'edit']) // /api/v1/multimedias
     Route.resource('trainers', 'TrainersController').except(['create', 'edit']) // /api/v1/trainers

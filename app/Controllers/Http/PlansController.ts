@@ -259,7 +259,7 @@ export default class PlansController {
       const plan = await Plan.findOrFail(request.param('id'))
       const athlete = await Athlete.findOrFail(request.param('athlete_id'))
 
-      await plan.related('athletes').sync({
+      await plan.related('athletes').attach({
         [athlete.id]: {
           is_liked: true
         }
@@ -292,7 +292,7 @@ export default class PlansController {
       const plan = await Plan.findOrFail(request.param('id'))
       const athlete = await Athlete.findOrFail(request.param('athlete_id'))
 
-      await plan.related('athletes').sync({
+      await plan.related('athletes').attach({
         [athlete.id]: {
           is_completed: true
         }
@@ -326,7 +326,7 @@ export default class PlansController {
       const plan = await Plan.findOrFail(request.param('id'))
       const athlete = await Athlete.findOrFail(request.param('athlete_id'))
 
-      await plan.related('athletes').sync({
+      await plan.related('athletes').attach({
         [athlete.id]: {
           calification: request.input('calification')
         }
@@ -340,6 +340,37 @@ export default class PlansController {
       response.status(200)
       //response.send(registered_calification)
       response.send('LACKS IMPLEMENTATION')
+    } catch (error) {
+      response.status(404)
+      response.send({
+        error: error.message,
+      })
+    }
+  }
+
+  /**
+   * @getCalifications
+   * @description Get all calification of Plan
+   * @responseBody 200 - califications
+   * @responseBody 400 - could not be retrieved
+   */
+  public async getCalifications({ request, response }: HttpContextContract) {
+    try {
+
+      const inputs = {
+        id: request.param('id'),
+      }
+
+      const califications = await Database.from('plans')
+        .if(inputs.id, (query) => {
+          query
+            .join('athlete_plan', 'plans.id', '=', 'athlete_plan.plan_id')
+            .where('athlete_plan.plan_id', '=', inputs.id)
+        })
+        .select('athlete_plan.calification')
+      
+      response.status(200)
+      response.send(califications)
     } catch (error) {
       response.status(404)
       response.send({
