@@ -399,7 +399,7 @@ export default class PlansController {
         id: request.param('id'),
       }
 
-      const likes_amount = await Database.from('plans')
+      const likesAmount = await Database.from('plans')
         .if(inputs.id, (query) => {
           query
             .join('athlete_plan', 'plans.id', '=', 'athlete_plan.plan_id')
@@ -409,7 +409,7 @@ export default class PlansController {
         .count('*')
 
       response.status(200)
-      response.send(likes_amount)
+      response.send(likesAmount)
     } catch (error) {
       response.status(404)
       response.send({
