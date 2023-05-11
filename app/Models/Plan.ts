@@ -43,10 +43,21 @@ export default class Plan extends BaseModel {
   @belongsTo(() => Trainer, { localKey: 'id', foreignKey: 'trainer_id' })
   public trainer: BelongsTo<typeof Trainer>
 
-  @manyToMany(() => Exercise)
+  @manyToMany(() => Exercise, {
+    localKey: 'id',
+    pivotForeignKey: 'plan_id',
+    relatedKey: 'id',
+    pivotRelatedForeignKey: 'exercise_id',
+  })
   public exercises: ManyToMany<typeof Exercise>
 
-  @manyToMany(() => Athlete)
+  @manyToMany(() => Athlete, {
+    localKey: 'id',
+    pivotForeignKey: 'plan_id',
+    relatedKey: 'id',
+    pivotRelatedForeignKey: 'athlete_id',
+    pivotColumns: ['is_liked', 'is_completed', 'calification']
+  })
   public athletes: ManyToMany<typeof Athlete>
 
   @column.dateTime({ autoCreate: true })
