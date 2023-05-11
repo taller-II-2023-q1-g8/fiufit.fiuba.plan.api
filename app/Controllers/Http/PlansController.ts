@@ -259,11 +259,14 @@ export default class PlansController {
       const plan = await Plan.findOrFail(request.param('id'))
       const athlete = await Athlete.findOrFail(request.param('athlete_id'))
 
-      await plan.related('athletes').sync({
-        [athlete.id]: {
-          is_liked: true
-        }
-      }, false)
+      await plan.related('athletes').sync(
+        {
+          [athlete.id]: {
+            is_liked: true,
+          },
+        },
+        false
+      )
 
       /*const registered_like = await plan.related('athletes')
         .pivotQuery()
@@ -292,11 +295,14 @@ export default class PlansController {
       const plan = await Plan.findOrFail(request.param('id'))
       const athlete = await Athlete.findOrFail(request.param('athlete_id'))
 
-      await plan.related('athletes').sync({
-        [athlete.id]: {
-          is_completed: true
-        }
-      }, false)
+      await plan.related('athletes').sync(
+        {
+          [athlete.id]: {
+            is_completed: true,
+          },
+        },
+        false
+      )
 
       /*const registered_completion = await plan.related('athletes')
         .pivotQuery()
@@ -326,11 +332,14 @@ export default class PlansController {
       const plan = await Plan.findOrFail(request.param('id'))
       const athlete = await Athlete.findOrFail(request.param('athlete_id'))
 
-      await plan.related('athletes').sync({
-        [athlete.id]: {
-          calification: request.input('calification')
-        }
-      }, false)
+      await plan.related('athletes').sync(
+        {
+          [athlete.id]: {
+            calification: request.input('calification'),
+          },
+        },
+        false
+      )
 
       /*const registered_calification = await plan.related('athletes')
         .pivotQuery()
@@ -356,7 +365,6 @@ export default class PlansController {
    */
   public async getCalifications({ request, response }: HttpContextContract) {
     try {
-
       const inputs = {
         id: request.param('id'),
       }
@@ -368,7 +376,7 @@ export default class PlansController {
             .where('athlete_plan.plan_id', '=', inputs.id)
         })
         .select('athlete_plan.calification')
-      
+
       response.status(200)
       response.send(califications)
     } catch (error) {
@@ -387,7 +395,6 @@ export default class PlansController {
    */
   public async getLikes({ request, response }: HttpContextContract) {
     try {
-
       const inputs = {
         id: request.param('id'),
       }
@@ -400,7 +407,7 @@ export default class PlansController {
             .where('athlete_plan.is_liked', '=', true)
         })
         .count('*')
-      
+
       response.status(200)
       response.send(likes_amount)
     } catch (error) {
