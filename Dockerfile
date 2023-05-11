@@ -14,6 +14,7 @@ COPY --chown=node:node . .
 
 FROM dependencies AS build
 RUN node ace build --production --ignore-ts-errors
+RUN node ace migration:run
 
 FROM base AS production
 ENV NODE_ENV=production
@@ -23,5 +24,4 @@ COPY --chown=node:node ./package*.json ./
 RUN npm ci --production
 COPY --chown=node:node --from=build /home/node/app/build .
 EXPOSE $PORT
-RUN node ace migration:run
 CMD [ "dumb-init", "node", "server.js"]
