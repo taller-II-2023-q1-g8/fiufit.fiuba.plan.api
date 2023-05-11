@@ -249,11 +249,111 @@ export default class PlansController {
   }
 
   /**
+   * @addLike
+   * @description Like Plan favorited by Athlete
+   * @responseBody 200 - registered like
+   * @responseBody 400 - Like could not be added to favorited by Athlete Plan
+   */
+  public async addLike({ request, response }: HttpContextContract) {
+    try {
+      const plan = await Plan.findOrFail(request.param('id'))
+      const athlete = await Athlete.findOrFail(request.param('athlete_id'))
+
+      await plan.related('athletes').sync({
+        [athlete.id]: {
+          is_liked: true
+        }
+      })
+
+      /*const registered_like = await plan.related('athletes')
+        .pivotQuery()
+        .where('athlete_id', request.param('athlete_id')
+          .select('athlete_plan.is_liked')).first()*/
+
+      response.status(200)
+      //response.send(registered_like)
+      response.send('LACKS IMPLEMENTATION')
+    } catch (error) {
+      response.status(404)
+      response.send({
+        error: error.message,
+      })
+    }
+  }
+
+  /**
+   * @addCompleted
+   * @description Register completion of Plan favorited by Athlete
+   * @responseBody 200 - registered completion
+   * @responseBody 400 - Completion could not be added to favorited by Athlete Plan
+   */
+  public async addCompleted({ request, response }: HttpContextContract) {
+    try {
+      const plan = await Plan.findOrFail(request.param('id'))
+      const athlete = await Athlete.findOrFail(request.param('athlete_id'))
+
+      await plan.related('athletes').sync({
+        [athlete.id]: {
+          is_completed: true
+        }
+      })
+
+      /*const registered_completion = await plan.related('athletes')
+        .pivotQuery()
+        .where('athlete_id', request.param('athlete_id')
+          .select('athlete_plan.is_completed')).first()*/
+
+      response.status(200)
+      //response.send(registered_completion)
+      response.send('LACKS IMPLEMENTATION')
+    } catch (error) {
+      response.status(404)
+      response.send({
+        error: error.message,
+      })
+    }
+  }
+
+  /**
+   * @addCalification
+   * @description Register calification of Plan favorited by Athlete
+   * @responseBody 200 - registered calification
+   * @responseBody 400 - Calification could not be added to favorited by Athlete Plan
+   * @requestBody {"calification": "nice plan"}
+   */
+  public async addCalification({ request, response }: HttpContextContract) {
+    try {
+      const plan = await Plan.findOrFail(request.param('id'))
+      const athlete = await Athlete.findOrFail(request.param('athlete_id'))
+
+      await plan.related('athletes').sync({
+        [athlete.id]: {
+          calification: request.input('calification')
+        }
+      })
+
+      /*const registered_calification = await plan.related('athletes')
+        .pivotQuery()
+        .where('athlete_id', request.param('athlete_id')
+          .select('athlete_plan.calification')).first()*/
+
+      response.status(200)
+      //response.send(registered_calification)
+      response.send('LACKS IMPLEMENTATION')
+    } catch (error) {
+      response.status(404)
+      response.send({
+        error: error.message,
+      })
+    }
+  }
+
+  /**
    * @search
    * @description Get Plan by query
    * @responseBody 200 - <Plan[]>
    * @responseBody 400 - Query error
-   * @requestBody <Plan>.only(title, description, difficulty)
+   * @requestBody <Plan>.only(title, description,difficulty).append("trainer_id": "1", "athlete_id":"1", "is_liked":"false", "is_completed":"false")
    */
   public async search({ request, response }: HttpContextContract) {
     try {
@@ -275,8 +375,8 @@ export default class PlansController {
         })
         .if(inputs.athlete_id, (query) => {
           query
-          .join('athlete_plan', 'plans.id', '=', 'athlete_plan.plan_id')
-          .where('athlete_plan.athlete_id', '=', inputs.athlete_id)
+            .join('athlete_plan', 'plans.id', '=', 'athlete_plan.plan_id')
+            .where('athlete_plan.athlete_id', '=', inputs.athlete_id)
         })
         .if(inputs.is_liked, (query) => {
           query.where('athlete_plan.is_liked', '=', inputs.is_liked)
@@ -285,7 +385,7 @@ export default class PlansController {
           query.where('athlete_plan.is_completed', '=', inputs.is_completed)
         })
         .if(inputs.trainer_id, (query) => {
-          query.where('plan.trainer_id', '=', inputs.trainer_id)
+          query.where('plans.trainer_id', '=', inputs.trainer_id)
         })
         .select('plans.*')
 

@@ -47,6 +47,9 @@ Route.group(() => {
     Route.delete('/plans/:id/exercises/:exercise_id', 'PlansController.removeExercise') // /api/v1/plans/exercises/:id/:exercise_id
     Route.post('/plans/:id/athletes/:athlete_id', 'PlansController.addAthlete') // /api/v1/plans/exercises/athlete/:id/:athlete_id
     Route.delete('/plans/:id/athlete/:athlete_id', 'PlansController.removeAthlete') // /api/v1/plans/athlete/:id/:athlete_id
+    Route.patch('/plans/:id/athletes/:athlete_id/like', 'PlansController.addLike') // /api/v1/plans/exercises/athlete/:id/:athlete_id/like
+    Route.patch('/plans/:id/athletes/:athlete_id/completion', 'PlansController.addCompleted') // /api/v1/plans/exercises/athlete/:id/:athlete_id/completion
+    Route.post('/plans/:id/athletes/:athlete_id/calification', 'PlansController.addCalification') // /api/v1/plans/exercises/athlete/:id/:athlete_id/calification
     Route.resource('exercises', 'ExercisesController').except(['create', 'edit']) // /api/v1/exercises
     Route.resource('multimedias', 'MultimediasController').except(['create', 'edit']) // /api/v1/multimedias
     Route.resource('trainers', 'TrainersController').except(['create', 'edit']) // /api/v1/trainers
