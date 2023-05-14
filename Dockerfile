@@ -1,27 +1,30 @@
-FROM node:19.5.0-alpine
+ARG NODE_IMAGE=node:19.5.0-alpine
 
-# Set working directory
+FROM $NODE_IMAGE AS base
+RUN apk --no-cache add dumb-init
 RUN mkdir -p /home/node/app && chown node:node /home/node/app
 WORKDIR /home/node/app
+USER node
+RUN mkdir tmp
 
-# Install dependencies
+FROM base AS dependencies
 COPY --chown=node:node ./package*.json ./
-RUN npm ci --production
-
-# Copy app source code
+RUN npm ci
 COPY --chown=node:node . .
 
-# Build app
+FROM dependencies AS build
 RUN node ace build --production --ignore-ts-errors
 
+FROM base AS production
 ENV NODE_ENV=production
 ENV PORT=$PORT
 ENV HOST=0.0.0.0
-
-# Expose port
+COPY --chown=node:node ./package*.json ./
+RUN npm ci --production
+COPY --chown=node:node --from=build /home/node/app/build .
 EXPOSE $PORT
+RUN dumb-init node --harmony_proxies ace migration:fresh
+CMD [ "dumb-init", "node", "server.js"]
 
-RUN node --harmony_proxies ace migration:fresh
-
-# Start app
-CMD ["node", "run", "start"]
+FROM production AS migration
+RUN node ace migration:run
