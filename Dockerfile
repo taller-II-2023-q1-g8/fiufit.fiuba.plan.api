@@ -12,7 +12,7 @@ ENV NODE_ENV=production
 COPY package*.json ./
 
 # Install dependencies
-RUN npm ci --only=production
+RUN npm i
 
 # Copy the application files
 COPY . .
