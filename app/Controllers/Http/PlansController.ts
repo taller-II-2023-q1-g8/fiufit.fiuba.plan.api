@@ -11,7 +11,7 @@ const createPlanSchema = schema.create({
   title: schema.string(),
   description: schema.string([rules.minLength(1)]),
   difficulty: schema.enum(DIFFICULTY_LEVELS),
-  //tags: schema.enumSet(PLAN_TAGS),
+  tags: schema.string(),
   trainer_id: schema.string([rules.minLength(1)]),
 })
 
@@ -19,7 +19,7 @@ const updatePlanSchema = schema.create({
   title: schema.string(),
   description: schema.string([rules.minLength(1)]),
   difficulty: schema.enum(DIFFICULTY_LEVELS),
-  //tags: schema.enumSet(PLAN_TAGS),
+  tags: schema.string(),
 })
 
 export default class PlansController {
@@ -46,7 +46,7 @@ export default class PlansController {
    * @description Create Plan
    * @responseBody 200 - <Plan>.with(trainer)
    * @responseBody 400 - Plan could not be created
-   * @requestBody <Plan>.only(title, description,difficulty).append("trainer_id":"A123")
+   * @requestBody <Plan>.only(title,description,difficulty,tags).append("trainer_id":"A123")
    */
   public async store({ request, response }: HttpContextContract) {
     try {
@@ -56,6 +56,7 @@ export default class PlansController {
         title: payload.title,
         description: payload.description,
         difficulty: payload.difficulty,
+        tags: payload.tags,
       })
       await plan.related('trainer').associate(trainer)
 
@@ -102,7 +103,7 @@ export default class PlansController {
    * @description Upadate Plan
    * @responseBody 200 - <Plan>
    * @responseBody 404 - Plan could not be found
-   * @requestBody <Plan>.only(title, description,difficulty)
+   * @requestBody <Plan>.only(title,description,difficulty,tags)
    */
   public async update({ request, response }: HttpContextContract) {
     try {
@@ -112,6 +113,7 @@ export default class PlansController {
         title: payload.title,
         description: payload.description,
         difficulty: payload.difficulty,
+        tags: payload.tags,
       })
       await plan.save()
       response.status(200)
@@ -408,13 +410,14 @@ export default class PlansController {
    * @description Get Plan by query
    * @responseBody 200 - <Plan[]>
    * @responseBody 400 - Query error
-   * @requestBody <Plan>.only(title, description,difficulty).append("trainer_id": "1", "athlete_id":"1", "is_liked":"false", "is_completed":"false")
+   * @requestBody <Plan>.only(title,description,difficulty,tags).append("trainer_id": "1", "athlete_id":"1", "is_liked":"false", "is_completed":"false")
    */
   public async search({ request, response }: HttpContextContract) {
     try {
       const inputs = {
         title: request.input('title') ?? null,
         difficulty: request.input('difficulty') ?? null,
+        tags: request.input('tags') ?? null,
         athlete_id: request.input('athlete_id') ?? null,
         trainer_id: request.input('trainer_id') ?? null,
         is_liked: request.input('is_liked') ?? null,
@@ -424,6 +427,12 @@ export default class PlansController {
       const plans = await Database.from('plans')
         .if(inputs.title, (query) => {
           query.where('title', 'like', '%' + inputs.title + '%')
+        })
+        .if(inputs.tags, (query) => {
+          const tags = inputs.tags.split(',')
+          tags.forEach((tag) => {
+            query.where('tags', 'like', '%' + tag + '%')
+          })
         })
         .if(inputs.difficulty, (query) => {
           query.where('difficulty', '=', inputs.difficulty)

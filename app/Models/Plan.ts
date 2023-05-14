@@ -12,13 +12,6 @@ import Athlete from 'App/Models/Athlete'
 import Trainer from 'App/Models/Trainer'
 
 export const DIFFICULTY_LEVELS = ['EASY', 'NORMAL', 'HARD']
-export const PLAN_TAGS = ['LEGS', 'ARMS', 'FULL BODY']
-
-export type PlanArgs = {
-  title: string
-  description?: string
-  difficulty: string
-}
 
 export default class Plan extends BaseModel {
   @column({ isPrimary: true })
@@ -31,12 +24,10 @@ export default class Plan extends BaseModel {
   public description: string
 
   @column()
-  // @enum(EASY, NORMAL, HARD)
   public difficulty: string
 
-  //@column()
-  // @enum(LEGS, ARMS, FULL BODY)
-  //public tags: string[]
+  @column()
+  public tags: string
 
   @column({ serializeAs: null })
   public trainer_id: number
