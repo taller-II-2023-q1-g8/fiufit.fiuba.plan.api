@@ -336,6 +336,7 @@ export default class PlansController {
         {
           [athlete.id]: {
             calification: request.input('calification'),
+            calification_score: request.input('calification_score'),
           },
         },
         false
@@ -375,7 +376,7 @@ export default class PlansController {
             .join('athlete_plan', 'plans.id', '=', 'athlete_plan.plan_id')
             .where('athlete_plan.plan_id', '=', inputs.id)
         })
-        .select('athlete_plan.calification')
+        .select('athlete_plan.calification', 'athlete_plan.calification_score')
 
       response.status(200)
       response.send(califications)

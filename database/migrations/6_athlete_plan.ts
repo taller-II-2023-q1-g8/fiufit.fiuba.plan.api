@@ -12,6 +12,7 @@ export default class extends BaseSchema {
       table.boolean('is_liked').defaultTo(false)
       table.boolean('is_completed').defaultTo(false)
       table.string('calification').defaultTo('')
+      table.string('calification_score').defaultTo(-1)
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

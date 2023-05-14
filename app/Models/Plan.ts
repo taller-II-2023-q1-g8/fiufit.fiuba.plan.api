@@ -57,7 +57,7 @@ export default class Plan extends BaseModel {
     pivotForeignKey: 'plan_id',
     relatedKey: 'id',
     pivotRelatedForeignKey: 'athlete_id',
-    pivotColumns: ['is_liked', 'is_completed', 'calification'],
+    pivotColumns: ['is_liked', 'is_completed', 'calification', 'calification_score'],
   })
   public athletes: ManyToMany<typeof Athlete>
 
