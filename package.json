@@ -9,8 +9,7 @@
     "test": "node ace test",
     "lint": "eslint . --ext=.ts",
     "format": "prettier --write .",
-    "coverage": "nyc npm run test",
-    "initial:migration": "ace migration:fresh"
+    "coverage": "nyc npm run test"
   },
   "eslintConfig": {
     "extends": [

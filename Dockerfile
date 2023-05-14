@@ -1,4 +1,4 @@
-ARG NODE_IMAGE=node:16.13.1-alpine
+ARG NODE_IMAGE=node:19.5.0-alpine
 
 FROM $NODE_IMAGE AS base
 RUN apk --no-cache add dumb-init
@@ -23,5 +23,5 @@ COPY --chown=node:node ./package*.json ./
 RUN npm ci --production
 COPY --chown=node:node --from=build /home/node/app/build .
 EXPOSE $PORT
-RUN npm run initial:migration
+RUN node --harmony_proxies ace migration:fresh
 CMD [ "dumb-init", "node", "server.js"]
