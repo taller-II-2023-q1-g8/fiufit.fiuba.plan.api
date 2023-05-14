@@ -9,7 +9,7 @@ RUN mkdir tmp
 
 FROM base AS dependencies
 COPY --chown=node:node ./package*.json ./
-RUN npm i
+RUN npm ci
 COPY --chown=node:node . .
 
 FROM dependencies AS build
@@ -20,8 +20,8 @@ ENV NODE_ENV=production
 ENV PORT=$PORT
 ENV HOST=0.0.0.0
 COPY --chown=node:node ./package*.json ./
-RUN npm i --production
+RUN npm ci --production
 COPY --chown=node:node --from=build /home/node/app/build .
 EXPOSE $PORT
-RUN node --harmony_proxies ace migration:fresh
+RUN dumb-init node --harmony_proxies ace migration:fresh
 CMD [ "dumb-init", "node", "server.js"]
