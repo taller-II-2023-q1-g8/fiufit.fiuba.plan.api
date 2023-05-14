@@ -251,8 +251,9 @@ export default class PlansController {
   /**
    * @addLike
    * @description Like Plan favorited by Athlete
-   * @responseBody 200 - registered like
+   * @responseBody 200 - Registered like
    * @responseBody 400 - Like could not be added to favorited by Athlete Plan
+   * @requestBody {}
    */
   public async addLike({ request, response }: HttpContextContract) {
     try {
@@ -268,14 +269,8 @@ export default class PlansController {
         false
       )
 
-      /*const registered_like = await plan.related('athletes')
-        .pivotQuery()
-        .where('athlete_id', request.param('athlete_id')
-          .select('athlete_plan.is_liked')).first()*/
-
       response.status(200)
-      //response.send(registered_like)
-      response.send('LACKS IMPLEMENTATION')
+      response.send('Registered like')
     } catch (error) {
       response.status(404)
       response.send({
@@ -287,8 +282,9 @@ export default class PlansController {
   /**
    * @addCompleted
    * @description Register completion of Plan favorited by Athlete
-   * @responseBody 200 - registered completion
+   * @responseBody 200 - Registered completion
    * @responseBody 400 - Completion could not be added to favorited by Athlete Plan
+   * @requestBody {}
    */
   public async addCompleted({ request, response }: HttpContextContract) {
     try {
@@ -304,14 +300,8 @@ export default class PlansController {
         false
       )
 
-      /*const registered_completion = await plan.related('athletes')
-        .pivotQuery()
-        .where('athlete_id', request.param('athlete_id')
-          .select('athlete_plan.is_completed')).first()*/
-
       response.status(200)
-      //response.send(registered_completion)
-      response.send('LACKS IMPLEMENTATION')
+      response.send('Registered completion')
     } catch (error) {
       response.status(404)
       response.send({
@@ -323,9 +313,9 @@ export default class PlansController {
   /**
    * @addCalification
    * @description Register calification of Plan favorited by Athlete
-   * @responseBody 200 - registered calification
+   * @responseBody 200 - Registered calification
    * @responseBody 400 - Calification could not be added to favorited by Athlete Plan
-   * @requestBody {"calification": "nice plan"}
+   * @requestBody {"calification": "nice plan", "calification_score": 5}
    */
   public async addCalification({ request, response }: HttpContextContract) {
     try {
@@ -342,14 +332,8 @@ export default class PlansController {
         false
       )
 
-      /*const registered_calification = await plan.related('athletes')
-        .pivotQuery()
-        .where('athlete_id', request.param('athlete_id')
-          .select('athlete_plan.calification')).first()*/
-
       response.status(200)
-      //response.send(registered_calification)
-      response.send('LACKS IMPLEMENTATION')
+      response.send('Registered calification')
     } catch (error) {
       response.status(404)
       response.send({
