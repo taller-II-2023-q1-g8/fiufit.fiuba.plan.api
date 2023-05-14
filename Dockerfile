@@ -23,7 +23,6 @@ COPY --chown=node:node ./package*.json ./
 RUN npm ci --production
 COPY --chown=node:node --from=build /home/node/app/build .
 EXPOSE $PORT
-RUN dumb-init node --harmony_proxies ace migration:fresh
 CMD [ "dumb-init", "node", "server.js"]
 
 FROM production AS migration
