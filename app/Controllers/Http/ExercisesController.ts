@@ -6,6 +6,7 @@ const exerciseSchema = schema.create({
   title: schema.string([rules.minLength(1)]),
   reps: schema.number([rules.range(1, 500)]),
   weight: schema.number([rules.range(1, 1000)]),
+  muscles: schema.string(),
 })
 
 export default class ExercisesController {
@@ -32,7 +33,7 @@ export default class ExercisesController {
    * @description Create Exercise
    * @responseBody 200 - <Exercise>
    * @responseBody 400 - Exercise could not be created
-   * @requestBody <Exercise>.only(title, reps, weight)
+   * @requestBody <Exercise>.only(title, reps, weight, muscles)
    */
   public async store({ request, response }: HttpContextContract) {
     try {
@@ -41,6 +42,7 @@ export default class ExercisesController {
         title: payload.title,
         reps: payload.reps,
         weight: payload.weight,
+        muscles: payload.muscles,
       })
       response.status(200)
       response.send(exercise)
@@ -87,6 +89,7 @@ export default class ExercisesController {
         title: payload.title,
         reps: payload.reps,
         weight: payload.weight,
+        muscles: payload.muscles,
       })
       await exercise.save()
       response.status(200)

@@ -1,5 +1,4 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
-import { MUSCLES } from 'App/Models/Exercise'
 
 export default class extends BaseSchema {
   protected tableName = 'exercises'
@@ -10,7 +9,7 @@ export default class extends BaseSchema {
       table.string('title').notNullable()
       table.integer('reps').defaultTo(0)
       table.integer('weight').defaultTo(0)
-      table.enum('muscle', MUSCLES).defaultTo(MUSCLES[0])
+      table.string('muscles').defaultTo('')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
