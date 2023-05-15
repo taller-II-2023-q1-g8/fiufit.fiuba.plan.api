@@ -57,4 +57,20 @@ export default class Plan extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  public static async createWithTrain(payload) {
+    const trainer = await Trainer.firstOrCreate({ external_id: payload.trainer_id })
+    const plan = await Plan.create({
+      title: payload.title,
+      description: payload.description,
+      difficulty: payload.difficulty,
+      tags: payload.tags,
+    })
+    await plan.related('trainer').associate(trainer)
+
+    await plan.load((loader) => {
+      loader.load('trainer')
+    })
+    return plan
+  }
 }

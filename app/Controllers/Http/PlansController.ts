@@ -3,7 +3,6 @@ import Plan from 'App/Models/Plan'
 import { DIFFICULTY_LEVELS } from 'App/Models/Plan'
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import Exercise from 'App/Models/Exercise'
-import Trainer from 'App/Models/Trainer'
 import Athlete from 'App/Models/Athlete'
 import Database from '@ioc:Adonis/Lucid/Database'
 
@@ -51,18 +50,7 @@ export default class PlansController {
   public async store({ request, response }: HttpContextContract) {
     try {
       const payload = await request.validate({ schema: createPlanSchema })
-      const trainer = await Trainer.firstOrCreate({ external_id: payload.trainer_id })
-      const plan = await Plan.create({
-        title: payload.title,
-        description: payload.description,
-        difficulty: payload.difficulty,
-        tags: payload.tags,
-      })
-      await plan.related('trainer').associate(trainer)
-
-      await plan.load((loader) => {
-        loader.load('trainer')
-      })
+      const plan = Plan.createWithTrain(payload)
 
       response.status(200)
       response.send(plan)

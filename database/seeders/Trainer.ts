@@ -1,9 +1,9 @@
 import BaseSeeder from '@ioc:Adonis/Lucid/Seeder'
-import Athlete from 'App/Models/Athlete'
+import Trainer from 'App/Models/Trainer'
 
-export default class AthleteSeeder extends BaseSeeder {
+export default class TrainerSeeder extends BaseSeeder {
   public async run() {
-    await Athlete.createMany([
+    await Trainer.createMany([
       {
         external_id: '1',
       },
