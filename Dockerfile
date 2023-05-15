@@ -17,12 +17,12 @@ RUN node ace build --production --ignore-ts-errors
 
 FROM base AS production
 ENV NODE_ENV=production
-ENV PUERTO=$PUERTO
+ENV PORT=$PORT
 ENV HOST=0.0.0.0
 COPY --chown=node:node ./package*.json ./
 RUN npm ci --production
 COPY --chown=node:node --from=build /home/node/app/build .
-EXPOSE $PUERTO
+EXPOSE $PORT
 CMD [ "dumb-init", "node", "server.js"]
 
 FROM production AS migration

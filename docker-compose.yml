@@ -21,7 +21,7 @@ services:
       context: .
       target: dependencies
     ports:
-      - ${PUERTO}:${PUERTO}
+      - ${PORT}:${PORT}
     env_file:
       - .env
     environment:
