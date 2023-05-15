@@ -11,7 +11,7 @@
 | and hence do not rename or move this file to a different location.
 |
 */
-/*
+
 import Env from '@ioc:Adonis/Core/Env'
 
 export default Env.rules({
@@ -28,4 +28,4 @@ export default Env.rules({
   PG_PASSWORD: Env.schema.string.optional(),
   PG_DB_NAME: Env.schema.string(),
 })
-*/
+
