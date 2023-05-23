@@ -243,7 +243,6 @@ export default class PlansController {
    * @description Like Plan favorited by Athlete
    * @responseBody 200 - Registered like
    * @responseBody 400 - Like could not be added to favorited by Athlete Plan
-   * @requestBody {}
    */
   public async addLike({ request, response }: HttpContextContract) {
     try {
@@ -274,7 +273,6 @@ export default class PlansController {
    * @description Register completion of Plan favorited by Athlete
    * @responseBody 200 - Registered completion
    * @responseBody 400 - Completion could not be added to favorited by Athlete Plan
-   * @requestBody {}
    */
   public async addCompleted({ request, response }: HttpContextContract) {
     try {

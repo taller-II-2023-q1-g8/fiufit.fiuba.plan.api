@@ -1,0 +1,1089 @@
+openapi: "3.0.0"
+info:
+  title: "Plan"
+  version: "1.0.0"
+components:
+  responses:
+    Forbidden:
+      description: "Access token is missing or invalid"
+    Accepted:
+      description: "The request was accepted"
+    Created:
+      description: "The resource has been created"
+    NotFound:
+      description: "The resource has been created"
+    NotAcceptable:
+      description: "The resource has been created"
+  securitySchemes:
+    BearerAuth:
+      type: "http"
+      scheme: "bearer"
+  schemas:
+    Any:
+      description: "Any JSON object not defined as schema"
+    Athlete:
+      type: "object"
+      properties:
+        id:
+          type: "number"
+          example: 993
+        external_id:
+          type: "string"
+          example: "string"
+        plans:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/Plan"
+            example: "string"
+        created_at:
+          type: "string"
+          example: "2021-03-23T16:13:08.489+01:00"
+          format: "date-time"
+        updated_at:
+          type: "string"
+          example: "2021-03-23T16:13:08.489+01:00"
+          format: "date-time"
+      description: "Model"
+    Exercise:
+      type: "object"
+      properties:
+        id:
+          type: "number"
+          example: 748
+        title:
+          type: "string"
+          example: "Lorem Ipsum"
+        reps:
+          type: "number"
+          example: 819
+        weight:
+          type: "number"
+          example: 307
+        muscles:
+          type: "string"
+          example: "string"
+        plans:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/Plan"
+            example: "string"
+        multimedia:
+          $ref: "#/components/schemas/Multimedia"
+          example: "string"
+        created_at:
+          type: "string"
+          example: "2021-03-23T16:13:08.489+01:00"
+          format: "date-time"
+        updated_at:
+          type: "string"
+          example: "2021-03-23T16:13:08.489+01:00"
+          format: "date-time"
+      description: "Model"
+    Multimedia:
+      type: "object"
+      properties:
+        id:
+          type: "number"
+          example: 746
+        external_id:
+          type: "string"
+          example: "string"
+        goals:
+          $ref: "#/components/schemas/Exercise"
+          example: "string"
+        created_at:
+          type: "string"
+          example: "2021-03-23T16:13:08.489+01:00"
+          format: "date-time"
+        updated_at:
+          type: "string"
+          example: "2021-03-23T16:13:08.489+01:00"
+          format: "date-time"
+      description: "Model"
+    Plan:
+      type: "object"
+      properties:
+        id:
+          type: "number"
+          example: 966
+        title:
+          type: "string"
+          example: "Lorem Ipsum"
+        description:
+          type: "string"
+          example: "Lorem ipsum dolor sit amet"
+        difficulty:
+          type: "string"
+          example: "string"
+        tags:
+          type: "string"
+          example: "string"
+        trainer:
+          $ref: "#/components/schemas/Trainer"
+          example: "string"
+        exercises:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/Exercise"
+            example: "string"
+        athletes:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/Athlete"
+            example: "string"
+        created_at:
+          type: "string"
+          example: "2021-03-23T16:13:08.489+01:00"
+          format: "date-time"
+        updated_at:
+          type: "string"
+          example: "2021-03-23T16:13:08.489+01:00"
+          format: "date-time"
+      description: "Model"
+    Trainer:
+      type: "object"
+      properties:
+        id:
+          type: "number"
+          example: 29
+        external_id:
+          type: "string"
+          example: "string"
+        plans:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/Plan"
+            example: "string"
+        created_at:
+          type: "string"
+          example: "2021-03-23T16:13:08.489+01:00"
+          format: "date-time"
+        updated_at:
+          type: "string"
+          example: "2021-03-23T16:13:08.489+01:00"
+          format: "date-time"
+      description: "Model"
+paths:
+  /:
+    get:
+      summary: " (route.ts)"
+      description: ""
+      parameters: []
+      tags: []
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json: {}
+      security: []
+  /health:
+    get:
+      summary: " (route.ts)"
+      description: ""
+      parameters: []
+      tags: []
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json: {}
+      security: []
+  /api/v1/athletes:
+    get:
+      summary: "Get a list of athletes (AthletesController::index)"
+      description: "Returns a **list** of type `Athlete` **without** any _relations_. Take a look at the example for further details."
+      parameters: []
+      tags:
+        - "ATHLETES"
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Athlete"
+              example:
+                - id: 993
+                  external_id: "string"
+                  created_at: "2021-03-23T16:13:08.489+01:00"
+                  updated_at: "2021-03-23T16:13:08.489+01:00"
+          description: "Returns a **list** of type `Athlete` **without** any _relations_. Take a look at the example for further details."
+      security: []
+    post:
+      summary: " (AthletesController::store)"
+      description: "Create Athlete"
+      parameters: []
+      tags:
+        - "ATHLETES"
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Athlete"
+              example:
+                id: 993
+                external_id: "string"
+                created_at: "2021-03-23T16:13:08.489+01:00"
+                updated_at: "2021-03-23T16:13:08.489+01:00"
+          description: "Returns a **single** instance of type `Athlete` **without** any _relations_. Take a look at the example for further details."
+        400:
+          description: "Bad Request: Athlete could not be created"
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Athlete"
+            example:
+              external_id: "string"
+  /api/v1/athletes/{id}:
+    get:
+      summary: "Get a single instance of athletes (AthletesController::show)"
+      description: "OK: DELETED"
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "ATHLETES"
+      responses:
+        200:
+          description: "OK: DELETED"
+        404:
+          description: "Not Found: Athlete could not be deleted"
+      security: []
+    put:
+      summary: "Update athletes (AthletesController::update)"
+      description: "Upadate Athlete"
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "ATHLETES"
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Athlete"
+              example:
+                id: 993
+                external_id: "string"
+                created_at: "2021-03-23T16:13:08.489+01:00"
+                updated_at: "2021-03-23T16:13:08.489+01:00"
+          description: "Returns a **single** instance of type `Athlete` **without** any _relations_. Take a look at the example for further details."
+        404:
+          description: "Not Found: Athlete could not be found"
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Athlete"
+            example:
+              external_id: "string"
+    delete:
+      summary: "Delete athletes (AthletesController::destroy)"
+      description: ""
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "ATHLETES"
+      responses:
+        202:
+          description: "Accepted"
+          content:
+            application/json: {}
+      security: []
+  /api/v1/plans:
+    get:
+      summary: "Get a list of plans (PlansController::index)"
+      description: "Returns a **list** of type `Plan` **without** any _relations_. Take a look at the example for further details."
+      parameters: []
+      tags:
+        - "PLANS"
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Plan"
+              example:
+                - id: 966
+                  title: "Lorem Ipsum"
+                  description: "Lorem ipsum dolor sit amet"
+                  difficulty: "string"
+                  tags: "string"
+                  created_at: "2021-03-23T16:13:08.489+01:00"
+                  updated_at: "2021-03-23T16:13:08.489+01:00"
+          description: "Returns a **list** of type `Plan` **without** any _relations_. Take a look at the example for further details."
+      security: []
+    post:
+      summary: " (PlansController::store)"
+      description: "Create Plan"
+      parameters: []
+      tags:
+        - "PLANS"
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Plan"
+              example:
+                id: 966
+                title: "Lorem Ipsum"
+                description: "Lorem ipsum dolor sit amet"
+                difficulty: "string"
+                tags: "string"
+                trainer:
+                  id: 29
+                  external_id: "string"
+                  created_at: "2021-03-23T16:13:08.489+01:00"
+                  updated_at: "2021-03-23T16:13:08.489+01:00"
+                created_at: "2021-03-23T16:13:08.489+01:00"
+                updated_at: "2021-03-23T16:13:08.489+01:00"
+          description: "Returns a **single** instance of type `Plan` **including** _trainer_. Take a look at the example for further details."
+        400:
+          description: "Bad Request: Plan could not be created"
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Plan"
+            example:
+              title: "Lorem Ipsum"
+              description: "Lorem ipsum dolor sit amet"
+              difficulty: "string"
+              tags: "string"
+              trainer_id: "A123"
+  /api/v1/plans/{id}:
+    get:
+      summary: "Get a single instance of plans (PlansController::show)"
+      description: "OK: DELETED"
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "PLANS"
+      responses:
+        200:
+          description: "OK: DELETED"
+        404:
+          description: "Not Found: Plan could not be deleted"
+      security: []
+    put:
+      summary: "Update plans (PlansController::update)"
+      description: "Upadate Plan"
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "PLANS"
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Plan"
+              example:
+                id: 966
+                title: "Lorem Ipsum"
+                description: "Lorem ipsum dolor sit amet"
+                difficulty: "string"
+                tags: "string"
+                created_at: "2021-03-23T16:13:08.489+01:00"
+                updated_at: "2021-03-23T16:13:08.489+01:00"
+          description: "Returns a **single** instance of type `Plan` **without** any _relations_. Take a look at the example for further details."
+        404:
+          description: "Not Found: Plan could not be found"
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Plan"
+            example:
+              title: "Lorem Ipsum"
+              description: "Lorem ipsum dolor sit amet"
+              difficulty: "string"
+              tags: "string"
+    delete:
+      summary: "Delete plans (PlansController::destroy)"
+      description: ""
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "PLANS"
+      responses:
+        202:
+          description: "Accepted"
+          content:
+            application/json: {}
+      security: []
+  /api/v1/plans/search:
+    post:
+      summary: " (PlansController::search)"
+      description: "Get Plan by query"
+      parameters: []
+      tags:
+        - "PLANS"
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Plan"
+              example:
+                - id: 966
+                  title: "Lorem Ipsum"
+                  description: "Lorem ipsum dolor sit amet"
+                  difficulty: "string"
+                  tags: "string"
+                  created_at: "2021-03-23T16:13:08.489+01:00"
+                  updated_at: "2021-03-23T16:13:08.489+01:00"
+          description: "Returns a **list** of type `Plan` **without** any _relations_. Take a look at the example for further details."
+        400:
+          description: "Bad Request: Query error"
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Plan"
+            example:
+              title: "Lorem Ipsum"
+              description: "Lorem ipsum dolor sit amet"
+              difficulty: "string"
+              tags: "string"
+              trainer_id: "1"
+              athlete_id: "1"
+              is_liked: "false"
+              is_completed: "false"
+  /api/v1/plans/{id}/califications:
+    get:
+      summary: " (PlansController::getCalifications)"
+      description: "OK: califications"
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "PLANS"
+      responses:
+        200:
+          description: "OK: califications"
+        400:
+          description: "Bad Request: could not be retrieved"
+      security: []
+  /api/v1/plans/{id}/likes:
+    get:
+      summary: " (PlansController::getLikes)"
+      description: "OK: likes amount"
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "PLANS"
+      responses:
+        200:
+          description: "OK: likes amount"
+        400:
+          description: "Bad Request: could not be retrieved"
+      security: []
+  /api/v1/plans/{id}/exercises/{exercise_id}:
+    post:
+      summary: " (PlansController::addExercise)"
+      description: ""
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+        - in: "path"
+          name: "exercise_id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "PLANS"
+      responses:
+        201:
+          description: "Created"
+          content:
+            application/json: {}
+      security: []
+      requestBody:
+        content:
+          application/json: {}
+    delete:
+      summary: " (PlansController::removeExercise)"
+      description: ""
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+        - in: "path"
+          name: "exercise_id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "PLANS"
+      responses:
+        202:
+          description: "Accepted"
+          content:
+            application/json: {}
+      security: []
+  /api/v1/plans/{id}/athletes/{athlete_id}:
+    post:
+      summary: " (PlansController::addAthlete)"
+      description: ""
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+        - in: "path"
+          name: "athlete_id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "PLANS"
+      responses:
+        201:
+          description: "Created"
+          content:
+            application/json: {}
+      security: []
+      requestBody:
+        content:
+          application/json: {}
+  /api/v1/plans/{id}/athlete/{athlete_id}:
+    delete:
+      summary: " (PlansController::removeAthlete)"
+      description: ""
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+        - in: "path"
+          name: "athlete_id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "PLANS"
+      responses:
+        202:
+          description: "Accepted"
+          content:
+            application/json: {}
+      security: []
+  /api/v1/plans/{id}/athletes/{athlete_id}/likes:
+    patch:
+      summary: " (PlansController::addLike)"
+      description: "Like Plan favorited by Athlete"
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+        - in: "path"
+          name: "athlete_id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "PLANS"
+      responses:
+        200:
+          description: "OK: Registered like"
+        400:
+          description: "Bad Request: Like could not be added to favorited by Athlete Plan"
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "object"
+            example: ""
+  /api/v1/plans/{id}/athletes/{athlete_id}/completions:
+    patch:
+      summary: " (PlansController::addCompleted)"
+      description: "Register completion of Plan favorited by Athlete"
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+        - in: "path"
+          name: "athlete_id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "PLANS"
+      responses:
+        200:
+          description: "OK: Registered completion"
+        400:
+          description: "Bad Request: Completion could not be added to favorited by Athlete Plan"
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "object"
+            example: ""
+  /api/v1/plans/{id}/athletes/{athlete_id}/califications:
+    post:
+      summary: " (PlansController::addCalification)"
+      description: "Register calification of Plan favorited by Athlete"
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+        - in: "path"
+          name: "athlete_id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "PLANS"
+      responses:
+        200:
+          description: "OK: Registered calification"
+        400:
+          description: "Bad Request: Calification could not be added to favorited by Athlete Plan"
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "object"
+            example:
+              calification: "nice plan"
+              calification_score: 5
+  /api/v1/exercises:
+    get:
+      summary: "Get a list of exercises (ExercisesController::index)"
+      description: "Returns a **list** of type `Exercise` **without** any _relations_. Take a look at the example for further details."
+      parameters: []
+      tags:
+        - "EXERCISES"
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Exercise"
+              example:
+                - id: 748
+                  title: "Lorem Ipsum"
+                  reps: 819
+                  weight: 307
+                  muscles: "string"
+                  created_at: "2021-03-23T16:13:08.489+01:00"
+                  updated_at: "2021-03-23T16:13:08.489+01:00"
+          description: "Returns a **list** of type `Exercise` **without** any _relations_. Take a look at the example for further details."
+      security: []
+    post:
+      summary: " (ExercisesController::store)"
+      description: "Create Exercise"
+      parameters: []
+      tags:
+        - "EXERCISES"
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Exercise"
+              example:
+                id: 748
+                title: "Lorem Ipsum"
+                reps: 819
+                weight: 307
+                muscles: "string"
+                created_at: "2021-03-23T16:13:08.489+01:00"
+                updated_at: "2021-03-23T16:13:08.489+01:00"
+          description: "Returns a **single** instance of type `Exercise` **without** any _relations_. Take a look at the example for further details."
+        400:
+          description: "Bad Request: Exercise could not be created"
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Exercise"
+            example:
+              title: "Lorem Ipsum"
+              reps: 819
+              weight: 307
+              muscles: "string"
+  /api/v1/exercises/{id}:
+    get:
+      summary: "Get a single instance of exercises (ExercisesController::show)"
+      description: "OK: DELETED"
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "EXERCISES"
+      responses:
+        200:
+          description: "OK: DELETED"
+        404:
+          description: "Not Found: Exercise could not be deleted"
+      security: []
+    put:
+      summary: "Update exercises (ExercisesController::update)"
+      description: "Upadate Exercise"
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "EXERCISES"
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Exercise"
+              example:
+                id: 748
+                title: "Lorem Ipsum"
+                reps: 819
+                weight: 307
+                muscles: "string"
+                created_at: "2021-03-23T16:13:08.489+01:00"
+                updated_at: "2021-03-23T16:13:08.489+01:00"
+          description: "Returns a **single** instance of type `Exercise` **without** any _relations_. Take a look at the example for further details."
+        404:
+          description: "Not Found: Exercise could not be found"
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Exercise"
+            example:
+              title: "Lorem Ipsum"
+              reps: 819
+              weight: 307
+    delete:
+      summary: "Delete exercises (ExercisesController::destroy)"
+      description: ""
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "EXERCISES"
+      responses:
+        202:
+          description: "Accepted"
+          content:
+            application/json: {}
+      security: []
+  /api/v1/multimedias:
+    get:
+      summary: "Get a list of multimedias (MultimediasController::index)"
+      description: "Returns a **list** of type `Multimedia` **without** any _relations_. Take a look at the example for further details."
+      parameters: []
+      tags:
+        - "MULTIMEDIAS"
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Multimedia"
+              example:
+                - id: 746
+                  external_id: "string"
+                  created_at: "2021-03-23T16:13:08.489+01:00"
+                  updated_at: "2021-03-23T16:13:08.489+01:00"
+          description: "Returns a **list** of type `Multimedia` **without** any _relations_. Take a look at the example for further details."
+      security: []
+    post:
+      summary: " (MultimediasController::store)"
+      description: "Create Multimedia"
+      parameters: []
+      tags:
+        - "MULTIMEDIAS"
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Multimedia"
+              example:
+                id: 746
+                external_id: "string"
+                created_at: "2021-03-23T16:13:08.489+01:00"
+                updated_at: "2021-03-23T16:13:08.489+01:00"
+          description: "Returns a **single** instance of type `Multimedia` **without** any _relations_. Take a look at the example for further details."
+        400:
+          description: "Bad Request: Multimedia could not be created"
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Multimedia"
+            example:
+              external_id: "string"
+  /api/v1/multimedias/{id}:
+    get:
+      summary: "Get a single instance of multimedias (MultimediasController::show)"
+      description: "OK: DELETED"
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "MULTIMEDIAS"
+      responses:
+        200:
+          description: "OK: DELETED"
+        404:
+          description: "Not Found: Multimedia could not be deleted"
+      security: []
+    put:
+      summary: "Update multimedias (MultimediasController::update)"
+      description: "Upadate Multimedia"
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "MULTIMEDIAS"
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Multimedia"
+              example:
+                id: 746
+                external_id: "string"
+                created_at: "2021-03-23T16:13:08.489+01:00"
+                updated_at: "2021-03-23T16:13:08.489+01:00"
+          description: "Returns a **single** instance of type `Multimedia` **without** any _relations_. Take a look at the example for further details."
+        404:
+          description: "Not Found: Multimedia could not be found"
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Multimedia"
+            example:
+              external_id: "string"
+    delete:
+      summary: "Delete multimedias (MultimediasController::destroy)"
+      description: ""
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "MULTIMEDIAS"
+      responses:
+        202:
+          description: "Accepted"
+          content:
+            application/json: {}
+      security: []
+  /api/v1/trainers:
+    get:
+      summary: "Get a list of trainers (TrainersController::index)"
+      description: "Returns a **list** of type `Trainer` **without** any _relations_. Take a look at the example for further details."
+      parameters: []
+      tags:
+        - "TRAINERS"
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Trainer"
+              example:
+                - id: 29
+                  external_id: "string"
+                  created_at: "2021-03-23T16:13:08.489+01:00"
+                  updated_at: "2021-03-23T16:13:08.489+01:00"
+          description: "Returns a **list** of type `Trainer` **without** any _relations_. Take a look at the example for further details."
+      security: []
+    post:
+      summary: " (TrainersController::store)"
+      description: "Create Trainer"
+      parameters: []
+      tags:
+        - "TRAINERS"
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Trainer"
+              example:
+                id: 29
+                external_id: "string"
+                created_at: "2021-03-23T16:13:08.489+01:00"
+                updated_at: "2021-03-23T16:13:08.489+01:00"
+          description: "Returns a **single** instance of type `Trainer` **without** any _relations_. Take a look at the example for further details."
+        400:
+          description: "Bad Request: Trainer could not be created"
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Trainer"
+            example:
+              external_id: "string"
+  /api/v1/trainers/{id}:
+    get:
+      summary: "Get a single instance of trainers (TrainersController::show)"
+      description: "OK: DELETED"
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "TRAINERS"
+      responses:
+        200:
+          description: "OK: DELETED"
+        404:
+          description: "Not Found: Trainer could not be deleted"
+      security: []
+    put:
+      summary: "Update trainers (TrainersController::update)"
+      description: "Upadate Trainer"
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "TRAINERS"
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Trainer"
+              example:
+                id: 29
+                external_id: "string"
+                created_at: "2021-03-23T16:13:08.489+01:00"
+                updated_at: "2021-03-23T16:13:08.489+01:00"
+          description: "Returns a **single** instance of type `Trainer` **without** any _relations_. Take a look at the example for further details."
+        404:
+          description: "Not Found: Trainer could not be found"
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Trainer"
+            example:
+              external_id: "string"
+    delete:
+      summary: "Delete trainers (TrainersController::destroy)"
+      description: ""
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "TRAINERS"
+      responses:
+        202:
+          description: "Accepted"
+          content:
+            application/json: {}
+      security: []
+tags:
+  - name: "ATHLETES"
+    description: "Everything related to ATHLETES"
+  - name: "PLANS"
+    description: "Everything related to PLANS"
+  - name: "EXERCISES"
+    description: "Everything related to EXERCISES"
+  - name: "MULTIMEDIAS"
+    description: "Everything related to MULTIMEDIAS"
+  - name: "TRAINERS"
+    description: "Everything related to TRAINERS"
