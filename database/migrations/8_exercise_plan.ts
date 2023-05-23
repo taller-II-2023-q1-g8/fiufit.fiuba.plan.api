@@ -9,6 +9,8 @@ export default class extends BaseSchema {
       table.integer('plan_id').unsigned().references('plans.id')
       table.integer('exercise_id').unsigned().references('exercises.id')
       table.unique(['plan_id', 'exercise_id'])
+      table.integer('reps').unsigned().notNullable()
+      table.integer('weight').unsigned().notNullable()
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

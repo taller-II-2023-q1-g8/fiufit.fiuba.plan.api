@@ -29,7 +29,7 @@ export default class Plan extends BaseModel {
   @column()
   public tags: string
 
-  @column({ serializeAs: null })
+  @column()
   public trainer_id: number
 
   @belongsTo(() => Trainer, { localKey: 'id', foreignKey: 'trainer_id' })

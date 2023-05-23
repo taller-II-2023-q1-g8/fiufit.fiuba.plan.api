@@ -4,8 +4,6 @@ import { schema, rules } from '@ioc:Adonis/Core/Validator'
 
 const exerciseSchema = schema.create({
   title: schema.string([rules.minLength(1)]),
-  reps: schema.number([rules.range(1, 500)]),
-  weight: schema.number([rules.range(1, 1000)]),
   muscles: schema.string(),
 })
 
@@ -33,15 +31,13 @@ export default class ExercisesController {
    * @description Create Exercise
    * @responseBody 200 - <Exercise>
    * @responseBody 400 - Exercise could not be created
-   * @requestBody <Exercise>.only(title, reps, weight, muscles)
+   * @requestBody {"title": "lorem", "muscles": "ARMS"}
    */
   public async store({ request, response }: HttpContextContract) {
     try {
       const payload = await request.validate({ schema: exerciseSchema })
       const exercise = await Exercise.create({
         title: payload.title,
-        reps: payload.reps,
-        weight: payload.weight,
         muscles: payload.muscles,
       })
       response.status(200)
@@ -79,7 +75,7 @@ export default class ExercisesController {
    * @description Upadate Exercise
    * @responseBody 200 - <Exercise>
    * @responseBody 404 - Exercise could not be found
-   * @requestBody <Exercise>.only(title, reps, weight)
+   * @requestBody <Exercise>.only(title, muscle)
    */
   public async update({ request, response }: HttpContextContract) {
     try {
@@ -87,8 +83,6 @@ export default class ExercisesController {
       const exercise = await Exercise.findOrFail(request.param('id'))
       await exercise.merge({
         title: payload.title,
-        reps: payload.reps,
-        weight: payload.weight,
         muscles: payload.muscles,
       })
       await exercise.save()

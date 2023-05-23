@@ -29,7 +29,7 @@ export default class PlansController {
    */
   public async index({ response }: HttpContextContract) {
     try {
-      const plans = await Plan.all()
+      const plans = await Plan.query().preload('athletes').preload('exercises').select('*')
       response.status(200)
       response.send(plans)
     } catch (error) {
@@ -135,16 +135,25 @@ export default class PlansController {
   }
 
   /**
-   * @AddExercise
-   * @description Add exercise to Plan
+   * @addExercise
+   * @description Register calification of Plan favorited by Athlete
    * @responseBody 200 - <Plan>.with(exercises)
-   * @responseBody 400 - Exercise could not be added to Plan
+   * @responseBody 400 - Calification could not be added to favorited by Athlete Plan
+   * @requestBody {"reps": 10, "weight": 5}
    */
   public async addExercise({ request, response }: HttpContextContract) {
     try {
       const plan = await Plan.findOrFail(request.param('id'))
       const exercise = await Exercise.findOrFail(request.param('exercise_id'))
-      await plan.related('exercises').sync([exercise.id], false)
+      await plan.related('exercises').sync(
+        {
+          [exercise.id]: {
+            reps: request.input('reps'),
+            weight: request.input('weight'),
+          },
+        },
+        false
+      )
 
       await plan.load((loader) => {
         loader.load('exercises')
@@ -410,7 +419,12 @@ export default class PlansController {
         is_completed: request.input('is_completed') ?? null,
       }
 
-      const plans = await Database.from('plans')
+      const plans = await Plan.query()
+        .preload('athletes')
+        .preload('exercises')
+        .if(inputs.trainer_id, (query) => {
+          query.where('trainer_id', '=', inputs.trainer_id)
+        })
         .if(inputs.title, (query) => {
           query.where('title', 'like', '%' + inputs.title + '%')
         })
@@ -423,6 +437,7 @@ export default class PlansController {
         .if(inputs.difficulty, (query) => {
           query.where('difficulty', '=', inputs.difficulty)
         })
+        .select('*')
         .if(inputs.athlete_id, (query) => {
           query
             .join('athlete_plan', 'plans.id', '=', 'athlete_plan.plan_id')
@@ -434,10 +449,6 @@ export default class PlansController {
         .if(inputs.is_completed, (query) => {
           query.where('athlete_plan.is_completed', '=', inputs.is_completed)
         })
-        .if(inputs.trainer_id, (query) => {
-          query.where('plans.trainer_id', '=', inputs.trainer_id)
-        })
-        .select('plans.*')
 
       response.status(200)
       response.send(plans)

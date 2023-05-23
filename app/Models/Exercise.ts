@@ -11,12 +11,6 @@ export default class Exercise extends BaseModel {
   public title: string
 
   @column()
-  public reps: number
-
-  @column()
-  public weight: number
-
-  @column()
   public muscles: string
 
   @manyToMany(() => Plan)
