@@ -443,10 +443,10 @@ export default class PlansController {
         .if(inputs.athlete_id, (query) => {
           query.where('athlete_plan.athlete_id', '=', inputs.athlete_id)
         })
-        .if(inputs.is_liked != UNSETED, (query) => {
+        .if(inputs.is_liked !== UNSETED, (query) => {
           query.where('athlete_plan.is_liked', '=', inputs.is_liked)
         })
-        .if(inputs.is_completed != UNSETED, (query) => {
+        .if(inputs.is_completed !== UNSETED, (query) => {
           query.where('athlete_plan.is_completed', '=', inputs.is_completed)
         })
         .if(inputs.calification_score, (query) => {
