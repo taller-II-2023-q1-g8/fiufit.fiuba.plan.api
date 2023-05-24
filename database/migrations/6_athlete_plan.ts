@@ -10,7 +10,6 @@ export default class extends BaseSchema {
       table.integer('plan_id').unsigned().references('plans.id')
       table.unique(['athlete_id', 'plan_id'])
       table.boolean('is_liked').defaultTo(false)
-      table.boolean('is_completed').defaultTo(false)
       table.string('calification').defaultTo('')
       table.integer('calification_score').defaultTo(-1)
       table.timestamp('created_at', { useTz: true })
