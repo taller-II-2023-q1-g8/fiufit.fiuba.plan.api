@@ -405,9 +405,10 @@ export default class PlansController {
    * @description Get Plan by query
    * @responseBody 200 - <Plan[]>
    * @responseBody 400 - Query error
-   * @requestBody <Plan>.only(title,description,difficulty,tags).append("trainer_id": "1", "athlete_id":"1", "is_liked":"false", "is_completed":"false")
+   * @requestBody <Plan>.only(title,description,difficulty,tags).append("trainer_id": "1", "athlete_id":"1", "is_liked":"false", "is_completed":"false", "calification_score": 5)
    */
   public async search({ request, response }: HttpContextContract) {
+    const UNSETED = 'UNSETED'
     try {
       const inputs = {
         title: request.input('title') ?? null,
@@ -415,8 +416,9 @@ export default class PlansController {
         tags: request.input('tags') ?? null,
         athlete_id: request.input('athlete_id') ?? null,
         trainer_id: request.input('trainer_id') ?? null,
-        is_liked: request.input('is_liked') ?? null,
-        is_completed: request.input('is_completed') ?? null,
+        is_liked: request.input('is_liked') ?? UNSETED,
+        is_completed: request.input('is_completed') ?? UNSETED,
+        calification_score: request.input('calification_score') ?? null,
       }
 
       const plans = await Plan.query()
@@ -437,18 +439,20 @@ export default class PlansController {
         .if(inputs.difficulty, (query) => {
           query.where('difficulty', '=', inputs.difficulty)
         })
-        .select('*')
+        .join('athlete_plan', 'plans.id', '=', 'athlete_plan.plan_id')
         .if(inputs.athlete_id, (query) => {
-          query
-            .join('athlete_plan', 'plans.id', '=', 'athlete_plan.plan_id')
-            .where('athlete_plan.athlete_id', '=', inputs.athlete_id)
+          query.where('athlete_plan.athlete_id', '=', inputs.athlete_id)
         })
-        .if(inputs.is_liked, (query) => {
+        .if(inputs.is_liked != UNSETED, (query) => {
           query.where('athlete_plan.is_liked', '=', inputs.is_liked)
         })
-        .if(inputs.is_completed, (query) => {
+        .if(inputs.is_completed != UNSETED, (query) => {
           query.where('athlete_plan.is_completed', '=', inputs.is_completed)
         })
+        .if(inputs.calification_score, (query) => {
+          query.where('athlete_plan.calification_score', '=', inputs.calification_score)
+        })
+        .select('plans.*')
 
       response.status(200)
       response.send(plans)
