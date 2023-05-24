@@ -26,7 +26,16 @@ components:
       properties:
         id:
           type: "number"
-          example: 993
+          example: 48
+        is_liked:
+          type: "string"
+          example: "string"
+        calification:
+          type: "string"
+          example: "string"
+        calification_score:
+          type: "string"
+          example: "string"
         external_id:
           type: "string"
           example: "string"
@@ -49,16 +58,10 @@ components:
       properties:
         id:
           type: "number"
-          example: 748
+          example: 62
         title:
           type: "string"
           example: "Lorem Ipsum"
-        reps:
-          type: "number"
-          example: 819
-        weight:
-          type: "number"
-          example: 307
         muscles:
           type: "string"
           example: "string"
@@ -84,7 +87,7 @@ components:
       properties:
         id:
           type: "number"
-          example: 746
+          example: 670
         external_id:
           type: "string"
           example: "string"
@@ -105,7 +108,7 @@ components:
       properties:
         id:
           type: "number"
-          example: 966
+          example: 25
         title:
           type: "string"
           example: "Lorem Ipsum"
@@ -118,6 +121,9 @@ components:
         tags:
           type: "string"
           example: "string"
+        trainer_id:
+          type: "number"
+          example: 710
         trainer:
           $ref: "#/components/schemas/Trainer"
           example: "string"
@@ -145,7 +151,7 @@ components:
       properties:
         id:
           type: "number"
-          example: 29
+          example: 523
         external_id:
           type: "string"
           example: "string"
@@ -204,7 +210,10 @@ paths:
                 items:
                   $ref: "#/components/schemas/Athlete"
               example:
-                - id: 993
+                - id: 48
+                  is_liked: "string"
+                  calification: "string"
+                  calification_score: "string"
                   external_id: "string"
                   created_at: "2021-03-23T16:13:08.489+01:00"
                   updated_at: "2021-03-23T16:13:08.489+01:00"
@@ -212,7 +221,7 @@ paths:
       security: []
     post:
       summary: " (AthletesController::store)"
-      description: "Create Athlete"
+      description: "Create Athlete\r"
       parameters: []
       tags:
         - "ATHLETES"
@@ -223,13 +232,16 @@ paths:
               schema:
                 $ref: "#/components/schemas/Athlete"
               example:
-                id: 993
+                id: 48
+                is_liked: "string"
+                calification: "string"
+                calification_score: "string"
                 external_id: "string"
                 created_at: "2021-03-23T16:13:08.489+01:00"
                 updated_at: "2021-03-23T16:13:08.489+01:00"
           description: "Returns a **single** instance of type `Athlete` **without** any _relations_. Take a look at the example for further details."
         400:
-          description: "Bad Request: Athlete could not be created"
+          description: "Bad Request: Athlete could not be created\r"
       security: []
       requestBody:
         content:
@@ -241,7 +253,7 @@ paths:
   /api/v1/athletes/{id}:
     get:
       summary: "Get a single instance of athletes (AthletesController::show)"
-      description: "OK: DELETED"
+      description: "OK: DELETED\r"
       parameters:
         - in: "path"
           name: "id"
@@ -252,13 +264,13 @@ paths:
         - "ATHLETES"
       responses:
         200:
-          description: "OK: DELETED"
+          description: "OK: DELETED\r"
         404:
           description: "Not Found: Athlete could not be deleted"
       security: []
     put:
       summary: "Update athletes (AthletesController::update)"
-      description: "Upadate Athlete"
+      description: "Upadate Athlete\r"
       parameters:
         - in: "path"
           name: "id"
@@ -274,13 +286,16 @@ paths:
               schema:
                 $ref: "#/components/schemas/Athlete"
               example:
-                id: 993
+                id: 48
+                is_liked: "string"
+                calification: "string"
+                calification_score: "string"
                 external_id: "string"
                 created_at: "2021-03-23T16:13:08.489+01:00"
                 updated_at: "2021-03-23T16:13:08.489+01:00"
           description: "Returns a **single** instance of type `Athlete` **without** any _relations_. Take a look at the example for further details."
         404:
-          description: "Not Found: Athlete could not be found"
+          description: "Not Found: Athlete could not be found\r"
       security: []
       requestBody:
         content:
@@ -322,18 +337,19 @@ paths:
                 items:
                   $ref: "#/components/schemas/Plan"
               example:
-                - id: 966
+                - id: 25
                   title: "Lorem Ipsum"
                   description: "Lorem ipsum dolor sit amet"
                   difficulty: "string"
                   tags: "string"
+                  trainer_id: 710
                   created_at: "2021-03-23T16:13:08.489+01:00"
                   updated_at: "2021-03-23T16:13:08.489+01:00"
           description: "Returns a **list** of type `Plan` **without** any _relations_. Take a look at the example for further details."
       security: []
     post:
       summary: " (PlansController::store)"
-      description: "Create Plan"
+      description: "Create Plan\r"
       parameters: []
       tags:
         - "PLANS"
@@ -344,13 +360,14 @@ paths:
               schema:
                 $ref: "#/components/schemas/Plan"
               example:
-                id: 966
+                id: 25
                 title: "Lorem Ipsum"
                 description: "Lorem ipsum dolor sit amet"
                 difficulty: "string"
                 tags: "string"
+                trainer_id: 710
                 trainer:
-                  id: 29
+                  id: 523
                   external_id: "string"
                   created_at: "2021-03-23T16:13:08.489+01:00"
                   updated_at: "2021-03-23T16:13:08.489+01:00"
@@ -358,7 +375,7 @@ paths:
                 updated_at: "2021-03-23T16:13:08.489+01:00"
           description: "Returns a **single** instance of type `Plan` **including** _trainer_. Take a look at the example for further details."
         400:
-          description: "Bad Request: Plan could not be created"
+          description: "Bad Request: Plan could not be created\r"
       security: []
       requestBody:
         content:
@@ -374,7 +391,7 @@ paths:
   /api/v1/plans/{id}:
     get:
       summary: "Get a single instance of plans (PlansController::show)"
-      description: "OK: DELETED"
+      description: "OK: DELETED\r"
       parameters:
         - in: "path"
           name: "id"
@@ -385,13 +402,13 @@ paths:
         - "PLANS"
       responses:
         200:
-          description: "OK: DELETED"
+          description: "OK: DELETED\r"
         404:
           description: "Not Found: Plan could not be deleted"
       security: []
     put:
       summary: "Update plans (PlansController::update)"
-      description: "Upadate Plan"
+      description: "Upadate Plan\r"
       parameters:
         - in: "path"
           name: "id"
@@ -407,16 +424,17 @@ paths:
               schema:
                 $ref: "#/components/schemas/Plan"
               example:
-                id: 966
+                id: 25
                 title: "Lorem Ipsum"
                 description: "Lorem ipsum dolor sit amet"
                 difficulty: "string"
                 tags: "string"
+                trainer_id: 710
                 created_at: "2021-03-23T16:13:08.489+01:00"
                 updated_at: "2021-03-23T16:13:08.489+01:00"
           description: "Returns a **single** instance of type `Plan` **without** any _relations_. Take a look at the example for further details."
         404:
-          description: "Not Found: Plan could not be found"
+          description: "Not Found: Plan could not be found\r"
       security: []
       requestBody:
         content:
@@ -448,7 +466,7 @@ paths:
   /api/v1/plans/search:
     post:
       summary: " (PlansController::search)"
-      description: "Get Plan by query"
+      description: "Get Plan by query\r"
       parameters: []
       tags:
         - "PLANS"
@@ -461,16 +479,17 @@ paths:
                 items:
                   $ref: "#/components/schemas/Plan"
               example:
-                - id: 966
+                - id: 25
                   title: "Lorem Ipsum"
                   description: "Lorem ipsum dolor sit amet"
                   difficulty: "string"
                   tags: "string"
+                  trainer_id: 710
                   created_at: "2021-03-23T16:13:08.489+01:00"
                   updated_at: "2021-03-23T16:13:08.489+01:00"
           description: "Returns a **list** of type `Plan` **without** any _relations_. Take a look at the example for further details."
         400:
-          description: "Bad Request: Query error"
+          description: "Bad Request: Query error\r"
       security: []
       requestBody:
         content:
@@ -485,11 +504,11 @@ paths:
               trainer_id: "1"
               athlete_id: "1"
               is_liked: "false"
-              is_completed: "false"
+              calification_score: 5
   /api/v1/plans/{id}/califications:
     get:
       summary: " (PlansController::getCalifications)"
-      description: "OK: califications"
+      description: "OK: califications\r"
       parameters:
         - in: "path"
           name: "id"
@@ -500,14 +519,14 @@ paths:
         - "PLANS"
       responses:
         200:
-          description: "OK: califications"
+          description: "OK: califications\r"
         400:
           description: "Bad Request: could not be retrieved"
       security: []
   /api/v1/plans/{id}/likes:
     get:
       summary: " (PlansController::getLikes)"
-      description: "OK: likes amount"
+      description: "OK: likes amount\r"
       parameters:
         - in: "path"
           name: "id"
@@ -518,36 +537,11 @@ paths:
         - "PLANS"
       responses:
         200:
-          description: "OK: likes amount"
+          description: "OK: likes amount\r"
         400:
           description: "Bad Request: could not be retrieved"
       security: []
   /api/v1/plans/{id}/exercises/{exercise_id}:
-    post:
-      summary: " (PlansController::addExercise)"
-      description: ""
-      parameters:
-        - in: "path"
-          name: "id"
-          schema:
-            type: "string"
-          required: true
-        - in: "path"
-          name: "exercise_id"
-          schema:
-            type: "string"
-          required: true
-      tags:
-        - "PLANS"
-      responses:
-        201:
-          description: "Created"
-          content:
-            application/json: {}
-      security: []
-      requestBody:
-        content:
-          application/json: {}
     delete:
       summary: " (PlansController::removeExercise)"
       description: ""
@@ -570,6 +564,55 @@ paths:
           content:
             application/json: {}
       security: []
+    post:
+      summary: " (PlansController::addExercise)"
+      description: "Register calification of Plan favorited by Athlete\r"
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+        - in: "path"
+          name: "exercise_id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "PLANS"
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Plan"
+              example:
+                id: 25
+                title: "Lorem Ipsum"
+                description: "Lorem ipsum dolor sit amet"
+                difficulty: "string"
+                tags: "string"
+                trainer_id: 710
+                exercises:
+                  - id: 62
+                    title: "Lorem Ipsum"
+                    muscles: "string"
+                    created_at: "2021-03-23T16:13:08.489+01:00"
+                    updated_at: "2021-03-23T16:13:08.489+01:00"
+                created_at: "2021-03-23T16:13:08.489+01:00"
+                updated_at: "2021-03-23T16:13:08.489+01:00"
+          description: "Returns a **single** instance of type `Plan` **including** _exercises_. Take a look at the example for further details."
+        400:
+          description: "Bad Request: Calification could not be added to favorited by Athlete Plan\r"
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "object"
+            example:
+              reps: 10
+              weight: 5
   /api/v1/plans/{id}/athletes/{athlete_id}:
     post:
       summary: " (PlansController::addAthlete)"
@@ -622,7 +665,7 @@ paths:
   /api/v1/plans/{id}/athletes/{athlete_id}/likes:
     patch:
       summary: " (PlansController::addLike)"
-      description: "Like Plan favorited by Athlete"
+      description: "Like Plan favorited by Athlete\r"
       parameters:
         - in: "path"
           name: "id"
@@ -638,7 +681,7 @@ paths:
         - "PLANS"
       responses:
         200:
-          description: "OK: Registered like"
+          description: "OK: Registered like\r"
         400:
           description: "Bad Request: Like could not be added to favorited by Athlete Plan"
       security: []
@@ -651,7 +694,7 @@ paths:
   /api/v1/plans/{id}/athletes/{athlete_id}/completions:
     patch:
       summary: " (PlansController::addCompleted)"
-      description: "Register completion of Plan favorited by Athlete"
+      description: ""
       parameters:
         - in: "path"
           name: "id"
@@ -666,21 +709,18 @@ paths:
       tags:
         - "PLANS"
       responses:
-        200:
-          description: "OK: Registered completion"
-        400:
-          description: "Bad Request: Completion could not be added to favorited by Athlete Plan"
+        undefined:
+          description: "Unknown"
+          content:
+            application/json: {}
       security: []
       requestBody:
         content:
-          application/json:
-            schema:
-              type: "object"
-            example: ""
+          application/json: {}
   /api/v1/plans/{id}/athletes/{athlete_id}/califications:
     post:
       summary: " (PlansController::addCalification)"
-      description: "Register calification of Plan favorited by Athlete"
+      description: "Register calification of Plan favorited by Athlete\r"
       parameters:
         - in: "path"
           name: "id"
@@ -696,9 +736,9 @@ paths:
         - "PLANS"
       responses:
         200:
-          description: "OK: Registered calification"
+          description: "OK: Registered calification\r"
         400:
-          description: "Bad Request: Calification could not be added to favorited by Athlete Plan"
+          description: "Bad Request: Calification could not be added to favorited by Athlete Plan\r"
       security: []
       requestBody:
         content:
@@ -724,10 +764,8 @@ paths:
                 items:
                   $ref: "#/components/schemas/Exercise"
               example:
-                - id: 748
+                - id: 62
                   title: "Lorem Ipsum"
-                  reps: 819
-                  weight: 307
                   muscles: "string"
                   created_at: "2021-03-23T16:13:08.489+01:00"
                   updated_at: "2021-03-23T16:13:08.489+01:00"
@@ -746,10 +784,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/Exercise"
               example:
-                id: 748
+                id: 62
                 title: "Lorem Ipsum"
-                reps: 819
-                weight: 307
                 muscles: "string"
                 created_at: "2021-03-23T16:13:08.489+01:00"
                 updated_at: "2021-03-23T16:13:08.489+01:00"
@@ -761,12 +797,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Exercise"
+              type: "object"
             example:
-              title: "Lorem Ipsum"
-              reps: 819
-              weight: 307
-              muscles: "string"
+              title: "lorem"
+              muscles: "ARMS"
   /api/v1/exercises/{id}:
     get:
       summary: "Get a single instance of exercises (ExercisesController::show)"
@@ -803,10 +837,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/Exercise"
               example:
-                id: 748
+                id: 62
                 title: "Lorem Ipsum"
-                reps: 819
-                weight: 307
                 muscles: "string"
                 created_at: "2021-03-23T16:13:08.489+01:00"
                 updated_at: "2021-03-23T16:13:08.489+01:00"
@@ -821,8 +853,6 @@ paths:
               $ref: "#/components/schemas/Exercise"
             example:
               title: "Lorem Ipsum"
-              reps: 819
-              weight: 307
     delete:
       summary: "Delete exercises (ExercisesController::destroy)"
       description: ""
@@ -856,7 +886,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/Multimedia"
               example:
-                - id: 746
+                - id: 670
                   external_id: "string"
                   created_at: "2021-03-23T16:13:08.489+01:00"
                   updated_at: "2021-03-23T16:13:08.489+01:00"
@@ -864,7 +894,7 @@ paths:
       security: []
     post:
       summary: " (MultimediasController::store)"
-      description: "Create Multimedia"
+      description: "Create Multimedia\r"
       parameters: []
       tags:
         - "MULTIMEDIAS"
@@ -875,13 +905,13 @@ paths:
               schema:
                 $ref: "#/components/schemas/Multimedia"
               example:
-                id: 746
+                id: 670
                 external_id: "string"
                 created_at: "2021-03-23T16:13:08.489+01:00"
                 updated_at: "2021-03-23T16:13:08.489+01:00"
           description: "Returns a **single** instance of type `Multimedia` **without** any _relations_. Take a look at the example for further details."
         400:
-          description: "Bad Request: Multimedia could not be created"
+          description: "Bad Request: Multimedia could not be created\r"
       security: []
       requestBody:
         content:
@@ -893,7 +923,7 @@ paths:
   /api/v1/multimedias/{id}:
     get:
       summary: "Get a single instance of multimedias (MultimediasController::show)"
-      description: "OK: DELETED"
+      description: "OK: DELETED\r"
       parameters:
         - in: "path"
           name: "id"
@@ -904,13 +934,13 @@ paths:
         - "MULTIMEDIAS"
       responses:
         200:
-          description: "OK: DELETED"
+          description: "OK: DELETED\r"
         404:
           description: "Not Found: Multimedia could not be deleted"
       security: []
     put:
       summary: "Update multimedias (MultimediasController::update)"
-      description: "Upadate Multimedia"
+      description: "Upadate Multimedia\r"
       parameters:
         - in: "path"
           name: "id"
@@ -926,13 +956,13 @@ paths:
               schema:
                 $ref: "#/components/schemas/Multimedia"
               example:
-                id: 746
+                id: 670
                 external_id: "string"
                 created_at: "2021-03-23T16:13:08.489+01:00"
                 updated_at: "2021-03-23T16:13:08.489+01:00"
           description: "Returns a **single** instance of type `Multimedia` **without** any _relations_. Take a look at the example for further details."
         404:
-          description: "Not Found: Multimedia could not be found"
+          description: "Not Found: Multimedia could not be found\r"
       security: []
       requestBody:
         content:
@@ -974,7 +1004,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/Trainer"
               example:
-                - id: 29
+                - id: 523
                   external_id: "string"
                   created_at: "2021-03-23T16:13:08.489+01:00"
                   updated_at: "2021-03-23T16:13:08.489+01:00"
@@ -982,7 +1012,7 @@ paths:
       security: []
     post:
       summary: " (TrainersController::store)"
-      description: "Create Trainer"
+      description: "Create Trainer\r"
       parameters: []
       tags:
         - "TRAINERS"
@@ -993,13 +1023,13 @@ paths:
               schema:
                 $ref: "#/components/schemas/Trainer"
               example:
-                id: 29
+                id: 523
                 external_id: "string"
                 created_at: "2021-03-23T16:13:08.489+01:00"
                 updated_at: "2021-03-23T16:13:08.489+01:00"
           description: "Returns a **single** instance of type `Trainer` **without** any _relations_. Take a look at the example for further details."
         400:
-          description: "Bad Request: Trainer could not be created"
+          description: "Bad Request: Trainer could not be created\r"
       security: []
       requestBody:
         content:
@@ -1011,7 +1041,7 @@ paths:
   /api/v1/trainers/{id}:
     get:
       summary: "Get a single instance of trainers (TrainersController::show)"
-      description: "OK: DELETED"
+      description: "OK: DELETED\r"
       parameters:
         - in: "path"
           name: "id"
@@ -1022,13 +1052,13 @@ paths:
         - "TRAINERS"
       responses:
         200:
-          description: "OK: DELETED"
+          description: "OK: DELETED\r"
         404:
           description: "Not Found: Trainer could not be deleted"
       security: []
     put:
       summary: "Update trainers (TrainersController::update)"
-      description: "Upadate Trainer"
+      description: "Upadate Trainer\r"
       parameters:
         - in: "path"
           name: "id"
@@ -1044,13 +1074,13 @@ paths:
               schema:
                 $ref: "#/components/schemas/Trainer"
               example:
-                id: 29
+                id: 523
                 external_id: "string"
                 created_at: "2021-03-23T16:13:08.489+01:00"
                 updated_at: "2021-03-23T16:13:08.489+01:00"
           description: "Returns a **single** instance of type `Trainer` **without** any _relations_. Take a look at the example for further details."
         404:
-          description: "Not Found: Trainer could not be found"
+          description: "Not Found: Trainer could not be found\r"
       security: []
       requestBody:
         content:

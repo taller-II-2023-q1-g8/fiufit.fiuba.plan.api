@@ -278,36 +278,6 @@ export default class PlansController {
   }
 
   /**
-   * @addCompleted
-   * @description Register completion of Plan favorited by Athlete
-   * @responseBody 200 - Registered completion
-   * @responseBody 400 - Completion could not be added to favorited by Athlete Plan
-   */
-  public async addCompleted({ request, response }: HttpContextContract) {
-    try {
-      const plan = await Plan.findOrFail(request.param('id'))
-      const athlete = await Athlete.findOrFail(request.param('athlete_id'))
-
-      await plan.related('athletes').sync(
-        {
-          [athlete.id]: {
-            is_completed: true,
-          },
-        },
-        false
-      )
-
-      response.status(200)
-      response.send('Registered completion')
-    } catch (error) {
-      response.status(404)
-      response.send({
-        error: error.message,
-      })
-    }
-  }
-
-  /**
    * @addCalification
    * @description Register calification of Plan favorited by Athlete
    * @responseBody 200 - Registered calification
@@ -405,7 +375,7 @@ export default class PlansController {
    * @description Get Plan by query
    * @responseBody 200 - <Plan[]>
    * @responseBody 400 - Query error
-   * @requestBody <Plan>.only(title,description,difficulty,tags).append("trainer_id": "1", "athlete_id":"1", "is_liked":"false", "is_completed":"false", "calification_score": 5)
+   * @requestBody <Plan>.only(title,description,difficulty,tags).append("trainer_id": "1", "athlete_id":"1", "is_liked":"false", "calification_score": 5)
    */
   public async search({ request, response }: HttpContextContract) {
     const UNSETED = 'UNSETED'
@@ -417,7 +387,6 @@ export default class PlansController {
         athlete_id: request.input('athlete_id') ?? null,
         trainer_id: request.input('trainer_id') ?? null,
         is_liked: request.input('is_liked') ?? UNSETED,
-        is_completed: request.input('is_completed') ?? UNSETED,
         calification_score: request.input('calification_score') ?? null,
       }
 
@@ -445,9 +414,6 @@ export default class PlansController {
         })
         .if(inputs.is_liked !== UNSETED, (query) => {
           query.where('athlete_plan.is_liked', '=', inputs.is_liked)
-        })
-        .if(inputs.is_completed !== UNSETED, (query) => {
-          query.where('athlete_plan.is_completed', '=', inputs.is_completed)
         })
         .if(inputs.calification_score, (query) => {
           query.where('athlete_plan.calification_score', '=', inputs.calification_score)
