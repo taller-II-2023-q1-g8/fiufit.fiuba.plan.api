@@ -425,6 +425,7 @@ export default class PlansController {
           query.join('athlete_plan', 'plans.id', '=', 'athlete_plan.plan_id')
           query.where('athlete_plan.calification_score', '=', inputs.calification_score)
         })
+        .select('plans.*')
 
       response.status(200)
       response.send(plans)

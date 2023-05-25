@@ -51,5 +51,54 @@ export default class PlanSeeder extends BaseSeeder {
     for (var payload of payloads) {
       await Plan.createWithTrain(payload)
     }
+
+    const plan = await Plan.findByOrFail('id', 1)
+
+    await plan.related('athletes').sync(
+      {
+        [1]: {
+          calification: 'nice',
+          calification_score: 3,
+        },
+      },
+      false
+    )
+
+    await plan.related('athletes').sync(
+      {
+        [2]: {
+          calification: 'good',
+          calification_score: 5,
+        },
+      },
+      false
+    )
+
+    await plan.related('athletes').sync(
+      {
+        [1]: {
+          is_liked: true,
+        },
+      },
+      false
+    )
+
+    await plan.related('athletes').sync(
+      {
+        [2]: {
+          is_liked: true,
+        },
+      },
+      false
+    )
+
+    await plan.related('athletes').sync(
+      {
+        [3]: {
+          is_liked: true,
+        },
+      },
+      false
+    )
   }
 }
