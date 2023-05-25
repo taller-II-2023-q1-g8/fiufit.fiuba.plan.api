@@ -3,48 +3,49 @@ import Plan from 'App/Models/Plan'
 
 export default class PlanSeeder extends BaseSeeder {
   public async run() {
+
     const payloads = [
       {
         title: 'mancuerna',
         description: 'un dia vi una vaca vestida de uniforme',
         difficulty: 'EASY',
         tags: 'CHEST',
-        trainer_id: 1,
+        trainer_username: 'axelmpm',
       },
       {
         title: 'sentadilla',
         description: 'un dia vi una vaca vestida de uniforme',
         difficulty: 'EASY',
         tags: 'CHEST',
-        trainer_id: 1,
+        trainer_username: 'axelmpm',
       },
       {
         title: 'lagartijas',
         description: 'un dia vi una vaca vestida de uniforme',
         difficulty: 'HARD',
         tags: 'ARMS, CHEST',
-        trainer_id: 1,
+        trainer_username: 'axelmpm',
       },
       {
         title: 'abdominales',
         description: 'un dia vi una vaca vestida de uniforme',
         difficulty: 'NORMAL',
         tags: 'ARMS, CHEST',
-        trainer_id: 2,
+        trainer_username: 'jorge',
       },
       {
         title: 'saltos',
         description: 'un dia vi una vaca vestida de uniforme',
         difficulty: 'EASY',
         tags: 'LEGS',
-        trainer_id: 3,
+        trainer_username: 'jorge',
       },
       {
         title: 'dominadas',
         description: 'un dia vi una vaca vestida de uniforme',
         difficulty: 'HARD',
         tags: 'ARMS, LEGS',
-        trainer_id: 2,
+        trainer_username: 'alfredo',
       },
     ]
 

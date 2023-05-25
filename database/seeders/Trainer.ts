@@ -5,7 +5,7 @@ export default class TrainerSeeder extends BaseSeeder {
   public async run() {
     await Trainer.createMany([
       {
-        external_id: 'axelmpm',
+        external_id: '1',
       },
       {
         external_id: '2',

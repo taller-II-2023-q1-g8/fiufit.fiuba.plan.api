@@ -59,7 +59,7 @@ export default class Plan extends BaseModel {
   public updatedAt: DateTime
 
   public static async createWithTrain(payload) {
-    const trainer = await Trainer.firstOrCreate({ external_id: payload.trainer_id })
+    const trainer = await Trainer.firstOrCreate({ external_id: payload.trainer_username })
     const plan = await Plan.create({
       title: payload.title,
       description: payload.description,
