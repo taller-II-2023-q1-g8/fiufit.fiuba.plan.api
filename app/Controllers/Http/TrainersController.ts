@@ -61,6 +61,36 @@ export default class TrainersController {
   }
 
   /**
+   * @show
+   * @description Return Trainer
+   * @responseBody 200 - <Trainer>
+   * @responseBody 404 - Trainer could not be found
+   */
+  public async getByAthleteExternalId({ request, response }: HttpContextContract) {
+    try {
+      console.log(request.param('username'))
+      const trainers = await Trainer.query()
+        .where('external_id', '=', request.param('username'))
+        .select('*')
+
+      if (trainers.length == 0) {
+        response.status(404)
+        response.send({
+          error: 'Trainer could not be found',
+        })
+      } else {
+        response.status(200)
+        response.send(trainers[0])
+      }
+    } catch (error) {
+      response.status(400)
+      response.send({
+        error: error.message,
+      })
+    }
+  }
+
+  /**
    * @update
    * @description Upadate Trainer
    * @responseBody 200 - <Trainer>
