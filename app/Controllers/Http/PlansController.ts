@@ -11,7 +11,7 @@ const createPlanSchema = schema.create({
   description: schema.string([rules.minLength(1)]),
   difficulty: schema.enum(DIFFICULTY_LEVELS),
   tags: schema.string(),
-  trainer_id: schema.string([rules.minLength(1)]),
+  trainer_username: schema.string([rules.minLength(1)]),
 })
 
 const updatePlanSchema = schema.create({
@@ -45,7 +45,7 @@ export default class PlansController {
    * @description Create Plan
    * @responseBody 200 - <Plan>.with(trainer)
    * @responseBody 400 - Plan could not be created
-   * @requestBody <Plan>.only(title,description,difficulty,tags).append("trainer_id":"A123")
+   * @requestBody <Plan>.only(title,description,difficulty,tags).append("trainer_username":"A123")
    */
   public async store({ request, response }: HttpContextContract) {
     try {
