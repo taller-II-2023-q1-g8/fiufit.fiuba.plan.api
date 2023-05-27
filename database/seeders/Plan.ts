@@ -31,21 +31,21 @@ export default class PlanSeeder extends BaseSeeder {
         description: 'un dia vi una vaca vestida de uniforme',
         difficulty: 'NORMAL',
         tags: 'ARMS, CHEST',
-        trainer_username: 'jorge',
+        trainer_username: 'tresdosuno',
       },
       {
         title: 'saltos',
         description: 'un dia vi una vaca vestida de uniforme',
         difficulty: 'EASY',
         tags: 'LEGS',
-        trainer_username: 'jorge',
+        trainer_username: 'lacobra1',
       },
       {
         title: 'dominadas',
         description: 'un dia vi una vaca vestida de uniforme',
         difficulty: 'HARD',
         tags: 'ARMS, LEGS',
-        trainer_username: 'alfredo',
+        trainer_username: 'lacobra1',
       },
     ]
 
