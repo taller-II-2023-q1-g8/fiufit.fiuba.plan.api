@@ -1,5 +1,13 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, hasOne, HasOne, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
+import {
+  BaseModel,
+  column,
+  computed,
+  hasOne,
+  HasOne,
+  manyToMany,
+  ManyToMany,
+} from '@ioc:Adonis/Lucid/Orm'
 import Plan from 'App/Models/Plan'
 import Multimedia from 'App/Models/Multimedia'
 
@@ -12,6 +20,16 @@ export default class Exercise extends BaseModel {
 
   @column()
   public muscles: string
+
+  @computed()
+  public get reps() {
+    return this.$extras.pivot_reps
+  }
+
+  @computed()
+  public get weight() {
+    return this.$extras.pivot_weight
+  }
 
   @manyToMany(() => Plan)
   public plans: ManyToMany<typeof Plan>

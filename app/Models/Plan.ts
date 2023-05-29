@@ -40,6 +40,7 @@ export default class Plan extends BaseModel {
     pivotForeignKey: 'plan_id',
     relatedKey: 'id',
     pivotRelatedForeignKey: 'exercise_id',
+    pivotColumns: ['reps', 'weight'],
   })
   public exercises: ManyToMany<typeof Exercise>
 
