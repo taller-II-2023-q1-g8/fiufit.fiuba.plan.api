@@ -340,6 +340,31 @@ export default class PlansController {
   }
 
   /**
+   * @getExercises
+   * @description Get all exercises of Plan
+   * @responseBody 200 - exercises
+   * @responseBody 400 - could not be retrieved
+   */
+  public async getExercises({ request, response }: HttpContextContract) {
+    try {
+      const inputs = {
+        id: request.param('id'),
+      }
+
+      const plan = await Plan.query().preload('exercises').where('id', '=', inputs.id).first()
+
+
+      response.status(200)
+      response.send(plan?.exercises)
+    } catch (error) {
+      response.status(404)
+      response.send({
+        error: error.message,
+      })
+    }
+  }
+
+  /**
    * @getLikes
    * @description Get likes amount of Plan
    * @responseBody 200 - likes amount
