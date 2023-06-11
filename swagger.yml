@@ -1,7 +1,7 @@
 openapi: "3.0.0"
 info:
   title: "Plan"
-  version: "1.0.1"
+  version: "1.0.0"
 components:
   responses:
     Forbidden:
@@ -26,7 +26,7 @@ components:
       properties:
         id:
           type: "number"
-          example: 638
+          example: 692
         is_liked:
           type: "string"
           example: "string"
@@ -58,11 +58,17 @@ components:
       properties:
         id:
           type: "number"
-          example: 180
+          example: 565
         title:
           type: "string"
           example: "Lorem Ipsum"
         muscles:
+          type: "string"
+          example: "string"
+        reps:
+          type: "string"
+          example: "string"
+        weight:
           type: "string"
           example: "string"
         plans:
@@ -87,7 +93,7 @@ components:
       properties:
         id:
           type: "number"
-          example: 694
+          example: 390
         external_id:
           type: "string"
           example: "string"
@@ -108,7 +114,7 @@ components:
       properties:
         id:
           type: "number"
-          example: 353
+          example: 635
         title:
           type: "string"
           example: "Lorem Ipsum"
@@ -123,7 +129,7 @@ components:
           example: "string"
         trainer_id:
           type: "number"
-          example: 748
+          example: 250
         trainer:
           $ref: "#/components/schemas/Trainer"
           example: "string"
@@ -151,7 +157,7 @@ components:
       properties:
         id:
           type: "number"
-          example: 961
+          example: 372
         external_id:
           type: "string"
           example: "string"
@@ -210,7 +216,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/Athlete"
               example:
-                - id: 638
+                - id: 692
                   is_liked: "string"
                   calification: "string"
                   calification_score: "string"
@@ -232,7 +238,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Athlete"
               example:
-                id: 638
+                id: 692
                 is_liked: "string"
                 calification: "string"
                 calification_score: "string"
@@ -286,7 +292,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Athlete"
               example:
-                id: 638
+                id: 692
                 is_liked: "string"
                 calification: "string"
                 calification_score: "string"
@@ -337,12 +343,12 @@ paths:
                 items:
                   $ref: "#/components/schemas/Plan"
               example:
-                - id: 353
+                - id: 635
                   title: "Lorem Ipsum"
                   description: "Lorem ipsum dolor sit amet"
                   difficulty: "string"
                   tags: "string"
-                  trainer_id: 748
+                  trainer_id: 250
                   created_at: "2021-03-23T16:13:08.489+01:00"
                   updated_at: "2021-03-23T16:13:08.489+01:00"
           description: "Returns a **list** of type `Plan` **without** any _relations_. Take a look at the example for further details."
@@ -360,14 +366,14 @@ paths:
               schema:
                 $ref: "#/components/schemas/Plan"
               example:
-                id: 353
+                id: 635
                 title: "Lorem Ipsum"
                 description: "Lorem ipsum dolor sit amet"
                 difficulty: "string"
                 tags: "string"
-                trainer_id: 748
+                trainer_id: 250
                 trainer:
-                  id: 961
+                  id: 372
                   external_id: "string"
                   created_at: "2021-03-23T16:13:08.489+01:00"
                   updated_at: "2021-03-23T16:13:08.489+01:00"
@@ -387,7 +393,7 @@ paths:
               description: "Lorem ipsum dolor sit amet"
               difficulty: "string"
               tags: "string"
-              trainer_id: "A123"
+              trainer_username: "A123"
   /api/v1/plans/{id}:
     get:
       summary: "Get a single instance of plans (PlansController::show)"
@@ -424,12 +430,12 @@ paths:
               schema:
                 $ref: "#/components/schemas/Plan"
               example:
-                id: 353
+                id: 635
                 title: "Lorem Ipsum"
                 description: "Lorem ipsum dolor sit amet"
                 difficulty: "string"
                 tags: "string"
-                trainer_id: 748
+                trainer_id: 250
                 created_at: "2021-03-23T16:13:08.489+01:00"
                 updated_at: "2021-03-23T16:13:08.489+01:00"
           description: "Returns a **single** instance of type `Plan` **without** any _relations_. Take a look at the example for further details."
@@ -479,12 +485,12 @@ paths:
                 items:
                   $ref: "#/components/schemas/Plan"
               example:
-                - id: 353
+                - id: 635
                   title: "Lorem Ipsum"
                   description: "Lorem ipsum dolor sit amet"
                   difficulty: "string"
                   tags: "string"
-                  trainer_id: 748
+                  trainer_id: 250
                   created_at: "2021-03-23T16:13:08.489+01:00"
                   updated_at: "2021-03-23T16:13:08.489+01:00"
           description: "Returns a **list** of type `Plan` **without** any _relations_. Take a look at the example for further details."
@@ -501,10 +507,47 @@ paths:
               description: "Lorem ipsum dolor sit amet"
               difficulty: "string"
               tags: "string"
+              trainer_username: "jorge"
               trainer_id: "1"
               athlete_id: "1"
               is_liked: "false"
               calification_score: 5
+  /api/v1/trainers/username/{username}:
+    get:
+      summary: " (TrainersController::getByAthleteExternalId)"
+      description: ""
+      parameters:
+        - in: "path"
+          name: "username"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "TRAINERS"
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json: {}
+      security: []
+  /api/v1/plans/{id}/exercises:
+    get:
+      summary: " (PlansController::getExercises)"
+      description: "OK: exercises"
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "PLANS"
+      responses:
+        200:
+          description: "OK: exercises"
+        400:
+          description: "Bad Request: could not be retrieved"
+      security: []
   /api/v1/plans/{id}/califications:
     get:
       summary: " (PlansController::getCalifications)"
@@ -587,16 +630,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/Plan"
               example:
-                id: 353
+                id: 635
                 title: "Lorem Ipsum"
                 description: "Lorem ipsum dolor sit amet"
                 difficulty: "string"
                 tags: "string"
-                trainer_id: 748
+                trainer_id: 250
                 exercises:
-                  - id: 180
+                  - id: 565
                     title: "Lorem Ipsum"
                     muscles: "string"
+                    reps: "string"
+                    weight: "string"
                     created_at: "2021-03-23T16:13:08.489+01:00"
                     updated_at: "2021-03-23T16:13:08.489+01:00"
                 created_at: "2021-03-23T16:13:08.489+01:00"
@@ -639,7 +684,6 @@ paths:
       requestBody:
         content:
           application/json: {}
-  /api/v1/plans/{id}/athlete/{athlete_id}:
     delete:
       summary: " (PlansController::removeAthlete)"
       description: ""
@@ -738,9 +782,11 @@ paths:
                 items:
                   $ref: "#/components/schemas/Exercise"
               example:
-                - id: 180
+                - id: 565
                   title: "Lorem Ipsum"
                   muscles: "string"
+                  reps: "string"
+                  weight: "string"
                   created_at: "2021-03-23T16:13:08.489+01:00"
                   updated_at: "2021-03-23T16:13:08.489+01:00"
           description: "Returns a **list** of type `Exercise` **without** any _relations_. Take a look at the example for further details."
@@ -758,9 +804,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/Exercise"
               example:
-                id: 180
+                id: 565
                 title: "Lorem Ipsum"
                 muscles: "string"
+                reps: "string"
+                weight: "string"
                 created_at: "2021-03-23T16:13:08.489+01:00"
                 updated_at: "2021-03-23T16:13:08.489+01:00"
           description: "Returns a **single** instance of type `Exercise` **without** any _relations_. Take a look at the example for further details."
@@ -811,9 +859,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/Exercise"
               example:
-                id: 180
+                id: 565
                 title: "Lorem Ipsum"
                 muscles: "string"
+                reps: "string"
+                weight: "string"
                 created_at: "2021-03-23T16:13:08.489+01:00"
                 updated_at: "2021-03-23T16:13:08.489+01:00"
           description: "Returns a **single** instance of type `Exercise` **without** any _relations_. Take a look at the example for further details."
@@ -860,7 +910,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/Multimedia"
               example:
-                - id: 694
+                - id: 390
                   external_id: "string"
                   created_at: "2021-03-23T16:13:08.489+01:00"
                   updated_at: "2021-03-23T16:13:08.489+01:00"
@@ -879,7 +929,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Multimedia"
               example:
-                id: 694
+                id: 390
                 external_id: "string"
                 created_at: "2021-03-23T16:13:08.489+01:00"
                 updated_at: "2021-03-23T16:13:08.489+01:00"
@@ -930,7 +980,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Multimedia"
               example:
-                id: 694
+                id: 390
                 external_id: "string"
                 created_at: "2021-03-23T16:13:08.489+01:00"
                 updated_at: "2021-03-23T16:13:08.489+01:00"
@@ -978,7 +1028,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/Trainer"
               example:
-                - id: 961
+                - id: 372
                   external_id: "string"
                   created_at: "2021-03-23T16:13:08.489+01:00"
                   updated_at: "2021-03-23T16:13:08.489+01:00"
@@ -997,7 +1047,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Trainer"
               example:
-                id: 961
+                id: 372
                 external_id: "string"
                 created_at: "2021-03-23T16:13:08.489+01:00"
                 updated_at: "2021-03-23T16:13:08.489+01:00"
@@ -1048,7 +1098,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Trainer"
               example:
-                id: 961
+                id: 372
                 external_id: "string"
                 created_at: "2021-03-23T16:13:08.489+01:00"
                 updated_at: "2021-03-23T16:13:08.489+01:00"
@@ -1085,9 +1135,9 @@ tags:
     description: "Everything related to ATHLETES"
   - name: "PLANS"
     description: "Everything related to PLANS"
+  - name: "TRAINERS"
+    description: "Everything related to TRAINERS"
   - name: "EXERCISES"
     description: "Everything related to EXERCISES"
   - name: "MULTIMEDIAS"
     description: "Everything related to MULTIMEDIAS"
-  - name: "TRAINERS"
-    description: "Everything related to TRAINERS"
