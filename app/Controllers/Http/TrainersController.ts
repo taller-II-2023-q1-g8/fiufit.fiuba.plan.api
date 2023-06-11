@@ -68,24 +68,13 @@ export default class TrainersController {
    */
   public async getByAthleteExternalId({ request, response }: HttpContextContract) {
     try {
-      console.log(request.param('username'))
-      const trainers = await Trainer.query()
-        .where('external_id', '=', request.param('username'))
-        .select('*')
-
-      if (trainers.length == 0) {
-        response.status(404)
-        response.send({
-          error: 'Trainer could not be found',
-        })
-      } else {
-        response.status(200)
-        response.send(trainers[0])
-      }
+      const trainer = await Trainer.findByOrFail('external_id', request.param('username'))
+      response.status(200)
+      response.send(trainer)
     } catch (error) {
       response.status(400)
       response.send({
-        error: error.message,
+        error: 'Trainer could not be found',
       })
     }
   }
