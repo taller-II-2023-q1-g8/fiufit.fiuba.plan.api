@@ -43,7 +43,6 @@ export default class ExercisesController {
       response.status(200)
       response.send(exercise)
     } catch (error) {
-      console.log(error)
       response.status(400)
       response.send({
         error: error.message,
