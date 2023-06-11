@@ -353,7 +353,6 @@ export default class PlansController {
 
       const plan = await Plan.query().preload('exercises').where('id', '=', inputs.id).first()
 
-
       response.status(200)
       response.send(plan?.exercises)
     } catch (error) {

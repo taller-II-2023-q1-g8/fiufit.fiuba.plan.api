@@ -10,7 +10,7 @@ export default class extends BaseSchema {
       table.string('title').notNullable()
       table.string('description').defaultTo('')
       table.enum('difficulty', DIFFICULTY_LEVELS).defaultTo(DIFFICULTY_LEVELS[1])
-      table.integer('trainer_id').unsigned().references('trainers.id')
+      table.integer('trainer_id').unsigned().references('trainers.id').onDelete('CASCADE')
       table.string('tags').defaultTo('')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })

@@ -6,8 +6,8 @@ export default class extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
-      table.integer('athlete_id').unsigned().references('athletes.id')
-      table.integer('plan_id').unsigned().references('plans.id')
+      table.integer('athlete_id').unsigned().references('athletes.id').onDelete('CASCADE')
+      table.integer('plan_id').unsigned().references('plans.id').onDelete('CASCADE')
       table.unique(['athlete_id', 'plan_id'])
       table.boolean('is_liked').defaultTo(false)
       table.string('calification').defaultTo('')
