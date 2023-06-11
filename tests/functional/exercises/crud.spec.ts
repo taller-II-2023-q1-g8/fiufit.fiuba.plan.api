@@ -18,53 +18,32 @@ test.group(`${name} tests`, (group) => {
   const correctSampleDataCases = [
     {
       title: 'title1',
-      reps: 2,
-      weight: 3,
+      muscles: 'ARMS, CHEST',
     },
     {
       title: 'title2',
-      reps: 10,
-      weight: 3,
+      muscles: 'LEGS',
     },
   ]
 
   const wrongSampleDataCases = [
     {
       title: '',
-      reps: 2,
-      weight: 3,
+      muscles: '',
+    },
+    {
+      title: '',
+      muscles: 'LEGS',
     },
     {
       title: 'title2',
-      reps: -10,
-      weight: 3,
+      muscles: '',
     },
     {
       title: 'title2',
-      reps: 10,
-      weight: -3,
     },
     {
-      title: 'title2',
-      reps: 10,
-      weight: 0,
-    },
-    {
-      title: 'title2',
-      reps: 0,
-      weight: 3,
-    },
-    {
-      title: 'title2',
-      reps: 0,
-    },
-    {
-      title: 'title2',
-      weight: 3,
-    },
-    {
-      reps: 0,
-      weight: 3,
+      muscles: 'CHEST',
     },
   ]
 
