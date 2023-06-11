@@ -13,7 +13,6 @@ export default class MultimediasController {
       response.status(200)
       response.send(multimedias)
     } catch (error) {
-      console.log(error)
       response.status(400)
       response.send({
         error: error.message,
