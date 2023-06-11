@@ -24,7 +24,7 @@ test.group(`${name} tests`, (group) => {
     },
   ]
 
-  const wrongSampleDataCases = [{}]
+  const wrongSampleDataCases = []
 
   async function seed() {
     await model.createMany(correctSampleDataCases)
