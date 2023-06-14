@@ -1,6 +1,6 @@
 <div align="center">
   <h3 align="center">Trainer</h3>
-  <p>This a microservice made with Adonis.js (https://adonisjs.com/)</p>
+  <p>This is a microservice made with Adonis.js (https://adonisjs.com/)</p>
 </div>
 
 <p>The tempalte uses:</p>
