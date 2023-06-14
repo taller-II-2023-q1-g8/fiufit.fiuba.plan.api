@@ -258,10 +258,20 @@ export default class PlansController {
       const plan = await Plan.findOrFail(request.param('id'))
       const athlete = await Athlete.findOrFail(request.param('athlete_id'))
 
+      const isLiked = await Database.from('athlete_plan')
+        .where('athlete_id', '=', athlete.id)
+        .where('plan_id', '=', plan.id)
+        .select('is_liked')
+
+      let isLikedValue = true
+      if (isLiked.length) {
+        isLikedValue = !isLiked[0].is_liked
+      }
+
       await plan.related('athletes').sync(
         {
           [athlete.id]: {
-            is_liked: true,
+            is_liked: isLikedValue,
           },
         },
         false
