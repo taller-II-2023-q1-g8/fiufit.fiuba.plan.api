@@ -10,6 +10,8 @@
   <li>nyc / code coverage</li>
 </ul>
 
+[OpenAPI 3.0.0](https://github.com/taller-II-2023-q1-g8/fiufit.fiuba.plan.api/blob/master/swagger.yml)
+
 ## Getting Started
 
 Start the preoject:
