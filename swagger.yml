@@ -26,7 +26,7 @@ components:
       properties:
         id:
           type: "number"
-          example: 692
+          example: 626
         is_liked:
           type: "string"
           example: "string"
@@ -58,7 +58,7 @@ components:
       properties:
         id:
           type: "number"
-          example: 565
+          example: 995
         title:
           type: "string"
           example: "Lorem Ipsum"
@@ -93,7 +93,7 @@ components:
       properties:
         id:
           type: "number"
-          example: 390
+          example: 424
         external_id:
           type: "string"
           example: "string"
@@ -114,7 +114,7 @@ components:
       properties:
         id:
           type: "number"
-          example: 635
+          example: 287
         title:
           type: "string"
           example: "Lorem Ipsum"
@@ -129,7 +129,7 @@ components:
           example: "string"
         trainer_id:
           type: "number"
-          example: 250
+          example: 944
         trainer:
           $ref: "#/components/schemas/Trainer"
           example: "string"
@@ -157,9 +157,12 @@ components:
       properties:
         id:
           type: "number"
-          example: 372
+          example: 612
         external_id:
           type: "string"
+          example: "string"
+        verification:
+          $ref: "#/components/schemas/Verification"
           example: "string"
         plans:
           type: "array"
@@ -174,6 +177,33 @@ components:
           type: "string"
           example: "2021-03-23T16:13:08.489+01:00"
           format: "date-time"
+      description: "Model"
+    Verification:
+      type: "object"
+      properties:
+        id:
+          type: "number"
+          example: 285
+        trainer_id:
+          type: "number"
+          example: 734
+        trainer:
+          $ref: "#/components/schemas/Trainer"
+          example: "string"
+        status:
+          type: "number"
+          example: 673
+        created_at:
+          type: "string"
+          example: "2021-03-23T16:13:08.489+01:00"
+          format: "date-time"
+        updated_at:
+          type: "string"
+          example: "2021-03-23T16:13:08.489+01:00"
+          format: "date-time"
+        get_status:
+          type: "string"
+          example: "string"
       description: "Model"
 paths:
   /:
@@ -216,7 +246,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/Athlete"
               example:
-                - id: 692
+                - id: 626
                   is_liked: "string"
                   calification: "string"
                   calification_score: "string"
@@ -238,7 +268,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Athlete"
               example:
-                id: 692
+                id: 626
                 is_liked: "string"
                 calification: "string"
                 calification_score: "string"
@@ -292,7 +322,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Athlete"
               example:
-                id: 692
+                id: 626
                 is_liked: "string"
                 calification: "string"
                 calification_score: "string"
@@ -343,12 +373,12 @@ paths:
                 items:
                   $ref: "#/components/schemas/Plan"
               example:
-                - id: 635
+                - id: 287
                   title: "Lorem Ipsum"
                   description: "Lorem ipsum dolor sit amet"
                   difficulty: "string"
                   tags: "string"
-                  trainer_id: 250
+                  trainer_id: 944
                   created_at: "2021-03-23T16:13:08.489+01:00"
                   updated_at: "2021-03-23T16:13:08.489+01:00"
           description: "Returns a **list** of type `Plan` **without** any _relations_. Take a look at the example for further details."
@@ -366,14 +396,14 @@ paths:
               schema:
                 $ref: "#/components/schemas/Plan"
               example:
-                id: 635
+                id: 287
                 title: "Lorem Ipsum"
                 description: "Lorem ipsum dolor sit amet"
                 difficulty: "string"
                 tags: "string"
-                trainer_id: 250
+                trainer_id: 944
                 trainer:
-                  id: 372
+                  id: 612
                   external_id: "string"
                   created_at: "2021-03-23T16:13:08.489+01:00"
                   updated_at: "2021-03-23T16:13:08.489+01:00"
@@ -430,12 +460,12 @@ paths:
               schema:
                 $ref: "#/components/schemas/Plan"
               example:
-                id: 635
+                id: 287
                 title: "Lorem Ipsum"
                 description: "Lorem ipsum dolor sit amet"
                 difficulty: "string"
                 tags: "string"
-                trainer_id: 250
+                trainer_id: 944
                 created_at: "2021-03-23T16:13:08.489+01:00"
                 updated_at: "2021-03-23T16:13:08.489+01:00"
           description: "Returns a **single** instance of type `Plan` **without** any _relations_. Take a look at the example for further details."
@@ -485,12 +515,12 @@ paths:
                 items:
                   $ref: "#/components/schemas/Plan"
               example:
-                - id: 635
+                - id: 287
                   title: "Lorem Ipsum"
                   description: "Lorem ipsum dolor sit amet"
                   difficulty: "string"
                   tags: "string"
-                  trainer_id: 250
+                  trainer_id: 944
                   created_at: "2021-03-23T16:13:08.489+01:00"
                   updated_at: "2021-03-23T16:13:08.489+01:00"
           description: "Returns a **list** of type `Plan` **without** any _relations_. Take a look at the example for further details."
@@ -630,14 +660,14 @@ paths:
               schema:
                 $ref: "#/components/schemas/Plan"
               example:
-                id: 635
+                id: 287
                 title: "Lorem Ipsum"
                 description: "Lorem ipsum dolor sit amet"
                 difficulty: "string"
                 tags: "string"
-                trainer_id: 250
+                trainer_id: 944
                 exercises:
-                  - id: 565
+                  - id: 995
                     title: "Lorem Ipsum"
                     muscles: "string"
                     reps: "string"
@@ -782,7 +812,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/Exercise"
               example:
-                - id: 565
+                - id: 995
                   title: "Lorem Ipsum"
                   muscles: "string"
                   reps: "string"
@@ -804,7 +834,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Exercise"
               example:
-                id: 565
+                id: 995
                 title: "Lorem Ipsum"
                 muscles: "string"
                 reps: "string"
@@ -859,7 +889,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Exercise"
               example:
-                id: 565
+                id: 995
                 title: "Lorem Ipsum"
                 muscles: "string"
                 reps: "string"
@@ -910,7 +940,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/Multimedia"
               example:
-                - id: 390
+                - id: 424
                   external_id: "string"
                   created_at: "2021-03-23T16:13:08.489+01:00"
                   updated_at: "2021-03-23T16:13:08.489+01:00"
@@ -929,7 +959,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Multimedia"
               example:
-                id: 390
+                id: 424
                 external_id: "string"
                 created_at: "2021-03-23T16:13:08.489+01:00"
                 updated_at: "2021-03-23T16:13:08.489+01:00"
@@ -980,7 +1010,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Multimedia"
               example:
-                id: 390
+                id: 424
                 external_id: "string"
                 created_at: "2021-03-23T16:13:08.489+01:00"
                 updated_at: "2021-03-23T16:13:08.489+01:00"
@@ -1028,7 +1058,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/Trainer"
               example:
-                - id: 372
+                - id: 612
                   external_id: "string"
                   created_at: "2021-03-23T16:13:08.489+01:00"
                   updated_at: "2021-03-23T16:13:08.489+01:00"
@@ -1047,7 +1077,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Trainer"
               example:
-                id: 372
+                id: 612
                 external_id: "string"
                 created_at: "2021-03-23T16:13:08.489+01:00"
                 updated_at: "2021-03-23T16:13:08.489+01:00"
@@ -1098,7 +1128,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Trainer"
               example:
-                id: 372
+                id: 612
                 external_id: "string"
                 created_at: "2021-03-23T16:13:08.489+01:00"
                 updated_at: "2021-03-23T16:13:08.489+01:00"
@@ -1129,6 +1159,83 @@ paths:
           description: "Accepted"
           content:
             application/json: {}
+      security: []
+  /api/v1/trainers/{id}/verify/request:
+    patch:
+      summary: " (TrainersController::requestVerification)"
+      description: "Request Trainer verification"
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "TRAINERS"
+      responses:
+        200:
+          description: "OK: Requested"
+        400:
+          description: "Bad Request: Request failed"
+      security: []
+      requestBody: {}
+  /api/v1/trainers/{id}/verify:
+    patch:
+      summary: " (TrainersController::verify)"
+      description: "Verify Trainer"
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "TRAINERS"
+      responses:
+        200:
+          description: "OK: Verified"
+        400:
+          description: "Bad Request: Verification failed"
+      security: []
+      requestBody: {}
+  /api/v1/trainers/{id}/verify/reject:
+    patch:
+      summary: " (TrainersController::rejectVerification)"
+      description: ""
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "TRAINERS"
+      responses:
+        undefined:
+          description: "Unknown"
+          content:
+            application/json: {}
+      security: []
+      requestBody:
+        content:
+          application/json: {}
+  /api/v1/trainers/{id}/verify/status:
+    get:
+      summary: " (TrainersController::verificationStatus)"
+      description: "OK: Verification Status"
+      parameters:
+        - in: "path"
+          name: "id"
+          schema:
+            type: "string"
+          required: true
+      tags:
+        - "TRAINERS"
+      responses:
+        200:
+          description: "OK: Verification Status"
+        400:
+          description: "Bad Request: Verification Status failed"
       security: []
 tags:
   - name: "ATHLETES"

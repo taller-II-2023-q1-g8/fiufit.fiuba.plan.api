@@ -59,5 +59,9 @@ Route.group(() => {
     Route.resource('exercises', 'ExercisesController').except(['create', 'edit']) // /api/v1/exercises
     Route.resource('multimedias', 'MultimediasController').except(['create', 'edit']) // /api/v1/multimedias
     Route.resource('trainers', 'TrainersController').except(['create', 'edit']) // /api/v1/trainers
+    Route.patch('/trainers/:id/verify/request', 'TrainersController.requestVerification') // /api/v1/trainers/:id/verify/request
+    Route.patch('/trainers/:id/verify', 'TrainersController.verify') // /api/v1/trainers/:id/verify
+    Route.patch('/trainers/:id/verify/reject', 'TrainersController.rejectVerification') // /api/v1/trainers/:id/verify/reject
+    Route.get('/trainers/:id/verify/status', 'TrainersController.verificationStatus') // /api/v1/trainers/:id/verify/status
   }).prefix('/v1')
 }).prefix('/api')
