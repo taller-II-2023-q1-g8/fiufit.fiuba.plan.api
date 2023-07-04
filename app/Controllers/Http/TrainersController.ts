@@ -141,6 +141,27 @@ export default class TrainersController {
   }
 
   /**
+   * @verifications
+   * @description Trainers verifications
+   * @responseBody 200 - <Verification>
+   * @responseBody 400 - No verifications
+   * @requestBody {}
+   */
+  public async verifications({ response }: HttpContextContract) {
+    console.log('verifications')
+    try {
+      const verifications = await Verification.query().whereNot('status', 0)
+      response.status(200)
+      response.send(verifications)
+    } catch (error) {
+      response.status(404)
+      response.send({
+        error: error.message,
+      })
+    }
+  }
+
+  /**
    * @requestVerification
    * @description Request Trainer verification
    * @responseBody 200 - Requested

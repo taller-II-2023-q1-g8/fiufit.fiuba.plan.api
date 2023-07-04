@@ -50,7 +50,7 @@ export default class PlansController {
   public async store({ request, response }: HttpContextContract) {
     try {
       const payload = await request.validate({ schema: createPlanSchema })
-      const plan = await Plan.createWithTrain(payload)
+      const plan = await Plan.createWithTrainer(payload)
 
       response.status(200)
       response.send(plan)

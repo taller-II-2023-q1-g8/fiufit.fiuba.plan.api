@@ -3,7 +3,6 @@ import Plan from 'App/Models/Plan'
 
 export default class PlanSeeder extends BaseSeeder {
   public async run() {
-
     const payloads = [
       {
         title: 'mancuerna',
@@ -50,7 +49,7 @@ export default class PlanSeeder extends BaseSeeder {
     ]
 
     for (var payload of payloads) {
-      await Plan.createWithTrain(payload)
+      await Plan.createWithTrainer(payload)
     }
 
     const plan = await Plan.findByOrFail('id', 1)
