@@ -149,7 +149,9 @@ export default class TrainersController {
    */
   public async verifications({ response }: HttpContextContract) {
     try {
-      const verifications = await Verification.query().whereNot('status', 0)
+      const verifications = await Verification.query()
+        .whereNot('status', 0)
+        .orderBy('status', 'asc')
       response.status(200)
       response.send(verifications)
     } catch (error) {
