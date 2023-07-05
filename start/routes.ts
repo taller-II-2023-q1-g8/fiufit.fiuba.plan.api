@@ -47,6 +47,8 @@ Route.group(() => {
     Route.resource('plans', 'PlansController').except(['create', 'edit']) // /api/v1/plans
     Route.post('/plans/search', 'PlansController.search') // /api/v1/plans/search
     Route.get('/trainers/username/:username', 'TrainersController.getByAthleteExternalId')
+    Route.get('/plans/:id/block', 'PlansController.isBlockedPlan') // /api/v1/plans/:id/block
+    Route.post('/plans/:id/block', 'PlansController.setBlockedPlan') // /api/v1/plans/:id/block
     Route.get('/plans/:id/exercises', 'PlansController.getExercises') // /api/v1/plans/:id/exercises
     Route.get('/plans/:id/califications', 'PlansController.getCalifications') // /api/v1/plans/:id/califications
     Route.get('/plans/:id/likes', 'PlansController.getLikes') // /api/v1/plans/:id/likes
