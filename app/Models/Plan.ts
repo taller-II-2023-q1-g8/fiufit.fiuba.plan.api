@@ -18,6 +18,9 @@ export default class Plan extends BaseModel {
   public id: number
 
   @column()
+  public blocked: boolean
+
+  @column()
   public title: string
 
   @column()

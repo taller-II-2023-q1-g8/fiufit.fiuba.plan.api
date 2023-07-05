@@ -7,6 +7,7 @@ export default class extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
+      table.string('blocked').notNullable().defaultTo(false)
       table.string('title').notNullable()
       table.string('description').defaultTo('')
       table.enum('difficulty', DIFFICULTY_LEVELS).defaultTo(DIFFICULTY_LEVELS[1])

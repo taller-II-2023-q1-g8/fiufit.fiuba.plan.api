@@ -135,6 +135,47 @@ export default class PlansController {
   }
 
   /**
+   * @isBlockedPlan
+   * @description Return Plan
+   * @responseBody 200 - Boolean
+   * @responseBody 404 - Plan could not be found
+   */
+  public async isBlockedPlan({ request, response }: HttpContextContract) {
+    try {
+      const plan = await Plan.findOrFail(request.param('id'))
+
+      response.status(200)
+      response.send(plan.blocked)
+    } catch (error) {
+      response.status(404)
+      response.send({
+        error: error.message,
+      })
+    }
+  }
+
+  /**
+   * @setBlockedPlan
+   * @description Like   Boolean
+   * @responseBody 200 - Registered like
+   * @responseBody 400 - Like could not be added to favorited by Athlete Plan
+   */
+  public async setBlockedPlan({ request, response }: HttpContextContract) {
+    try {
+      const plan = await Plan.findOrFail(request.param('id'))
+      await plan.merge({ ...plan, blocked: request.body().blocked })
+      await plan.save()
+      response.status(200)
+      response.send(request.body().blocked)
+    } catch (error) {
+      response.status(404)
+      response.send({
+        error: error.message,
+      })
+    }
+  }
+
+  /**
    * @addExercise
    * @description Register calification of Plan favorited by Athlete
    * @responseBody 200 - <Plan>.with(exercises)
