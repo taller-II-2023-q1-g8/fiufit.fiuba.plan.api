@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/taller-II-2023-q1-g8/fiufit.fiuba.plan.api/branch/master/graph/badge.svg?token=DF3TY5TDLJ)](https://codecov.io/gh/taller-II-2023-q1-g8/fiufit.fiuba.plan.api)
+
 <div align="center">
   <h3 align="center">Trainer</h3>
   <p>This is a microservice made with Adonis.js (https://adonisjs.com/)</p>
