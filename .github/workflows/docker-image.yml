@@ -40,9 +40,10 @@ jobs:
       - name: Run tests
         run: node ace test
         
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
-          env: CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      - name: Upload coverage report to Codecov
+        run: npm run coverage
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Stop containers
         if: always()
